@@ -62,13 +62,8 @@
         <?php endif; ?>
         
         <?php
-        // Визначаємо, який шаблон підключати
-        if ($method === 'login') {
-            include VIEWS_PATH . '/auth/login.php';
-        } elseif ($method === 'register') {
-            include VIEWS_PATH . '/auth/register.php';
-        }
-        ?>
+            echo $content;
+            ?>
     </div>
     
     <!-- Bootstrap JS -->

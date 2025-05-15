@@ -1,3 +1,11 @@
+<?php 
+// Проверка и инициализация переменных, если они не определены
+if (!isset($active_orders)) $active_orders = []; 
+if (!isset($low_stock)) $low_stock = []; 
+if (!isset($active_production)) $active_production = []; 
+if (!isset($unread_messages)) $unread_messages = 0; 
+if (!isset($messages)) $messages = []; 
+?>
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3"><i class="fas fa-tachometer-alt me-2"></i>Панель управління</h1>

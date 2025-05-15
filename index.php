@@ -1,33 +1,33 @@
 <?php
-// Підключення файлу налаштувань
+// Подключение файла настроек
 require_once 'config/config.php';
 
-// Отримання URL-адреси запиту
+// Получение URL-адреса запроса
 $url = isset($_GET['url']) ? rtrim($_GET['url'], '/') : '';
 
-// Обробка адреси
+// Обработка адреса
 $segments = explode('/', $url);
 
-// Визначення контролера
+// Определение контроллера
 $controller = !empty($segments[0]) ? ucfirst($segments[0]) . 'Controller' : 'HomeController';
 
-// Визначення методу
+// Определение метода
 $method = !empty($segments[1]) ? $segments[1] : 'index';
 
-// Визначення параметрів
+// Определение параметров
 $params = array_slice($segments, 2);
 
-// Пошук контролера
+// Поиск контроллера
 $controller_file = CONTROLLERS_PATH . '/' . $controller . '.php';
 
-// Визначаємо змінні для шаблону
+// Определяем переменные для шаблона
 $view_file = null;
 $title = 'Автоматизація забезпечення виробництва ковбасної продукції';
 $data = [];
 
-// Перевірка наявності контролера
+// Проверка наличия контроллера
 if (!file_exists($controller_file)) {
-    // Перенаправлення на авторизацію якщо контролер не знайдено
+    // Перенаправление на авторизацию если контроллер не найден
     if ($controller !== 'HomeController' && $controller !== 'AuthController') {
         header('Location: ' . BASE_URL . '/auth/login');
         exit;
@@ -37,48 +37,48 @@ if (!file_exists($controller_file)) {
         $params = [];
         $controller_file = CONTROLLERS_PATH . '/' . $controller . '.php';
     } else {
-        die('Контролер не знайдено: ' . $controller);
+        die('Контроллер не найдено: ' . $controller);
     }
 }
 
-// Підключення контролера
+// Подключение контроллера
 require_once $controller_file;
 
-// Для відладки (можна видалити в продакшені)
+// Для отладки (можно удалить в продакшене)
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Створення екземпляру контролера
+// Создание экземпляра контроллера
 $controllerInstance = new $controller();
 
-// Перевірка існування методу
+// Проверка существования метода
 if (!method_exists($controllerInstance, $method)) {
-    // Використовуємо метод index якщо метод не знайдено
+    // Используем метод index если метод не найден
     if ($method !== 'index') {
         header('Location: ' . BASE_URL . '/' . strtolower(str_replace('Controller', '', $controller)));
         exit;
     } else {
-        die('Метод не знайдено: ' . $method);
+        die('Метод не найдено: ' . $method);
     }
 }
 
-// Створюємо буфер виводу
+// Создаем буфер вывода
 ob_start();
 
-// Виклик методу контролера з параметрами
+// Вызов метода контроллера с параметрами
 call_user_func_array([$controllerInstance, $method], $params);
 
-// Отримуємо вміст буфера
+// Получаем содержимое буфера
 $content = ob_get_clean();
 
-// Визначаємо вид шаблону в залежності від контролера
+// Определяем вид шаблона в зависимости от контроллера
 if ($controller === 'AuthController') {
-    // Для сторінок авторизації не використовуємо головний шаблон
-    echo $content;
+    // Для страниц авторизации используем auth_layout.php
+    include VIEWS_PATH . '/layouts/auth_layout.php';
 } else {
-    // Підготовка даних для шаблону
+    // Подготовка данных для шаблона
     $user_role = Auth::getCurrentUserRole();
     
-    // Підключення головного шаблону
+    // Подключение главного шаблона
     include VIEWS_PATH . '/layouts/main.php';
 }

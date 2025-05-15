@@ -8,7 +8,7 @@ class HomeController {
     private $productionModel;
     
     public function __construct() {
-        // Перевірка на авторизацію
+        // Проверка на авторизацию
         if (!Auth::isLoggedIn()) {
             Util::redirect(BASE_URL . '/auth/login');
         }
@@ -33,19 +33,22 @@ class HomeController {
             'messages' => $this->messageModel->getLatest($user_id, 5)
         ];
         
-        // Дані для адміністратора
+        // Данные для администратора
         if ($user_role === 'admin') {
             $data['low_stock'] = $this->inventoryModel->getCriticalLowStock();
             $data['active_orders'] = $this->orderModel->getActive();
             $data['active_production'] = $this->productionModel->getActive();
             
-            // Статистика виробництва за останній місяць
+            // Статистика производства за последний месяц
             $end_date = date('Y-m-d');
             $start_date = date('Y-m-d', strtotime('-30 days'));
             $data['production_stats'] = $this->productionModel->getStatsByPeriod($start_date, $end_date);
             $data['materials_stats'] = $this->rawMaterialModel->getUsageStats($start_date, $end_date);
             
-            // Відображення шаблону адміністратора
+            // Передаем переменные в область видимости представления
+            extract($data);
+            
+            // Отображение шаблона администратора
             include VIEWS_PATH . '/admin/dashboard.php';
         }
         

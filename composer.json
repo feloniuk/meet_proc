@@ -1,0 +1,15 @@
+{
+    "name": "vendor/hleb",
+    "description": "Project using FPDF library",
+    "type": "project",
+    "require": {
+        "setasign/fpdf": "^1.8",
+        "setasign/tfpdf": "^1.33",
+        "tecnickcom/tcpdf": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "YourNamespace\\": "src/"
+        }
+    }
+}

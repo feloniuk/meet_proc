@@ -1,0 +1,312 @@
+/* assets/css/style.css */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --warning-color: #f39c12;
+    --info-color: #1abc9c;
+    --dark-color: #2c3e50;
+    --light-color: #ecf0f1;
+    --body-bg: #f8f9fa;
+    --sidebar-bg: #2c3e50;
+    --sidebar-active-bg: #34495e;
+}
+
+/* Загальні стилі */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--body-bg);
+    padding-top: 56px;
+}
+
+.content-wrapper {
+    margin-left: 250px;
+    padding: 20px;
+    transition: margin-left 0.3s;
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        margin-left: 0;
+    }
+}
+
+/* Бокова панель */
+.sidebar {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    width: 250px;
+    height: calc(100vh - 56px);
+    background-color: var(--sidebar-bg);
+    color: white;
+    overflow-y: auto;
+    z-index: 1000;
+    transition: margin-left 0.3s;
+}
+
+.sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    padding: 10px 20px;
+    border-left: 3px solid transparent;
+}
+
+.sidebar .nav-link:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .nav-link.active {
+    color: white;
+    border-left-color: var(--secondary-color);
+    background-color: var(--sidebar-active-bg);
+}
+
+.sidebar .nav-link i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar-heading {
+    padding: 10px 15px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Картки */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+/* Таблиці */
+.table th {
+    background-color: #f8f9fa;
+    border-top: none;
+}
+
+.table-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Кнопки */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-success {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
+.btn-warning {
+    background-color: var(--warning-color);
+    border-color: var(--warning-color);
+}
+
+.btn-info {
+    background-color: var(--info-color);
+    border-color: var(--info-color);
+}
+
+/* Повідомлення */
+.alert {
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Форми */
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+/* Статуси */
+.badge {
+    font-size: 85%;
+    font-weight: normal;
+    padding: 0.3em 0.6em;
+    border-radius: 10px;
+}
+
+.badge-success {
+    background-color: var(--secondary-color);
+}
+
+.badge-danger {
+    background-color: var(--danger-color);
+}
+
+.badge-warning {
+    background-color: var(--warning-color);
+}
+
+.badge-info {
+    background-color: var(--info-color);
+}
+
+.badge-primary {
+    background-color: var(--primary-color);
+}
+
+/* Логін та реєстрація */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 56px);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+/* Головна панель */
+.dashboard-stats .card {
+    transition: transform 0.3s;
+    height: 100%;
+}
+
+.dashboard-stats .card:hover {
+    transform: translateY(-5px);
+}
+
+.dashboard-stats .card-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+/* Відеоспостереження */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Анімації */
+.fade-in {
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Спіннер завантаження */
+.spinner-border {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-width: 0.2em;
+}
+
+/* Діаграми та графіки */
+.chart-container {
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+/* Повідомлення */
+.message-unread {
+    font-weight: bold;
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.message-header {
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.message-body {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Кольори для статусів */
+.status-pending { color: var(--warning-color); }
+.status-accepted { color: var(--info-color); }
+.status-shipped { color: var(--primary-color); }
+.status-delivered { color: var(--secondary-color); }
+.status-canceled { color: var(--danger-color); }
+
+.status-planned { color: var(--warning-color); }
+.status-in_progress { color: var(--primary-color); }
+.status-completed { color: var(--secondary-color); }
+.status-canceled { color: var(--danger-color); }
+
+.stock-low { color: var(--danger-color); }
+.stock-medium { color: var(--warning-color); }
+.stock-good { color: var(--secondary-color); }
+
+/* Друкований вигляд */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        padding-top: 0;
+    }
+    
+    .content-wrapper {
+        margin-left: 0;
+        padding: 0;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+    
+    .container-fluid {
+        width: 100%;
+        max-width: none;
+    }
+}

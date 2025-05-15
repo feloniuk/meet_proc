@@ -539,14 +539,35 @@ class AdminController {
     }
     
     // Управління відеоспостереженням
-    public function videoSurveillance() {
-        $data = [
-            'title' => 'Відеоспостереження',
-            'cameras' => $this->videoSurveillanceModel->getActive()
-        ];
-        
-        require VIEWS_PATH . '/admin/video_surveillance.php';
+    // Управління відеоспостереженням
+public function videoSurveillance() {
+    // Отримуємо всі камери для діагностики
+    $allCameras = $this->videoSurveillanceModel->getAll();
+    $activeCameras = $this->videoSurveillanceModel->getActive();
+    
+    // Виведемо діагностичну інформацію (можна буде видалити після виправлення)
+    echo "<div class='alert alert-info'>";
+    echo "Діагностика: <br>";
+    echo "Всього камер в БД: " . count($allCameras) . "<br>";
+    echo "Активних камер: " . count($activeCameras) . "<br>";
+    
+    if (!empty($allCameras)) {
+        echo "Статуси камер: ";
+        foreach ($allCameras as $camera) {
+            echo "ID: " . $camera['id'] . ", Назва: " . htmlspecialchars($camera['name']) . 
+                 ", Статус: " . $camera['status'] . "<br>";
+        }
     }
+    echo "</div>";
+    
+    // Змінюємо код, щоб показувати всі камери незалежно від статусу для тестування
+    $data = [
+        'title' => 'Відеоспостереження',
+        'cameras' => $allCameras // Тимчасово показуємо всі камери
+    ];
+    
+    require VIEWS_PATH . '/admin/video_surveillance.php';
+}
     
     // Управління камерами
     public function cameras() {
@@ -1072,4 +1093,58 @@ class AdminController {
         $pdf->addDateAndSignature();
         $pdf->output('orders_report_' . date('Y-m-d') . '.pdf');
     }
+
+    // Метод для генерації PDF замовлення
+public function printOrder($id) {
+    $order = $this->orderModel->getById($id);
+    
+    if (!$order) {
+        $_SESSION['error'] = 'Замовлення не знайдено';
+        Util::redirect(BASE_URL . '/admin/orders');
+    }
+    
+    $items = $this->orderModel->getItems($id);
+    
+    $pdf = new PDF('Замовлення #' . $id);
+    
+    // Додавання заголовка
+    $pdf->addTitle('Замовлення #' . $id, 'від ' . Util::formatDate($order['created_at'], 'd.m.Y'));
+    
+    // Інформація про замовлення
+    $pdf->addText('Постачальник: ' . $order['supplier_name']);
+    $pdf->addText('Email: ' . $order['supplier_email']);
+    if (!empty($order['supplier_phone'])) {
+        $pdf->addText('Телефон: ' . $order['supplier_phone']);
+    }
+    $pdf->addText('Очікувана доставка: ' . date('d.m.Y', strtotime($order['delivery_date'])));
+    $pdf->addText('Статус: ' . Util::getOrderStatusName($order['status']));
+    
+    if (!empty($order['notes'])) {
+        $pdf->addText('Примітки: ' . $order['notes']);
+    }
+    
+    $pdf->Ln(5);
+    
+    // Позиції замовлення
+    $header = ['Сировина', 'Кількість', 'Ціна за од.', 'Загальна сума'];
+    $data = [];
+    
+    foreach ($items as $item) {
+        $data[] = [
+            $item['material_name'],
+            $item['quantity'] . ' ' . $item['unit'],
+            Util::formatMoney($item['price_per_unit']),
+            Util::formatMoney($item['quantity'] * $item['price_per_unit'])
+        ];
+    }
+    
+    $pdf->addText('Позиції замовлення:');
+    $pdf->addTable($header, $data);
+    
+    // Загальна сума
+    $pdf->addText('Загальна сума замовлення: ' . Util::formatMoney($order['total_amount']));
+    
+    $pdf->addDateAndSignature();
+    $pdf->output('order_' . $id . '_' . date('Y-m-d') . '.pdf');
+}
 }

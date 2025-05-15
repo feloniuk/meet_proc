@@ -78,6 +78,17 @@ class Production {
         return $this->db->query($sql, [$id]);
     }
     
+    // Отримати виробничі процеси за ID продукту
+    public function getByProduct($product_id) {
+        $sql = "SELECT pp.*, p.name as product_name, u.name as manager_name
+                FROM production_processes pp 
+                JOIN products p ON pp.product_id = p.id
+                JOIN users u ON pp.manager_id = u.id
+                WHERE pp.product_id = ?
+                ORDER BY pp.started_at DESC";
+        return $this->db->resultSet($sql, [$product_id]);
+    }
+
     // Скасувати виробничий процес
     public function cancel($id) {
         $sql = "UPDATE production_processes 

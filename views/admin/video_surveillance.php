@@ -1,13 +1,11 @@
 <?php
-// views/admin/video_surveillance.php
+// views/admin/video_surveillance.php - Оновлена версія
+
 ?>
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3"><i class="fas fa-video me-2"></i>Відеоспостереження</h1>
         <div>
-            <a href="<?= BASE_URL ?>/admin/cameras" class="btn btn-outline-primary me-2">
-                <i class="fas fa-cog me-1"></i>Управління камерами
-            </a>
             <a href="<?= BASE_URL ?>/admin/addCamera" class="btn btn-success">
                 <i class="fas fa-plus me-1"></i>Додати камеру
             </a>
@@ -55,7 +53,7 @@
                                             </div>
                                             <div class="small">
                                                 <i class="fas fa-clock me-1"></i>
-                                                <span id="camera-time-<?= $camera['id'] ?>"></span>
+                                                <span id="camera-time-<?= $camera['id'] ?>"><?= date('H:i:s') ?></span>
                                             </div>
                                         </div>
                                     </div>
@@ -64,13 +62,13 @@
                         </div>
                         <div class="card-footer d-flex justify-content-between">
                             <div>
-                                <button class="btn btn-sm btn-outline-secondary me-1">
+                                <button class="btn btn-sm btn-outline-secondary me-1" onclick="toggleFullScreen(this)">
                                     <i class="fas fa-expand"></i>
                                 </button>
                                 <button class="btn btn-sm btn-outline-secondary me-1">
                                     <i class="fas fa-volume-mute"></i>
                                 </button>
-                                <button class="btn btn-sm btn-outline-secondary">
+                                <button class="btn btn-sm btn-outline-secondary" id="pauseBtn-<?= $camera['id'] ?>" onclick="togglePause(<?= $camera['id'] ?>)">
                                     <i class="fas fa-pause"></i>
                                 </button>
                             </div>
@@ -94,8 +92,50 @@ function updateCameraTime() {
     const timeStr = now.toLocaleTimeString();
     
     <?php foreach ($cameras as $camera): ?>
-    document.getElementById('camera-time-<?= $camera['id'] ?>').textContent = timeStr;
+    const timeElement = document.getElementById('camera-time-<?= $camera['id'] ?>');
+    if (timeElement && !timeElement.dataset.paused) {
+        timeElement.textContent = timeStr;
+    }
     <?php endforeach; ?>
+}
+
+// Перемикання режиму паузи
+function togglePause(cameraId) {
+    const timeElement = document.getElementById('camera-time-' + cameraId);
+    const pauseBtn = document.getElementById('pauseBtn-' + cameraId);
+    
+    if (timeElement.dataset.paused) {
+        // Відновлення відео
+        delete timeElement.dataset.paused;
+        pauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    } else {
+        // Пауза відео
+        timeElement.dataset.paused = "true";
+        pauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+    }
+}
+
+// Повноекранний режим для відео
+function toggleFullScreen(button) {
+    const videoContainer = button.closest('.card').querySelector('.video-container');
+    
+    if (!document.fullscreenElement) {
+        if (videoContainer.requestFullscreen) {
+            videoContainer.requestFullscreen();
+        } else if (videoContainer.webkitRequestFullscreen) { /* Safari */
+            videoContainer.webkitRequestFullscreen();
+        } else if (videoContainer.msRequestFullscreen) { /* IE11 */
+            videoContainer.msRequestFullscreen();
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+        }
+    }
 }
 
 // Оновлення часу кожну секунду

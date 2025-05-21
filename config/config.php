@@ -15,6 +15,7 @@ define('MODELS_PATH', BASE_PATH . '/models');
 define('VIEWS_PATH', BASE_PATH . '/views');
 define('INCLUDES_PATH', BASE_PATH . '/includes');
 define('ASSETS_PATH', BASE_PATH . '/assets');
+define('BASE_NAME', 'Виробництво ковбасної продукції');
 
 // URL сайту - замените на свой домен
 define('BASE_URL', 'http://meet_proc.loc');

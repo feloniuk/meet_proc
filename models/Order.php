@@ -222,8 +222,7 @@ class Order {
                 
         return $this->db->resultSet($sql, [$start_date, $end_date]);
     }
-    
-    // Отримати статистику за матеріалами
+
     public function getStatsByMaterial($start_date, $end_date) {
         $sql = "SELECT 
                     r.name as material_name,
@@ -237,6 +236,6 @@ class Order {
                 GROUP BY oi.raw_material_id, r.name, r.unit
                 ORDER BY total_amount DESC";
                 
-        return $this->db->resultSet($sql, [$start_date, $end_date]);
+        return $this->db->resultSet($sql, [$start_date . ' 00:00:00', $end_date . ' 23:59:59']);
     }
 }

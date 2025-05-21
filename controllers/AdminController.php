@@ -537,36 +537,38 @@ class AdminController {
         
         Util::redirect(BASE_URL . '/admin/products');
     }
+
+   
+
+
     
-    // Управління відеоспостереженням
-    // Управління відеоспостереженням
 public function videoSurveillance() {
-    // Отримуємо всі камери для діагностики
-    $allCameras = $this->videoSurveillanceModel->getAll();
-    $activeCameras = $this->videoSurveillanceModel->getActive();
+    // Отримуємо всі активні камери 
+    $cameras = $this->videoSurveillanceModel->getActive();
     
-    // Виведемо діагностичну інформацію (можна буде видалити після виправлення)
-    echo "<div class='alert alert-info'>";
-    echo "Діагностика: <br>";
-    echo "Всього камер в БД: " . count($allCameras) . "<br>";
-    echo "Активних камер: " . count($activeCameras) . "<br>";
-    
-    if (!empty($allCameras)) {
-        echo "Статуси камер: ";
-        foreach ($allCameras as $camera) {
-            echo "ID: " . $camera['id'] . ", Назва: " . htmlspecialchars($camera['name']) . 
-                 ", Статус: " . $camera['status'] . "<br>";
-        }
-    }
-    echo "</div>";
-    
-    // Змінюємо код, щоб показувати всі камери незалежно від статусу для тестування
+    // Передаємо дані в шаблон
     $data = [
         'title' => 'Відеоспостереження',
-        'cameras' => $allCameras // Тимчасово показуємо всі камери
+        'cameras' => $cameras
     ];
     
     require VIEWS_PATH . '/admin/video_surveillance.php';
+}
+
+// Метод для встановлення статусу камери
+public function setCameraStatus($id, $status) {
+    if ($status !== 'active' && $status !== 'inactive') {
+        $_SESSION['error'] = 'Невірний статус камери';
+        Util::redirect(BASE_URL . '/admin/cameras');
+    }
+    
+    if ($this->videoSurveillanceModel->setStatus($id, $status)) {
+        $_SESSION['success'] = 'Статус камери успішно змінено';
+    } else {
+        $_SESSION['error'] = 'Помилка при зміні статусу камери';
+    }
+    
+    Util::redirect(BASE_URL . '/admin/cameras');
 }
     
     // Управління камерами
@@ -929,7 +931,7 @@ public function videoSurveillance() {
     
     // Звіт по замовленнях
     public function ordersReport() {
-        // Параметри періоду (за замовчуванням - поточний місяць)
+        // Параметры периода (за замовчуванням - поточний місяць)
         $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : date('Y-m-01');
         $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-t');
         
@@ -941,6 +943,9 @@ public function videoSurveillance() {
             'supplier_stats' => $this->orderModel->getStatsBySupplier($start_date, $end_date),
             'material_stats' => $this->orderModel->getStatsByMaterial($start_date, $end_date)
         ];
+        
+        // Передаем переменные в область видимости представления
+        extract($data);
         
         require VIEWS_PATH . '/admin/orders_report.php';
     }
@@ -1147,4 +1152,100 @@ public function printOrder($id) {
     $pdf->addDateAndSignature();
     $pdf->output('order_' . $id . '_' . date('Y-m-d') . '.pdf');
 }
+
+// Метод для відображення сторінки звітів за обраний період
+public function customReport() {
+    $report_type = isset($_GET['report_type']) ? $_GET['report_type'] : 'production';
+    $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : date('Y-m-01');
+    $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-d');
+    
+    switch ($report_type) {
+        case 'production':
+            Util::redirect(BASE_URL . '/admin/productionReport?start_date=' . urlencode($start_date) . '&end_date=' . urlencode($end_date));
+            break;
+        case 'orders':
+            Util::redirect(BASE_URL . '/admin/ordersReport?start_date=' . urlencode($start_date) . '&end_date=' . urlencode($end_date));
+            break;
+        case 'materials':
+            // Звіт по використанню сировини
+            $this->materialsUsageReport($start_date, $end_date);
+            break;
+        default:
+            $_SESSION['error'] = 'Невідомий тип звіту';
+            Util::redirect(BASE_URL . '/admin/reports');
+    }
+}
+
+// Звіт по використанню сировини
+public function materialsUsageReport($start_date = null, $end_date = null) {
+    // Якщо дати не вказані, встановлюємо значення за замовчуванням
+    $start_date = $start_date ?? (isset($_GET['start_date']) ? $_GET['start_date'] : date('Y-m-01'));
+    $end_date = $end_date ?? (isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-d'));
+    
+    // Отримання статистики використання сировини
+    $rawMaterialModel = new RawMaterial();
+    $materials_stats = $rawMaterialModel->getUsageStats($start_date, $end_date);
+    
+    // Отримуємо поточні запаси
+    $inventoryModel = new Inventory();
+    $current_stock = $inventoryModel->getStockReport();
+    
+    // Готуємо дані для представлення
+    $data = [
+        'title' => 'Звіт по використанню сировини',
+        'start_date' => $start_date,
+        'end_date' => $end_date,
+        'materials_stats' => $materials_stats,
+        'current_stock' => $current_stock
+    ];
+    
+    require VIEWS_PATH . '/admin/materials_usage_report.php';
+}
+
+// Метод для генерації PDF звіту по використанню сировини
+public function generateMaterialsUsagePdf() {
+    // Параметри періоду
+    $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : date('Y-m-01');
+    $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-d');
+    
+    // Отримання даних
+    $rawMaterialModel = new RawMaterial();
+    $materials_stats = $rawMaterialModel->getUsageStats($start_date, $end_date);
+    
+    $pdf = new PDF('Звіт по використанню сировини');
+    $pdf->addTitle('Звіт по використанню сировини за період', 'з ' . date('d.m.Y', strtotime($start_date)) . ' по ' . date('d.m.Y', strtotime($end_date)));
+    
+    // Підготовка даних для таблиці
+    $header = ['Сировина', 'Одиниця', 'Використано', 'Поточний запас', 'Потреба на місяць'];
+    $data = [];
+    
+    foreach ($materials_stats as $item) {
+        // Розрахунок потреби на місяць (на основі використання за звітний період)
+        $days_in_period = (strtotime($end_date) - strtotime($start_date)) / (60 * 60 * 24) + 1;
+        $monthly_need = $item['total_used'] / $days_in_period * 30;
+        
+        $data[] = [
+            $item['name'],
+            $item['unit'],
+            number_format($item['total_used'], 2),
+            number_format($item['current_stock'], 2),
+            number_format($monthly_need, 2)
+        ];
+    }
+    
+    $pdf->addTable($header, $data);
+    
+    // Рекомендації
+    $pdf->addText('Рекомендації:');
+    foreach ($materials_stats as $item) {
+        if ($item['current_stock'] < $item['min_stock']) {
+            $shortage = $item['min_stock'] - $item['current_stock'];
+            $pdf->addText('• ' . $item['name'] . ': необхідно замовити ' . number_format($shortage, 2) . ' ' . $item['unit'] . ' для досягнення мінімального запасу.');
+        }
+    }
+    
+    $pdf->addDateAndSignature();
+    $pdf->output('materials_usage_report_' . date('Y-m-d') . '.pdf');
+}
+ 
 }

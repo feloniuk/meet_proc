@@ -14,41 +14,44 @@ class VideoSurveillance {
     
     // Отримати активні камери відеоспостереження
     public function getActive() {
-        // Перевірка наявності камер в БД та їх статусів
-        $checkSql = "SELECT id, name, status FROM video_surveillance";
-        $allCameras = $this->db->resultSet($checkSql);
-        
-        // Якщо немає камер, повертаємо пустий масив
-        if (empty($allCameras)) {
-            return [];
-        }
-        
-        // Додаємо тестові дані, якщо в БД немає камер або всі неактивні
-        $active = array_filter($allCameras, function($camera) {
-            return $camera['status'] === 'active';
-        });
-        
-        if (empty($active)) {
-            // Якщо немає активних камер, додамо одну тестову камеру в БД і активуємо всі існуючі
-            if (empty($allCameras)) {
-                // Додаємо тестову камеру
-                $insertSql = "INSERT INTO video_surveillance (name, url, location, status) 
-                              VALUES ('Тестова камера 1', 'rtsp://test1.local:554/stream', 'Виробничий цех 1', 'active')";
-                $this->db->query($insertSql);
-                
-                $insertSql = "INSERT INTO video_surveillance (name, url, location, status) 
-                              VALUES ('Тестова камера 2', 'rtsp://test2.local:554/stream', 'Склад сировини', 'active')";
-                $this->db->query($insertSql);
-            } else {
-                // Активуємо всі існуючі камери
-                $updateSql = "UPDATE video_surveillance SET status = 'active'";
-                $this->db->query($updateSql);
-            }
-        }
-        
-        // Отримуємо активні камери
         $sql = "SELECT * FROM video_surveillance WHERE status = 'active' ORDER BY name";
-        return $this->db->resultSet($sql);
+        $activeCameras = $this->db->resultSet($sql);
+        
+        // Якщо немає активних камер, додамо тестові
+        if (empty($activeCameras)) {
+            // Перевіримо, чи є в базі камери, але неактивні
+            $checkSql = "SELECT COUNT(*) as count FROM video_surveillance";
+            $result = $this->db->single($checkSql);
+            
+            if ($result && $result['count'] > 0) {
+                // Якщо є камери, але неактивні, активуємо першу
+                $updateSql = "UPDATE video_surveillance SET status = 'active' WHERE id = (SELECT id FROM video_surveillance LIMIT 1)";
+                $this->db->query($updateSql);
+            } else {
+                // Якщо немає камер взагалі, додамо тестові камери
+                $this->addDefaultCameras();
+            }
+            
+            // Отримаємо активні камери знову
+            return $this->db->resultSet($sql);
+        }
+        
+        return $activeCameras;
+    }
+    
+    // Додати тестові камери за замовчуванням
+    private function addDefaultCameras() {
+        $cameras = [
+            ['Виробничий цех 1', 'rtsp://camera1.example.com:554/stream', 'Виробничий цех 1'],
+            ['Склад сировини', 'rtsp://camera2.example.com:554/stream', 'Склад сировини'],
+            ['Склад готової продукції', 'rtsp://camera3.example.com:554/stream', 'Склад готової продукції'],
+            ['Пакувальний цех', 'rtsp://camera4.example.com:554/stream', 'Пакувальний цех']
+        ];
+        
+        foreach ($cameras as $camera) {
+            $sql = "INSERT INTO video_surveillance (name, url, location, status) VALUES (?, ?, ?, 'active')";
+            $this->db->query($sql, $camera);
+        }
     }
     
     // Отримати камеру за ID
@@ -59,8 +62,8 @@ class VideoSurveillance {
     
     // Додати нову камеру
     public function add($name, $url, $location) {
-        $sql = "INSERT INTO video_surveillance (name, url, location) 
-                VALUES (?, ?, ?)";
+        $sql = "INSERT INTO video_surveillance (name, url, location, status) 
+                VALUES (?, ?, ?, 'active')";
                 
         if ($this->db->query($sql, [$name, $url, $location])) {
             return $this->db->lastInsertId();
@@ -103,6 +106,10 @@ class VideoSurveillance {
     public function getLocations() {
         $sql = "SELECT DISTINCT location FROM video_surveillance ORDER BY location";
         $result = $this->db->resultSet($sql);
+        
+        if (empty($result)) {
+            return ['Виробничий цех', 'Склад сировини', 'Склад готової продукції', 'Пакувальний цех'];
+        }
         
         $locations = [];
         foreach ($result as $row) {

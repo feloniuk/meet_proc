@@ -1,4 +1,27 @@
 <?php
+// Проверка и инициализация переменных, если они не определены
+if (!isset($start_date)) $start_date = date('Y-m-01');
+if (!isset($end_date)) $end_date = date('Y-m-t');
+if (!isset($daily_stats)) $daily_stats = [];
+if (!isset($supplier_stats)) $supplier_stats = [];
+if (!isset($material_stats)) $material_stats = [];
+
+// Расчет итоговых сумм
+$total_orders = isset($supplier_stats) ? array_sum(array_column($supplier_stats, 'orders_count')) : 0;
+$total_amount = isset($supplier_stats) ? array_sum(array_column($supplier_stats, 'total_amount')) : 0;
+
+// Синхронизируем имена переменных для совместимости
+$totalAmount = $total_amount;
+?>
+<?php
+// Проверка и инициализация переменных, если они не определены
+if (!isset($start_date)) $start_date = date('Y-m-01');
+if (!isset($end_date)) $end_date = date('Y-m-t');
+if (!isset($daily_stats)) $daily_stats = [];
+if (!isset($supplier_stats)) $supplier_stats = [];
+if (!isset($material_stats)) $material_stats = [];
+?>
+<?php
 // views/admin/orders_report.php
 ?>
 <div class="container-fluid">
@@ -47,8 +70,8 @@
                 <div class="card-body">
                     <?php
                         // Розрахунок загальної статистики
-                        $totalAmount = array_sum(array_column($supplier_stats, 'total_amount'));
-                        $ordersCount = array_sum(array_column($supplier_stats, 'orders_count'));
+                        $total_orders = isset($supplier_stats) ? array_sum(array_column($supplier_stats, 'orders_count')) : 0;
+                        $total_amount = isset($supplier_stats) ? array_sum(array_column($supplier_stats, 'total_amount')) : 0;
                         
                         // Статистика по статусам
                         $orderStatusCounts = [
@@ -195,7 +218,7 @@
                                             <td><?= htmlspecialchars($stat['material_name']) ?></td>
                                             <td><?= number_format($stat['total_quantity'], 2) ?></td>
                                             <td><?= htmlspecialchars($stat['unit']) ?></td>
-                                            <td><?= Util::formatMoney($stat['total_amount']) ?></td>
+                                            <td><?= isset($totalAmount) ? number_format($totalAmount, 2) : number_format($total_amount, 2) ?> грн</td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>

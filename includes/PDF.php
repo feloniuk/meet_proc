@@ -5,7 +5,7 @@ class PDF {
     
     public function __construct($title = 'Звіт', $orientation = 'P', $unit = 'mm', $format = 'A4') {
         // Включення TCPDF (потрібно встановити TCPDF через Composer або вручну)
-        require_once(BASE_PATH . '/vendor/tcpdf/tcpdf.php');
+        require_once(BASE_PATH . '/vendor/autoload.php');
         
         // Створення нового PDF документа
         $this->pdf = new TCPDF($orientation, $unit, $format, true, 'UTF-8', false);

@@ -54,3 +54,33 @@ spl_autoload_register(function ($class_name) {
         return;
     }
 });
+
+// Подключение необходимых классов
+require_once INCLUDES_PATH . '/Database.php';
+require_once INCLUDES_PATH . '/Auth.php';
+require_once INCLUDES_PATH . '/Util.php';
+require_once INCLUDES_PATH . '/PDF.php'; // Добавьте эту строку
+
+// Проверка наличия TCPDF
+if (!file_exists(BASE_PATH . '/vendor/tcpdf/tcpdf.php')) {
+    // Если TCPDF не найден, попробуйте альтернативные пути
+    $tcpdf_paths = [
+        BASE_PATH . '/tcpdf/tcpdf.php',
+        BASE_PATH . '/lib/tcpdf/tcpdf.php',
+        BASE_PATH . '/libraries/tcpdf/tcpdf.php'
+    ];
+    
+    $tcpdf_found = false;
+    foreach ($tcpdf_paths as $path) {
+        if (file_exists($path)) {
+            define('TCPDF_PATH', dirname($path));
+            $tcpdf_found = true;
+            break;
+        }
+    }
+    
+    if (!$tcpdf_found) {
+        // Логируем ошибку если TCPDF не найден
+        error_log('TCPDF library not found. Please install TCPDF to enable PDF generation.');
+    }
+}

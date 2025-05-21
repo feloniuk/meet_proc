@@ -415,52 +415,59 @@ class SupplierController {
                 
         $summary = $db->single($sql, [Auth::getCurrentUserId(), $start_date . ' 00:00:00', $end_date . ' 23:59:59']);
         
+        // Створюємо PDF звіт
         $pdf = new PDF('Звіт по замовленнях');
         $pdf->addTitle('Звіт по замовленнях за період', 'з ' . date('d.m.Y', strtotime($start_date)) . ' по ' . date('d.m.Y', strtotime($end_date)));
         
-        // Підготовка даних для таблиці замовлень
-        $header = ['№', 'Дата', 'Замовник', 'Статус', 'Сума'];
-        $data = [];
-        
-        foreach ($orders as $order) {
-            $data[] = [
-                $order['id'],
-                date('d.m.Y', strtotime($order['created_at'])),
-                $order['ordered_by_name'],
-                Util::getOrderStatusName($order['status']),
-                number_format($order['total_amount'], 2) . ' грн'
-            ];
-        }
-        
-        $pdf->addText('Список замовлень:');
-        $pdf->addTable($header, $data);
-        
-        // Підготовка даних для таблиці статистики по матеріалах
-        $header = ['Матеріал', 'Одиниці', 'Кількість', 'Загальна сума'];
-        $data = [];
-        
-        foreach ($materials_stats as $item) {
-            $data[] = [
-                $item['material_name'],
-                $item['unit'],
-                number_format($item['total_quantity'], 2),
-                number_format($item['total_amount'], 2) . ' грн'
-            ];
-        }
-        
-        $pdf->addText('Статистика по матеріалах:');
-        $pdf->addTable($header, $data);
-        
-        // Загальна статистика
+        // Додаємо загальну статистику
         $pdf->addText('Загальна статистика:');
         $pdf->addText('Кількість замовлень: ' . $summary['orders_count']);
         $pdf->addText('Сума доставлених замовлень: ' . number_format($summary['total_delivered'], 2) . ' грн');
         $pdf->addText('Сума скасованих замовлень: ' . number_format($summary['total_canceled'], 2) . ' грн');
         $pdf->addText('Загальна сума замовлень: ' . number_format($summary['total_amount'], 2) . ' грн');
+        $pdf->addText('');
+        
+        // Підготовка даних для таблиці замовлень
+        if (!empty($orders)) {
+            $header = ['№', 'Дата', 'Замовник', 'Статус', 'Сума'];
+            $data = [];
+            
+            foreach ($orders as $order) {
+                $data[] = [
+                    $order['id'],
+                    date('d.m.Y', strtotime($order['created_at'])),
+                    $order['ordered_by_name'],
+                    Util::getOrderStatusName($order['status']),
+                    number_format($order['total_amount'], 2) . ' грн'
+                ];
+            }
+            
+            $pdf->addText('Список замовлень:');
+            $pdf->addTable($header, $data);
+        }
+        
+        // Підготовка даних для таблиці статистики по матеріалах
+        if (!empty($materials_stats)) {
+            $header = ['Матеріал', 'Одиниці', 'Кількість', 'Загальна сума'];
+            $data = [];
+            
+            foreach ($materials_stats as $item) {
+                $data[] = [
+                    $item['material_name'],
+                    $item['unit'],
+                    number_format($item['total_quantity'], 2),
+                    number_format($item['total_amount'], 2) . ' грн'
+                ];
+            }
+            
+            $pdf->addText('Статистика по матеріалах:');
+            $pdf->addTable($header, $data);
+        }
         
         $pdf->addDateAndSignature();
         $pdf->output('orders_report_' . date('Y-m-d') . '.pdf');
     }
+
     // Метод печати заказа
     public function printOrder($id) {
         $order = $this->orderModel->getById($id);
@@ -473,101 +480,64 @@ class SupplierController {
         
         $items = $this->orderModel->getItems($id);
         
-        // Генерируем HTML для печати
-        $html = '
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>Замовлення №' . $order['id'] . '</title>
-            <style>
-                body { font-family: Arial, sans-serif; margin: 20px; }
-                .header { text-align: center; margin-bottom: 30px; }
-                .info-table { width: 100%; margin-bottom: 20px; }
-                .info-table td { padding: 5px; }
-                .items-table { width: 100%; border-collapse: collapse; }
-                .items-table th, .items-table td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-                .items-table th { background-color: #f5f5f5; }
-                .total { font-weight: bold; }
-                .signature { margin-top: 50px; }
-            </style>
-        </head>
-        <body>
-            <div class="header">
-                <h1>ЗАМОВЛЕННЯ №' . $order['id'] . '</h1>
-                <p>Дата: ' . date('d.m.Y', strtotime($order['created_at'])) . '</p>
-            </div>
-            
-            <table class="info-table">
-                <tr>
-                    <td><strong>Замовник:</strong></td>
-                    <td>' . htmlspecialchars($order['ordered_by_name']) . '</td>
-                </tr>
-                <tr>
-                    <td><strong>Постачальник:</strong></td>
-                    <td>' . Auth::getCurrentUserName() . '</td>
-                </tr>
-                <tr>
-                    <td><strong>Статус:</strong></td>
-                    <td>' . Util::getOrderStatusName($order['status']) . '</td>
-                </tr>
-                <tr>
-                    <td><strong>Дата доставки:</strong></td>
-                    <td>' . ($order['delivery_date'] ? date('d.m.Y', strtotime($order['delivery_date'])) : '-') . '</td>
-                </tr>
-            </table>
-            
-            <h3>Позиції замовлення:</h3>
-            <table class="items-table">
-                <thead>
-                    <tr>
-                        <th>№</th>
-                        <th>Назва</th>
-                        <th>Кількість</th>
-                        <th>Ціна за од.</th>
-                        <th>Сума</th>
-                    </tr>
-                </thead>
-                <tbody>';
+        // Створюємо PDF документ
+        $pdf = new PDF('Замовлення №' . $order['id']);
+        $pdf->addTitle('ЗАМОВЛЕННЯ №' . $order['id'], 'Дата: ' . date('d.m.Y', strtotime($order['created_at'])));
         
-        $counter = 1;
-        foreach ($items as $item) {
-            $html .= '
-                    <tr>
-                        <td>' . $counter++ . '</td>
-                        <td>' . htmlspecialchars($item['material_name']) . '</td>
-                        <td>' . $item['quantity'] . ' ' . $item['unit'] . '</td>
-                        <td>' . number_format($item['price_per_unit'], 2) . ' грн</td>
-                        <td>' . number_format($item['quantity'] * $item['price_per_unit'], 2) . ' грн</td>
-                    </tr>';
+        // Інформація про замовлення
+        $pdf->addText('Інформація про замовлення:');
+        $pdf->addText('Замовник: ' . $order['ordered_by_name']);
+        $pdf->addText('Постачальник: ' . Auth::getCurrentUserName());
+        $pdf->addText('Статус: ' . Util::getOrderStatusName($order['status']));
+        $pdf->addText('Дата замовлення: ' . date('d.m.Y H:i', strtotime($order['created_at'])));
+        
+        if (!empty($order['delivery_date'])) {
+            $pdf->addText('Планована доставка: ' . date('d.m.Y', strtotime($order['delivery_date'])));
         }
         
-        $html .= '
-                    <tr class="total">
-                        <td colspan="4">ВСЬОГО:</td>
-                        <td>' . number_format($order['total_amount'], 2) . ' грн</td>
-                    </tr>
-                </tbody>
-            </table>';
+        $pdf->addText('');
+        
+        // Позиції замовлення
+        if (!empty($items)) {
+            $header = ['№', 'Назва', 'Кількість', 'Ціна за од.', 'Сума'];
+            $data = [];
             
+            $counter = 1;
+            foreach ($items as $item) {
+                $data[] = [
+                    $counter++,
+                    $item['material_name'],
+                    number_format($item['quantity'], 2) . ' ' . $item['unit'],
+                    number_format($item['price_per_unit'], 2) . ' грн',
+                    number_format($item['quantity'] * $item['price_per_unit'], 2) . ' грн'
+                ];
+            }
+            
+            // Додаємо рядок з загальною сумою
+            $data[] = [
+                '', '', '', 'ВСЬОГО:', 
+                number_format($order['total_amount'], 2) . ' грн'
+            ];
+            
+            $pdf->addText('Позиції замовлення:');
+            $pdf->addTable($header, $data);
+        }
+        
+        // Примітки
         if (!empty($order['notes'])) {
-            $html .= '
-            <h3>Примітки:</h3>
-            <p>' . nl2br(htmlspecialchars($order['notes'])) . '</p>';
+            $pdf->addText('Примітки:');
+            $pdf->addText($order['notes']);
+            $pdf->addText('');
         }
         
-        $html .= '
-            <div class="signature">
-                <p>Дата: ________________</p>
-                <p>Підпис постачальника: ________________</p>
-                <p>Підпис замовника: ________________</p>
-            </div>
-        </body>
-        </html>';
+        // Підписи
+        $pdf->addText('');
+        $pdf->addText('Підпис постачальника: ________________');
+        $pdf->addText('');
+        $pdf->addText('Підпис замовника: ________________');
         
-        // Отправляем HTML для печати
-        header('Content-Type: text/html; charset=utf-8');
-        echo $html;
+        $pdf->addDateAndSignature();
+        $pdf->output('order_' . $order['id'] . '.pdf');
     }
     
     // Звіт по матеріалах
@@ -625,8 +595,8 @@ class SupplierController {
                     r.price_per_unit,
                     r.min_stock,
                     COUNT(oi.id) as orders_count,
-                    SUM(oi.quantity) as total_ordered,
-                    SUM(oi.quantity * oi.price_per_unit) as total_amount
+                    COALESCE(SUM(oi.quantity), 0) as total_ordered,
+                    COALESCE(SUM(oi.quantity * oi.price_per_unit), 0) as total_amount
                 FROM raw_materials r
                 LEFT JOIN order_items oi ON r.id = oi.raw_material_id
                 LEFT JOIN orders o ON oi.order_id = o.id
@@ -638,71 +608,50 @@ class SupplierController {
         $db = Database::getInstance();
         $materials_stats = $db->resultSet($sql, [Auth::getCurrentUserId(), $start_date . ' 00:00:00', $end_date . ' 23:59:59']);
         
-        // Создаем PDF (упрощенная версия)
-        $html = '
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>Звіт по матеріалах</title>
-            <style>
-                body { font-family: Arial, sans-serif; margin: 20px; }
-                .header { text-align: center; margin-bottom: 30px; }
-                table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-                th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-                th { background-color: #f5f5f5; }
-            </style>
-        </head>
-        <body>
-            <div class="header">
-                <h1>ЗВІТ ПО МАТЕРІАЛАХ</h1>
-                <p>Період: з ' . date('d.m.Y', strtotime($start_date)) . ' по ' . date('d.m.Y', strtotime($end_date)) . '</p>
-                <p>Постачальник: ' . Auth::getCurrentUserName() . '</p>
-                <p>Дата формування: ' . date('d.m.Y H:i') . '</p>
-            </div>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Назва матеріалу</th>
-                        <th>Одиниця</th>
-                        <th>Ціна за од.</th>
-                        <th>Мін. запас</th>
-                        <th>Кількість замовлень</th>
-                        <th>Загальна кількість</th>
-                        <th>Загальна сума</th>
-                    </tr>
-                </thead>
-                <tbody>';
+        // Створюємо PDF звіт
+        $pdf = new PDF('Звіт по матеріалах');
+        $pdf->addTitle('Звіт по матеріалах за період', 'з ' . date('d.m.Y', strtotime($start_date)) . ' по ' . date('d.m.Y', strtotime($end_date)));
         
-        $total_amount = 0;
-        foreach ($materials_stats as $material) {
-            $total_amount += $material['total_amount'];
-            $html .= '
-                <tr>
-                    <td>' . htmlspecialchars($material['name']) . '</td>
-                    <td>' . htmlspecialchars($material['unit']) . '</td>
-                    <td>' . number_format($material['price_per_unit'], 2) . ' грн</td>
-                    <td>' . $material['min_stock'] . '</td>
-                    <td>' . $material['orders_count'] . '</td>
-                    <td>' . number_format($material['total_ordered'], 2) . '</td>
-                    <td>' . number_format($material['total_amount'], 2) . ' грн</td>
-                </tr>';
+        // Додаємо інформацію про постачальника
+        $pdf->addText('Постачальник: ' . Auth::getCurrentUserName());
+        $pdf->addText('Дата формування: ' . date('d.m.Y H:i'));
+        $pdf->addText('');
+        
+        // Загальна статистика
+        $total_materials = count($materials_stats);
+        $total_orders = array_sum(array_column($materials_stats, 'orders_count'));
+        $total_revenue = array_sum(array_column($materials_stats, 'total_amount'));
+        
+        $pdf->addText('Загальна статистика:');
+        $pdf->addText('Кількість видів матеріалів: ' . $total_materials);
+        $pdf->addText('Загальна кількість замовлень: ' . $total_orders);
+        $pdf->addText('Загальний дохід: ' . number_format($total_revenue, 2) . ' грн');
+        $pdf->addText('');
+        
+        // Підготовка даних для таблиці
+        if (!empty($materials_stats)) {
+            $header = ['Назва', 'Од.', 'Ціна', 'Мін.запас', 'Замовлень', 'Кількість', 'Сума'];
+            $data = [];
+            
+            foreach ($materials_stats as $material) {
+                $data[] = [
+                    $material['name'],
+                    $material['unit'],
+                    number_format($material['price_per_unit'], 2),
+                    number_format($material['min_stock'], 2),
+                    $material['orders_count'],
+                    number_format($material['total_ordered'], 2),
+                    number_format($material['total_amount'], 2) . ' грн'
+                ];
+            }
+            
+            $pdf->addText('Детальна статистика по матеріалах:');
+            $pdf->addTable($header, $data);
+        } else {
+            $pdf->addText('Немає даних за вказаний період.');
         }
         
-        $html .= '
-                <tr style="font-weight: bold;">
-                    <td colspan="6">ВСЬОГО:</td>
-                    <td>' . number_format($total_amount, 2) . ' грн</td>
-                </tr>
-            </tbody>
-        </table>
-        </body>
-        </html>';
-        
-        // Отправляем HTML как PDF
-        header('Content-Type: application/pdf');
-        header('Content-Disposition: attachment; filename="materials_report_' . date('Y-m-d') . '.pdf"');
-        echo $html;
+        $pdf->addDateAndSignature();
+        $pdf->output('materials_report_' . date('Y-m-d') . '.pdf');
     }
 }

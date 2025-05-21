@@ -215,3 +215,82 @@ INSERT INTO video_surveillance (name, url, location, status) VALUES
 ('Камера 2', 'rtsp://camera2.local:554/stream', 'Виробничий цех 2', 'active'),
 ('Камера 3', 'rtsp://camera3.local:554/stream', 'Склад сировини', 'active'),
 ('Камера 4', 'rtsp://camera4.local:554/stream', 'Склад готової продукції', 'active');
+
+
+-- Обновления базы данных для добавления роли технолога
+
+-- 1. Добавляем новую роль 'technologist' в существующий ENUM
+ALTER TABLE users MODIFY COLUMN role ENUM('admin', 'warehouse_manager', 'supplier', 'technologist') NOT NULL;
+
+-- 2. Создаем таблицу для проверок качества
+CREATE TABLE quality_checks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    technologist_id INT NOT NULL,
+    check_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('pending', 'approved', 'rejected') NOT NULL DEFAULT 'pending',
+    notes TEXT,
+    temperature DECIMAL(5,2) NULL COMMENT 'Температура сырья',
+    ph_level DECIMAL(4,2) NULL COMMENT 'Уровень pH',
+    moisture_content DECIMAL(5,2) NULL COMMENT 'Влажность %',
+    visual_assessment TEXT COMMENT 'Визуальная оценка',
+    smell_assessment TEXT COMMENT 'Оценка запаха',
+    texture_assessment TEXT COMMENT 'Оценка текстуры',
+    overall_grade ENUM('excellent', 'good', 'satisfactory', 'unsatisfactory') NULL,
+    rejection_reason TEXT NULL COMMENT 'Причина отклонения',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (technologist_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- 3. Создаем таблицу для проверок качества по отдельным материалам
+CREATE TABLE quality_check_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    quality_check_id INT NOT NULL,
+    raw_material_id INT NOT NULL,
+    quantity_checked DECIMAL(10,2) NOT NULL,
+    status ENUM('approved', 'rejected', 'conditional') NOT NULL,
+    notes TEXT,
+    defects_found TEXT COMMENT 'Обнаруженные дефекты',
+    grade ENUM('A', 'B', 'C', 'D') COMMENT 'Сорт сырья',
+    FOREIGN KEY (quality_check_id) REFERENCES quality_checks(id) ON DELETE CASCADE,
+    FOREIGN KEY (raw_material_id) REFERENCES raw_materials(id) ON DELETE CASCADE
+);
+
+-- 4. Добавляем поле quality_check_required в таблицу orders
+ALTER TABLE orders ADD COLUMN quality_check_required BOOLEAN DEFAULT TRUE COMMENT 'Требуется ли проверка качества';
+ALTER TABLE orders ADD COLUMN quality_status ENUM('not_checked', 'pending', 'approved', 'rejected') DEFAULT 'not_checked';
+
+-- 5. Создаем таблицу стандартов качества для разных типов сырья
+CREATE TABLE quality_standards (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    raw_material_id INT NOT NULL,
+    parameter_name VARCHAR(100) NOT NULL COMMENT 'Название параметра',
+    min_value DECIMAL(10,3) NULL COMMENT 'Минимальное значение',
+    max_value DECIMAL(10,3) NULL COMMENT 'Максимальное значение',
+    unit VARCHAR(20) NULL COMMENT 'Единица измерения',
+    description TEXT COMMENT 'Описание стандарта',
+    is_critical BOOLEAN DEFAULT FALSE COMMENT 'Критический параметр',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (raw_material_id) REFERENCES raw_materials(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_standard (raw_material_id, parameter_name)
+);
+
+-- 6. Добавляем тестового технолога
+INSERT INTO users (username, password, role, name, email, phone) VALUES
+('technologist', '$2y$10$FkQjQbZ1IBw4QlgQbfYOsOVFYJ1qnHquHWFVTvL89nVeu48qcFTZO', 'technologist', 'Технолог Іван Петрович', 'technologist@sausage.com', '+380995678901');
+
+-- 7. Добавляем стандарты качества для существующих материалов
+INSERT INTO quality_standards (raw_material_id, parameter_name, min_value, max_value, unit, description, is_critical) VALUES
+(1, 'Температура', -2, 4, '°C', 'Температура охлажденной свинины', true),
+(1, 'pH', 5.3, 6.2, '', 'Кислотность мяса', true),
+(1, 'Влажность', 70, 78, '%', 'Содержание влаги', false),
+(2, 'Температура', -2, 4, '°C', 'Температура охлажденной говядины', true),
+(2, 'pH', 5.4, 6.0, '', 'Кислотность мяса', true),
+(2, 'Влажность', 72, 76, '%', 'Содержание влаги', false),
+(3, 'Влажность', 0, 5, '%', 'Содержание влаги в соли', false),
+(3, 'Чистота', 99, 100, '%', 'Процент чистоты соли', true);
+
+-- 8. Обновляем существующие заказы для совместимости
+UPDATE orders SET quality_check_required = TRUE, quality_status = 'not_checked' WHERE status IN ('shipped', 'delivered');

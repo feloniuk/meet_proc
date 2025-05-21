@@ -176,27 +176,26 @@
                     <div class="sidebar-heading">Постачальник</div>
                     
                     <li class="nav-item">
-                        <a class="nav-link <?= $controller === 'SupplierController' && $method === 'orders' ? 'active' : '' ?>" 
-                           href="<?= BASE_URL ?>/supplier/orders">
+                        <a class="nav-link <?= $controller === 'SupplierController' && in_array($method, ['orders', 'viewOrder']) ? 'active' : '' ?>" 
+                        href="<?= BASE_URL ?>/supplier/orders">
                             <i class="fas fa-shopping-cart"></i> Замовлення
                         </a>
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link <?= $controller === 'SupplierController' && $method === 'materials' ? 'active' : '' ?>" 
-                           href="<?= BASE_URL ?>/supplier/materials">
+                        <a class="nav-link <?= $controller === 'SupplierController' && in_array($method, ['materials', 'addMaterial', 'editMaterial']) ? 'active' : '' ?>" 
+                        href="<?= BASE_URL ?>/supplier/materials">
                             <i class="fas fa-cubes"></i> Сировина
                         </a>
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link <?= $controller === 'SupplierController' && $method === 'reports' ? 'active' : '' ?>" 
-                           href="<?= BASE_URL ?>/supplier/reports">
+                        <a class="nav-link <?= $controller === 'SupplierController' && in_array($method, ['reports', 'ordersReport', 'materialsReport']) ? 'active' : '' ?>" 
+                        href="<?= BASE_URL ?>/supplier/reports">
                             <i class="fas fa-chart-bar"></i> Звіти
                         </a>
                     </li>
                 <?php endif; ?>
-                
                 <!-- Спільні елементи меню -->
                 <div class="sidebar-heading">Спільне</div>
                 

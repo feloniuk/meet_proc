@@ -62,7 +62,7 @@ require_once INCLUDES_PATH . '/Util.php';
 require_once INCLUDES_PATH . '/PDF.php'; // Добавьте эту строку
 
 // Проверка наличия TCPDF
-if (!file_exists(BASE_PATH . '/vendor/tcpdf/tcpdf.php')) {
+if (!file_exists(BASE_PATH . '/vendor/autoload.php')) {
     // Если TCPDF не найден, попробуйте альтернативные пути
     $tcpdf_paths = [
         BASE_PATH . '/tcpdf/tcpdf.php',

@@ -1,54 +1,41 @@
 <?php
 class Database {
-    private $host = DB_HOST;
-    private $user = DB_USER;
-    private $pass = DB_PASS;
-    private $dbname = DB_NAME;
+    private static $instance = null;
+    private $pdo;
     
-    private $conn;
-    private $error;
-    private static $instance;
-    
-    // Конструктор - приватний для Singleton шаблону
     private function __construct() {
-        // Створення підключення
         try {
-            $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname . ';charset=utf8mb4';
-            $options = array(
-                PDO::ATTR_PERSISTENT => true,
+            $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4';
+            $this->pdo = new PDO($dsn, DB_USER, DB_PASS, [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES => false
-            );
-            $this->conn = new PDO($dsn, $this->user, $this->pass, $options);
-        } catch(PDOException $e) {
-            $this->error = $e->getMessage();
-            echo 'Помилка підключення до бази даних: ' . $this->error;
+            ]);
+        } catch (PDOException $e) {
+            die('Помилка підключення до бази даних: ' . $e->getMessage());
         }
     }
     
-    // Метод для отримання єдиного екземпляра класу
     public static function getInstance() {
-        if (!isset(self::$instance)) {
-            self::$instance = new Database();
+        if (self::$instance === null) {
+            self::$instance = new self();
         }
         return self::$instance;
     }
     
-    // Метод для виконання запиту
+    // Выполнение запроса
     public function query($sql, $params = []) {
         try {
-            $stmt = $this->conn->prepare($sql);
+            $stmt = $this->pdo->prepare($sql);
             $stmt->execute($params);
             return $stmt;
-        } catch(PDOException $e) {
-            $this->error = $e->getMessage();
-            echo 'Помилка виконання запиту: ' . $this->error;
+        } catch (PDOException $e) {
+            Util::log('Database error: ' . $e->getMessage(), 'error');
             return false;
         }
     }
     
-    // Метод для отримання одного рядка
+    // Получение одной записи
     public function single($sql, $params = []) {
         $stmt = $this->query($sql, $params);
         if ($stmt) {
@@ -57,41 +44,57 @@ class Database {
         return false;
     }
     
-    // Метод для отримання всіх рядків
+    // Получение множества записей
     public function resultSet($sql, $params = []) {
         $stmt = $this->query($sql, $params);
         if ($stmt) {
             return $stmt->fetchAll();
         }
-        return false;
+        return [];
     }
     
-    // Метод для отримання кількості рядків
-    public function rowCount($sql, $params = []) {
-        $stmt = $this->query($sql, $params);
-        if ($stmt) {
-            return $stmt->rowCount();
-        }
-        return false;
+    // Получение количества строк
+    public function rowCount() {
+        return $this->pdo->lastInsertId();
     }
     
-    // Метод для отримання останнього вставленого ID
+    // Получение ID последней вставленной записи
     public function lastInsertId() {
-        return $this->conn->lastInsertId();
+        return $this->pdo->lastInsertId();
     }
     
-    // Метод для початку транзакції
+    // Начало транзакции
     public function beginTransaction() {
-        return $this->conn->beginTransaction();
+        return $this->pdo->beginTransaction();
     }
     
-    // Метод для завершення транзакції
+    // Подтверждение транзакции
     public function commit() {
-        return $this->conn->commit();
+        return $this->pdo->commit();
     }
     
-    // Метод для скасування транзакції
+    // Откат транзакции
     public function rollBack() {
-        return $this->conn->rollBack();
+        return $this->pdo->rollBack();
+    }
+    
+    // Проверка активности транзакции
+    public function inTransaction() {
+        return $this->pdo->inTransaction();
+    }
+    
+    // Получение объекта PDO
+    public function getPdo() {
+        return $this->pdo;
+    }
+    
+    // Закрытие соединения
+    public function close() {
+        $this->pdo = null;
+    }
+    
+    // Деструктор
+    public function __destruct() {
+        $this->close();
     }
 }

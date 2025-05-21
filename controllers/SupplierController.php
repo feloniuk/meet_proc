@@ -20,7 +20,7 @@ class SupplierController {
             'orders' => $this->orderModel->getBySupplier(Auth::getCurrentUserId())
         ];
         
-        require VIEWS_PATH . '/supplier/orders.php';
+        include VIEWS_PATH . '/supplier/orders.php';
     }
     
     // Перегляд замовлення
@@ -39,7 +39,7 @@ class SupplierController {
             'items' => $this->orderModel->getItems($id)
         ];
         
-        require VIEWS_PATH . '/supplier/view_order.php';
+        include VIEWS_PATH . '/supplier/view_order.php';
     }
     
     // Прийняття замовлення
@@ -151,7 +151,7 @@ class SupplierController {
             'materials' => $this->rawMaterialModel->getBySupplier(Auth::getCurrentUserId())
         ];
         
-        require VIEWS_PATH . '/supplier/materials.php';
+        include VIEWS_PATH . '/supplier/materials.php';
     }
     
     // Додавання сировини
@@ -199,7 +199,7 @@ class SupplierController {
             'errors' => $errors
         ];
         
-        require VIEWS_PATH . '/supplier/add_material.php';
+        include VIEWS_PATH . '/supplier/add_material.php';
     }
     
     // Редагування сировини
@@ -256,7 +256,26 @@ class SupplierController {
             'errors' => $errors
         ];
         
-        require VIEWS_PATH . '/supplier/edit_material.php';
+        include VIEWS_PATH . '/supplier/edit_material.php';
+    }
+    
+    // Видалення сировини
+    public function deleteMaterial($id) {
+        $material = $this->rawMaterialModel->getById($id);
+        
+        // Перевірка на доступ до сировини
+        if (!$material || $material['supplier_id'] != Auth::getCurrentUserId()) {
+            $_SESSION['error'] = 'Сировину не знайдено';
+            Util::redirect(BASE_URL . '/supplier/materials');
+        }
+        
+        if ($this->rawMaterialModel->delete($id)) {
+            $_SESSION['success'] = 'Сировину успішно видалено';
+        } else {
+            $_SESSION['error'] = 'Помилка при видаленні сировини';
+        }
+        
+        Util::redirect(BASE_URL . '/supplier/materials');
     }
     
     // Звіти
@@ -265,7 +284,7 @@ class SupplierController {
             'title' => 'Звіти'
         ];
         
-        require VIEWS_PATH . '/supplier/reports.php';
+        include VIEWS_PATH . '/supplier/reports.php';
     }
     
     // Звіт по замовленнях
@@ -323,7 +342,7 @@ class SupplierController {
             'summary' => $summary
         ];
         
-        require VIEWS_PATH . '/supplier/orders_report.php';
+        include VIEWS_PATH . '/supplier/orders_report.php';
     }
     
     // Генерація PDF звіту по замовленнях

@@ -1,46 +1,6 @@
 <?php 
-// views/admin/dashboard.php - ИСПРАВЛЕННАЯ ВЕРСИЯ
-
-// Инициализация всех переменных значениями по умолчанию
-if (!isset($active_orders)) $active_orders = []; 
-if (!isset($low_stock)) $low_stock = []; 
-if (!isset($active_production)) $active_production = []; 
-if (!isset($unread_messages)) $unread_messages = 0; 
-if (!isset($messages)) $messages = []; 
-if (!isset($production_stats)) $production_stats = [];
-if (!isset($materials_stats)) $materials_stats = [];
-
-// Безопасное получение данных
-try {
-    // Если данные не переданы, пытаемся получить их
-    if (empty($active_orders)) {
-        $orderModel = new Order();
-        $active_orders = $orderModel->getActive() ?: [];
-    }
-    
-    if (empty($low_stock)) {
-        $inventoryModel = new Inventory();
-        $low_stock = $inventoryModel->getCriticalLowStock() ?: [];
-    }
-    
-    if (empty($active_production)) {
-        $productionModel = new Production();
-        $active_production = $productionModel->getActive() ?: [];
-    }
-    
-    if (empty($messages)) {
-        $messageModel = new Message();
-        $user_id = Auth::getCurrentUserId();
-        if ($user_id) {
-            $messages = $messageModel->getLatest($user_id, 5) ?: [];
-            $unread_messages = $messageModel->countUnread($user_id) ?: 0;
-        }
-    }
-    
-} catch (Exception $e) {
-    Util::logError("Dashboard data loading error: " . $e->getMessage());
-    // Данные остаются пустыми массивами по умолчанию
-}
+// views/admin/dashboard.php
+// Теперь все переменные доступны напрямую благодаря BaseController::render()
 ?>
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -63,7 +23,7 @@ try {
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="card-title text-muted mb-0">Активні замовлення</h6>
-                            <h2 class="mt-2 mb-0"><?= count($active_orders) ?></h2>
+                            <h2 class="mt-2 mb-0"><?= count($active_orders ?? []) ?></h2>
                         </div>
                         <div class="card-icon">
                             <i class="fas fa-shopping-cart"></i>
@@ -84,7 +44,7 @@ try {
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="card-title text-muted mb-0">Активні виробництва</h6>
-                            <h2 class="mt-2 mb-0"><?= count($active_production) ?></h2>
+                            <h2 class="mt-2 mb-0"><?= count($active_production ?? []) ?></h2>
                         </div>
                         <div class="card-icon">
                             <i class="fas fa-industry"></i>
@@ -105,7 +65,7 @@ try {
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="card-title text-muted mb-0">Повідомлення</h6>
-                            <h2 class="mt-2 mb-0"><?= $unread_messages ?></h2>
+                            <h2 class="mt-2 mb-0"><?= $unread_messages ?? 0 ?></h2>
                         </div>
                         <div class="card-icon">
                             <i class="fas fa-envelope"></i>
@@ -126,7 +86,7 @@ try {
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="card-title text-muted mb-0">Критичні запаси</h6>
-                            <h2 class="mt-2 mb-0"><?= count($low_stock) ?></h2>
+                            <h2 class="mt-2 mb-0"><?= count($low_stock ?? []) ?></h2>
                         </div>
                         <div class="card-icon text-danger">
                             <i class="fas fa-exclamation-triangle"></i>
@@ -151,7 +111,7 @@ try {
                 </div>
                 <div class="card-body">
                     <?php 
-                        // Безопасное получение статистики по качеству
+                        // Получение статистики по качеству
                         try {
                             $orderModel = new Order();
                             $start_date = date('Y-m-01');
@@ -171,7 +131,6 @@ try {
                             $orders_for_check = $orderModel->getOrdersForQualityCheck() ?: [];
                             $problematic_suppliers = $orderModel->getProblematicSuppliers($start_date, $end_date) ?: [];
                         } catch (Exception $e) {
-                            Util::logError("Quality stats error: " . $e->getMessage());
                             $quality_stats = [
                                 'total_orders' => 0,
                                 'approved_orders' => 0,

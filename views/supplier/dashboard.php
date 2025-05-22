@@ -1,11 +1,6 @@
 <?php
-// views/supplier/dashboard.php - виправлена версія
-
-// Ініціалізація змінних з безпечними значеннями за замовчуванням
-$active_orders = $active_orders ?? [];
-$materials = $materials ?? [];
-$messages = $messages ?? [];
-$unread_messages = $unread_messages ?? 0;
+// views/supplier/dashboard.php
+// Все переменные доступны напрямую благодаря BaseController::render()
 ?>
 
 <div class="container-fluid">
@@ -30,7 +25,7 @@ $unread_messages = $unread_messages ?? 0;
                         <div>
                             <h6 class="card-title text-muted mb-0">Активні замовлення</h6>
                             <h2 class="mt-2 mb-0">
-                                <?= count(array_filter($active_orders, function($order) {
+                                <?= count(array_filter($active_orders ?? [], function($order) {
                                     return isset($order['status']) && $order['status'] !== 'delivered' && $order['status'] !== 'canceled';
                                 })) ?>
                             </h2>
@@ -54,7 +49,7 @@ $unread_messages = $unread_messages ?? 0;
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="card-title text-muted mb-0">Нові повідомлення</h6>
-                            <h2 class="mt-2 mb-0"><?= $unread_messages ?></h2>
+                            <h2 class="mt-2 mb-0"><?= $unread_messages ?? 0 ?></h2>
                         </div>
                         <div class="card-icon">
                             <i class="fas fa-envelope"></i>
@@ -75,7 +70,7 @@ $unread_messages = $unread_messages ?? 0;
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="card-title text-muted mb-0">Моя сировина</h6>
-                            <h2 class="mt-2 mb-0"><?= count($materials) ?></h2>
+                            <h2 class="mt-2 mb-0"><?= count($materials ?? []) ?></h2>
                         </div>
                         <div class="card-icon">
                             <i class="fas fa-cubes"></i>
@@ -331,6 +326,56 @@ $unread_messages = $unread_messages ?? 0;
         </div>
     </div>
 </div>
+
+<style>
+.dashboard-stats .card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.dashboard-stats .card:hover {
+    transform: translateY(-2px);
+}
+
+.card-icon {
+    font-size: 2rem;
+    color: #6c757d;
+}
+
+.message-unread {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.status-pending {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.status-accepted {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.status-shipped {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.status-delivered {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.status-canceled {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.status-unknown {
+    background-color: #6c757d;
+    color: #fff;
+}
+</style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

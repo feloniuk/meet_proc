@@ -9,6 +9,12 @@
         <h1 class="h3 mb-0"><i class="fas fa-plus me-2"></i>Створення замовлення</h1>
     </div>
 
+    <?php
+                                // Отримуємо кількість інгредієнтів для кожного рецепта
+                                $usersModel = new User();
+                                $suppliers = $usersModel->getByRole('supplier');
+                                
+                                ?>
     <div class="row">
         <div class="col-md-8">
             <div class="card shadow-sm">

@@ -27,6 +27,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                                <?php
+                                // Розрахунок прибутку
+                                $productModel = new Product();
+                                $products = $productModel->getAll();
+                                ?>
                         <?php if (empty($products)): ?>
                             <tr>
                                 <td colspan="9" class="text-center py-3">Немає продуктів</td>

@@ -73,6 +73,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                                <?php
+                                // Розрахунок прибутку
+                                $ordersModel = new Order();
+                                $orders = $ordersModel->getAll();
+                                ?>
                         <?php if (empty($orders)): ?>
                             <tr>
                                 <td colspan="7" class="text-center py-3">Немає замовлень</td>

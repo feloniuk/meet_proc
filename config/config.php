@@ -37,9 +37,14 @@ session_start();
 define('PDF_FONT', 'dejavusans');
 define('PDF_FONT_SIZE', 10);
 
-// ИСПРАВЛЕНО: Функція автозавантаження класів
-// Функція автозавантаження класів
+// ОБНОВЛЕНО: Функція автозавантаження класів
 spl_autoload_register(function ($class_name) {
+    // Сначала проверяем базовые классы
+    if ($class_name === 'BaseController') {
+        require_once CONTROLLERS_PATH . '/BaseController.php';
+        return;
+    }
+    
     // Конвертуємо ім'я класу в шлях до файлу
     $parts = explode('\\', $class_name);
     $class = end($parts);
@@ -73,25 +78,6 @@ if (file_exists(INCLUDES_PATH . '/PDF.php')) {
     require_once INCLUDES_PATH . '/PDF.php';
 }
 
-// ИСПРАВЛЕНО: Подключение необходимых классов с проверкой
-$requiredFiles = [
-    INCLUDES_PATH . '/Database.php',
-    INCLUDES_PATH . '/Auth.php',
-    INCLUDES_PATH . '/Util.php',
-    INCLUDES_PATH . '/PDF.php'
-];
-
-foreach ($requiredFiles as $file) {
-    if (file_exists($file)) {
-        require_once $file;
-    } else {
-        error_log("Required file not found: " . $file);
-        if (DEBUG) {
-            die("Required file not found: " . $file);
-        }
-    }
-}
-
 // ДОБАВЛЕНО: Проверка подключения к базе данных
 try {
     $db = Database::getInstance();
@@ -111,7 +97,8 @@ try {
 $requiredTables = [
     'users', 'raw_materials', 'inventory', 'recipes', 
     'recipe_ingredients', 'products', 'production_processes', 
-    'orders', 'order_items', 'messages', 'video_surveillance'
+    'orders', 'order_items', 'messages', 'video_surveillance',
+    'quality_checks', 'quality_check_items', 'quality_standards'
 ];
 
 foreach ($requiredTables as $table) {

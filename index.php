@@ -116,6 +116,7 @@ try {
 if ($controller === 'AuthController') {
     // Для страниц авторизации используем auth_layout.php
     include VIEWS_PATH . '/layouts/auth_layout.php';
+    
 } else {
     // Подготовка данных для шаблона
     $user_role = Auth::getCurrentUserRole();

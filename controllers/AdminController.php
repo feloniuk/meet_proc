@@ -573,10 +573,21 @@ public function setCameraStatus($id, $status) {
     
     // Управління камерами
     public function cameras() {
-        $data = [
-            'title' => 'Управління камерами',
-            'cameras' => $this->videoSurveillanceModel->getAll()
-        ];
+        try {
+            $cameras = $this->videoSurveillanceModel->getAll();
+            
+            $data = [
+                'title' => 'Управління камерами',
+                'cameras' => $cameras ?: []
+            ];
+            
+        } catch (Exception $e) {
+            Util::log("Cameras loading error: " . $e->getMessage(), 'error');
+            $data = [
+                'title' => 'Управління камерами',
+                'cameras' => []
+            ];
+        }
         
         require VIEWS_PATH . '/admin/cameras.php';
     }
@@ -769,62 +780,82 @@ public function setCameraStatus($id, $status) {
         require VIEWS_PATH . '/admin/edit_order.php';
     }
     
-    // Додавання елемента до замовлення
-    public function addOrderItem($order_id) {
-        $order = $this->orderModel->getById($order_id);
-        
-        if (!$order) {
-            $_SESSION['error'] = 'Замовлення не знайдено';
-            Util::redirect(BASE_URL . '/admin/orders');
-        }
-        
-        // Перевіряємо, чи можна редагувати замовлення
-        if ($order['status'] !== 'pending') {
-            $_SESSION['error'] = 'Можна редагувати тільки замовлення в статусі "Очікує підтвердження"';
-            Util::redirect(BASE_URL . '/admin/viewOrder/' . $order_id);
-        }
-        
-        $errors = [];
-        
-        // Обробка форми додавання елемента
-        if (Util::isPost()) {
-            $raw_material_id = Util::sanitize($_POST['raw_material_id']);
-            $quantity = Util::sanitize($_POST['quantity']);
-            $price_per_unit = Util::sanitize($_POST['price_per_unit']);
-            
-            // Валідація
-            if (empty($raw_material_id)) {
-                $errors['raw_material_id'] = 'Виберіть сировину';
-            }
-            
-            if (empty($quantity) || !is_numeric($quantity) || $quantity <= 0) {
-                $errors['quantity'] = 'Кількість повинна бути більше нуля';
-            }
-            
-            if (empty($price_per_unit) || !is_numeric($price_per_unit) || $price_per_unit <= 0) {
-                $errors['price_per_unit'] = 'Ціна повинна бути більше нуля';
-            }
-            
-            // Якщо помилок немає, додаємо елемент
-            if (empty($errors)) {
-                if ($this->orderModel->addItem($order_id, $raw_material_id, $quantity, $price_per_unit)) {
-                    $_SESSION['success'] = 'Елемент замовлення успішно додано';
-                    Util::redirect(BASE_URL . '/admin/editOrder/' . $order_id);
-                } else {
-                    $_SESSION['error'] = 'Помилка при додаванні елемента замовлення';
-                }
-            }
-        }
-        
-        $data = [
-            'title' => 'Додавання елемента замовлення',
-            'order' => $order,
-            'materials' => $this->rawMaterialModel->getBySupplier($order['supplier_id']),
-            'errors' => $errors
-        ];
-        
-        require VIEWS_PATH . '/admin/add_order_item.php';
+    /// Додавання елемента до замовлення
+// Додавання елемента до замовлення
+public function addOrderItem($order_id) {
+    $order = $this->orderModel->getById($order_id);
+    
+    if (!$order) {
+        $_SESSION['error'] = 'Замовлення не знайдено';
+        Util::redirect(BASE_URL . '/admin/orders');
+        return;
     }
+    
+    // Перевіряємо, чи можна редагувати замовлення
+    if ($order['status'] !== 'pending') {
+        $_SESSION['error'] = 'Можна редагувати тільки замовлення в статусі "Очікує підтвердження"';
+        Util::redirect(BASE_URL . '/admin/viewOrder/' . $order_id);
+        return;
+    }
+    
+    $errors = [];
+    
+    // Обробка форми додавання елемента
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $raw_material_id = isset($_POST['raw_material_id']) ? trim($_POST['raw_material_id']) : '';
+        $quantity = isset($_POST['quantity']) ? trim($_POST['quantity']) : '';
+        $price_per_unit = isset($_POST['price_per_unit']) ? trim($_POST['price_per_unit']) : '';
+        
+        // Валідація
+        if (empty($raw_material_id)) {
+            $errors['raw_material_id'] = 'Виберіть сировину';
+        }
+        
+        if (empty($quantity) || !is_numeric($quantity) || $quantity <= 0) {
+            $errors['quantity'] = 'Кількість повинна бути більше нуля';
+        }
+        
+        if (empty($price_per_unit) || !is_numeric($price_per_unit) || $price_per_unit <= 0) {
+            $errors['price_per_unit'] = 'Ціна повинна бути більше нуля';
+        }
+        
+        // Якщо помилок немає, додаємо елемент
+        if (empty($errors)) {
+            if ($this->orderModel->addItem($order_id, $raw_material_id, $quantity, $price_per_unit)) {
+                $_SESSION['success'] = 'Елемент замовлення успішно додано';
+                Util::redirect(BASE_URL . '/admin/editOrder/' . $order_id);
+                return;
+            } else {
+                $_SESSION['error'] = 'Помилка при додаванні елемента замовлення';
+            }
+        }
+    }
+    
+    // Якщо є material_id в GET параметрах, автоматично вибираємо матеріал
+    if (isset($_GET['material_id']) && !$_SERVER['REQUEST_METHOD'] === 'POST') {
+        $_POST['raw_material_id'] = $_GET['material_id'];
+        
+        // Автоматично заповнюємо ціну
+        $material = $this->rawMaterialModel->getById($_GET['material_id']);
+        if ($material) {
+            $_POST['price_per_unit'] = $material['price_per_unit'];
+        }
+    }
+    
+    $materials = $this->rawMaterialModel->getBySupplier($order['supplier_id']);
+    
+    $data = [
+        'title' => 'Додавання елемента замовлення',
+        'order' => $order,
+        'materials' => $materials,
+        'errors' => $errors
+    ];
+    
+    // Извлекаем переменные из массива $data
+    extract($data);
+    
+    require VIEWS_PATH . '/admin/add_order_item.php';
+}
     
     // Перегляд замовлення
     public function viewOrder($id) {
@@ -892,6 +923,108 @@ public function setCameraStatus($id, $status) {
         Util::redirect(BASE_URL . '/admin/viewOrder/' . $id);
     }
     
+// Редагування елемента замовлення
+public function editOrderItem($id) {
+    // Отримуємо інформацію про елемент замовлення
+    $sql = "SELECT oi.*, o.id as order_id, o.supplier_id, rm.name as material_name, rm.unit
+            FROM order_items oi
+            JOIN orders o ON oi.order_id = o.id
+            JOIN raw_materials rm ON oi.raw_material_id = rm.id
+            WHERE oi.id = ?";
+            
+    $db = Database::getInstance();
+    $item = $db->single($sql, [$id]);
+    
+    if (!$item) {
+        $_SESSION['error'] = 'Елемент замовлення не знайдено';
+        Util::redirect(BASE_URL . '/admin/orders');
+    }
+    
+    // Перевіряємо статус замовлення
+    $order = $this->orderModel->getById($item['order_id']);
+    if ($order['status'] !== 'pending') {
+        $_SESSION['error'] = 'Можна редагувати тільки замовлення в статусі "Очікує підтвердження"';
+        Util::redirect(BASE_URL . '/admin/viewOrder/' . $item['order_id']);
+    }
+    
+    $errors = [];
+    
+    // Обробка форми редагування елемента
+    if (Util::isPost()) {
+        $quantity = Util::sanitize($_POST['quantity']);
+        $price_per_unit = Util::sanitize($_POST['price_per_unit']);
+        
+        // Валідація
+        if (empty($quantity) || !is_numeric($quantity) || $quantity <= 0) {
+            $errors['quantity'] = 'Кількість повинна бути більше нуля';
+        }
+        
+        if (empty($price_per_unit) || !is_numeric($price_per_unit) || $price_per_unit <= 0) {
+            $errors['price_per_unit'] = 'Ціна повинна бути більше нуля';
+        }
+        
+        // Якщо помилок немає, оновлюємо елемент
+        if (empty($errors)) {
+            $sql = "UPDATE order_items SET quantity = ?, price_per_unit = ? WHERE id = ?";
+            
+            if ($db->query($sql, [$quantity, $price_per_unit, $id])) {
+                // Оновлюємо загальну суму замовлення
+                $this->orderModel->updateTotalAmount($item['order_id']);
+                
+                $_SESSION['success'] = 'Позицію замовлення успішно оновлено';
+                Util::redirect(BASE_URL . '/admin/editOrder/' . $item['order_id']);
+            } else {
+                $_SESSION['error'] = 'Помилка при оновленні позиції замовлення';
+            }
+        }
+    }
+    
+    $data = [
+        'title' => 'Редагування позиції замовлення',
+        'item' => $item,
+        'order' => $order,
+        'errors' => $errors
+    ];
+    
+    require VIEWS_PATH . '/admin/edit_order_item.php';
+}
+
+// Видалення елемента замовлення
+public function deleteOrderItem($id) {
+    // Отримуємо інформацію про елемент замовлення
+    $sql = "SELECT order_id FROM order_items WHERE id = ?";
+    $db = Database::getInstance();
+    $result = $db->single($sql, [$id]);
+    
+    if (!$result) {
+        $_SESSION['error'] = 'Елемент замовлення не знайдено';
+        Util::redirect(BASE_URL . '/admin/orders');
+    }
+    
+    $order_id = $result['order_id'];
+    
+    // Перевіряємо статус замовлення
+    $order = $this->orderModel->getById($order_id);
+    if ($order['status'] !== 'pending') {
+        $_SESSION['error'] = 'Можна видаляти позиції тільки з замовлень в статусі "Очікує підтвердження"';
+        Util::redirect(BASE_URL . '/admin/viewOrder/' . $order_id);
+    }
+    
+    // Видаляємо елемент
+    $sql = "DELETE FROM order_items WHERE id = ?";
+    
+    if ($db->query($sql, [$id])) {
+        // Оновлюємо загальну суму замовлення
+        $this->orderModel->updateTotalAmount($order_id);
+        
+        $_SESSION['success'] = 'Позицію замовлення успішно видалено';
+    } else {
+        $_SESSION['error'] = 'Помилка при видаленні позиції замовлення';
+    }
+    
+    Util::redirect(BASE_URL . '/admin/editOrder/' . $order_id);
+}
+
     // Звіти
     public function reports() {
         $data = [
@@ -903,49 +1036,101 @@ public function setCameraStatus($id, $status) {
     
     // Звіт по запасам
     public function inventoryReport() {
-        $data = [
-            'title' => 'Звіт по запасам',
-            'inventory' => $this->inventoryModel->getStockReport()
-        ];
+        try {
+            $inventory = $this->inventoryModel->getStockReport();
+            
+            $data = [
+                'title' => 'Звіт по запасам',
+                'inventory' => $inventory ?: []
+            ];
+            
+        } catch (Exception $e) {
+            Util::log("Inventory report error: " . $e->getMessage(), 'error');
+            $data = [
+                'title' => 'Звіт по запасам',
+                'inventory' => []
+            ];
+        }
         
         require VIEWS_PATH . '/admin/inventory_report.php';
     }
     
     // Звіт по виробництву
     public function productionReport() {
-        // Параметри періоду (за замовчуванням - поточний місяць)
-        $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : date('Y-m-01');
-        $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-t');
-        
-        $data = [
-            'title' => 'Звіт по виробництву',
-            'start_date' => $start_date,
-            'end_date' => $end_date,
-            'stats' => $this->productionModel->getDetailedStatsByPeriod($start_date, $end_date),
-            'daily_stats' => $this->productionModel->getStatsByPeriod($start_date, $end_date),
-            'products_stats' => $this->productModel->getProductionStats($start_date, $end_date)
-        ];
+        try {
+            // Параметры периода (по умолчанию - текущий месяц)
+            $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : date('Y-m-01');
+            $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-t');
+            
+            $stats = $this->productionModel->getDetailedStatsByPeriod($start_date, $end_date);
+            $daily_stats = $this->productionModel->getStatsByPeriod($start_date, $end_date);
+            $products_stats = $this->productModel->getProductionStats($start_date, $end_date);
+            
+            $data = [
+                'title' => 'Звіт по виробництву',
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                'stats' => $stats ?: [],
+                'daily_stats' => $daily_stats ?: [],
+                'products_stats' => $products_stats ?: []
+            ];
+            
+        } catch (Exception $e) {
+            Util::log("Production report error: " . $e->getMessage(), 'error');
+            $data = [
+                'title' => 'Звіт по виробництву',
+                'start_date' => date('Y-m-01'),
+                'end_date' => date('Y-m-t'),
+                'stats' => [],
+                'daily_stats' => [],
+                'products_stats' => []
+            ];
+        }
         
         require VIEWS_PATH . '/admin/production_report.php';
     }
     
     // Звіт по замовленнях
     public function ordersReport() {
-        // Параметры периода (за замовчуванням - поточний місяць)
-        $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : date('Y-m-01');
-        $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-t');
-        
-        $data = [
-            'title' => 'Звіт по замовленнях',
-            'start_date' => $start_date,
-            'end_date' => $end_date,
-            'daily_stats' => $this->orderModel->getStatsByPeriod($start_date, $end_date),
-            'supplier_stats' => $this->orderModel->getStatsBySupplier($start_date, $end_date),
-            'material_stats' => $this->orderModel->getStatsByMaterial($start_date, $end_date)
-        ];
-        
-        // Передаем переменные в область видимости представления
-        extract($data);
+        try {
+            // Параметры периода (по умолчанию - текущий месяц)
+            $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : date('Y-m-01');
+            $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-t');
+            
+            $daily_stats = $this->orderModel->getStatsByPeriod($start_date, $end_date);
+            $supplier_stats = $this->orderModel->getStatsBySupplier($start_date, $end_date);
+            $material_stats = $this->orderModel->getStatsByMaterial($start_date, $end_date);
+            
+            // Вычисляем дополнительные метрики
+            $ordersCount = array_sum(array_column($supplier_stats, 'orders_count'));
+            $totalAmount = array_sum(array_column($supplier_stats, 'total_amount'));
+            
+            $data = [
+                'title' => 'Звіт по замовленнях',
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                'daily_stats' => $daily_stats ?: [],
+                'supplier_stats' => $supplier_stats ?: [],
+                'material_stats' => $material_stats ?: [],
+                'ordersCount' => $ordersCount,
+                'totalAmount' => $totalAmount
+            ];
+            
+            // Передаем переменные в область видимости представления
+            extract($data);
+            
+        } catch (Exception $e) {
+            Util::log("Orders report error: " . $e->getMessage(), 'error');
+            
+            // Устанавливаем значения по умолчанию при ошибке
+            $start_date = date('Y-m-01');
+            $end_date = date('Y-m-t');
+            $daily_stats = [];
+            $supplier_stats = [];
+            $material_stats = [];
+            $ordersCount = 0;
+            $totalAmount = 0;
+        }
         
         require VIEWS_PATH . '/admin/orders_report.php';
     }
@@ -1247,5 +1432,90 @@ public function generateMaterialsUsagePdf() {
     $pdf->addDateAndSignature();
     $pdf->output('materials_usage_report_' . date('Y-m-d') . '.pdf');
 }
- 
+ // AJAX метод для добавления позиции заказа
+public function ajaxAddOrderItem() {
+    header('Content-Type: application/json');
+    
+    if (!Util::isPost()) {
+        echo json_encode(['success' => false, 'message' => 'Invalid request method']);
+        exit;
+    }
+    
+    $order_id = Util::sanitize($_POST['order_id']);
+    $raw_material_id = Util::sanitize($_POST['raw_material_id']);
+    $quantity = Util::sanitize($_POST['quantity']);
+    $price_per_unit = Util::sanitize($_POST['price_per_unit']);
+    
+    // Проверка заказа
+    $order = $this->orderModel->getById($order_id);
+    if (!$order || $order['status'] !== 'pending') {
+        echo json_encode(['success' => false, 'message' => 'Замовлення не знайдено або не може бути змінено']);
+        exit;
+    }
+    
+    // Валидация
+    if (empty($raw_material_id) || empty($quantity) || empty($price_per_unit)) {
+        echo json_encode(['success' => false, 'message' => 'Заповніть всі поля']);
+        exit;
+    }
+    
+    if (!is_numeric($quantity) || $quantity <= 0) {
+        echo json_encode(['success' => false, 'message' => 'Кількість повинна бути більше нуля']);
+        exit;
+    }
+    
+    if (!is_numeric($price_per_unit) || $price_per_unit <= 0) {
+        echo json_encode(['success' => false, 'message' => 'Ціна повинна бути більше нуля']);
+        exit;
+    }
+    
+    // Добавление позиции
+    if ($this->orderModel->addItem($order_id, $raw_material_id, $quantity, $price_per_unit)) {
+        echo json_encode(['success' => true, 'message' => 'Позицію успішно додано']);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Помилка при додаванні позиції']);
+    }
+    exit;
+}
+
+// AJAX метод для удаления позиции заказа
+public function ajaxDeleteOrderItem() {
+    header('Content-Type: application/json');
+    
+    if (!Util::isPost()) {
+        echo json_encode(['success' => false, 'message' => 'Invalid request method']);
+        exit;
+    }
+    
+    $item_id = Util::sanitize($_POST['item_id']);
+    
+    // Получаем информацию о позиции
+    $sql = "SELECT oi.order_id, o.status 
+            FROM order_items oi 
+            JOIN orders o ON oi.order_id = o.id 
+            WHERE oi.id = ?";
+    $db = Database::getInstance();
+    $result = $db->single($sql, [$item_id]);
+    
+    if (!$result) {
+        echo json_encode(['success' => false, 'message' => 'Позицію не знайдено']);
+        exit;
+    }
+    
+    if ($result['status'] !== 'pending') {
+        echo json_encode(['success' => false, 'message' => 'Можна видаляти позиції тільки з замовлень в статусі "Очікує підтвердження"']);
+        exit;
+    }
+    
+    // Удаление позиции
+    $sql = "DELETE FROM order_items WHERE id = ?";
+    if ($db->query($sql, [$item_id])) {
+        // Обновляем общую сумму заказа
+        $this->orderModel->updateTotalAmount($result['order_id']);
+        echo json_encode(['success' => true, 'message' => 'Позицію успішно видалено']);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Помилка при видаленні позиції']);
+    }
+    exit;
+}
 }

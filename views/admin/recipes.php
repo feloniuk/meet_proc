@@ -25,6 +25,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                                <?php
+                                // Отримуємо кількість інгредієнтів для кожного рецепта
+                                $recipeModel = new Recipe();
+                                $recipes = $recipeModel->getAll();
+                                
+                                ?>
                         <?php if (empty($recipes)): ?>
                             <tr>
                                 <td colspan="7" class="text-center py-3">Немає рецептів</td>
@@ -33,7 +39,6 @@
                             <?php foreach ($recipes as $recipe): ?>
                                 <?php
                                 // Отримуємо кількість інгредієнтів для кожного рецепта
-                                $recipeModel = new Recipe();
                                 $ingredients = $recipeModel->getIngredients($recipe['id']);
                                 $ingredientCount = count($ingredients);
                                 

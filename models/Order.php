@@ -218,6 +218,19 @@ class Order {
         return $this->db->resultSet($sql);
     }
 
+    // Оновити загальну суму замовлення
+public function updateTotalAmount($order_id) {
+    $sql = "UPDATE orders 
+            SET total_amount = (
+                SELECT SUM(quantity * price_per_unit) 
+                FROM order_items 
+                WHERE order_id = ?
+            ) 
+            WHERE id = ?";
+            
+    return $this->db->query($sql, [$order_id, $order_id]);
+}
+
     public function setupQualityChecksForExistingOrders() {
         // Находим заказы со статусом 'delivered' без статуса качества
         $sql = "UPDATE orders 
@@ -334,18 +347,51 @@ class Order {
         return false;
     }
     
-    // Оновити загальну суму замовлення
-    private function updateTotalAmount($order_id) {
-        $sql = "UPDATE orders 
-                SET total_amount = (
-                    SELECT SUM(quantity * price_per_unit) 
-                    FROM order_items 
-                    WHERE order_id = ?
-                ) 
-                WHERE id = ?";
-                
-        return $this->db->query($sql, [$order_id, $order_id]);
+    // Оновити елемент замовлення
+public function updateItem($item_id, $quantity, $price_per_unit) {
+    $sql = "UPDATE order_items 
+            SET quantity = ?, price_per_unit = ? 
+            WHERE id = ?";
+            
+    if ($this->db->query($sql, [$quantity, $price_per_unit, $item_id])) {
+        // Отримуємо order_id
+        $sql = "SELECT order_id FROM order_items WHERE id = ?";
+        $result = $this->db->single($sql, [$item_id]);
+        
+        if ($result) {
+            // Оновлюємо загальну суму замовлення
+            $this->updateTotalAmount($result['order_id']);
+        }
+        
+        return true;
     }
+    
+    return false;
+}
+
+// Видалити елемент замовлення
+public function deleteItem($item_id) {
+    // Отримуємо order_id перед видаленням
+    $sql = "SELECT order_id FROM order_items WHERE id = ?";
+    $result = $this->db->single($sql, [$item_id]);
+    
+    if (!$result) {
+        return false;
+    }
+    
+    $order_id = $result['order_id'];
+    
+    // Видаляємо елемент
+    $sql = "DELETE FROM order_items WHERE id = ?";
+    
+    if ($this->db->query($sql, [$item_id])) {
+        // Оновлюємо загальну суму замовлення
+        $this->updateTotalAmount($order_id);
+        return true;
+    }
+    
+    return false;
+}
     
     // Оновити статус замовлення
     public function updateStatus($order_id, $status) {

@@ -26,6 +26,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                                <?php
+                                // Отримуємо кількість інгредієнтів для кожного рецепта
+                                $usersModel = new User();
+                                $users = $usersModel->getAll();
+                                
+                                ?>
                         <?php if (empty($users)): ?>
                             <tr>
                                 <td colspan="8" class="text-center py-3">Немає користувачів</td>

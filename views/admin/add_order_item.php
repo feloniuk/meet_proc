@@ -19,7 +19,7 @@
                     <form action="<?= BASE_URL ?>/admin/addOrderItem/<?= $order['id'] ?>" method="post">
                         <div class="form-group mb-3">
                             <label for="raw_material_id">Сировина</label>
-                            <select class="form-select <?= Util::getErrorClass($errors, 'raw_material_id') ?>" 
+                            <select class="form-select <?= isset($errors['raw_material_id']) ? 'is-invalid' : '' ?>" 
                                     id="raw_material_id" 
                                     name="raw_material_id" 
                                     required>
@@ -34,7 +34,9 @@
                                     </option>
                                 <?php endforeach; ?>
                             </select>
-                            <?= Util::getErrorMessage($errors, 'raw_material_id') ?>
+                            <?php if (isset($errors['raw_material_id'])): ?>
+                                <div class="invalid-feedback"><?= $errors['raw_material_id'] ?></div>
+                            <?php endif; ?>
                         </div>
 
                         <div class="row mb-3">
@@ -42,28 +44,32 @@
                                 <div class="form-group">
                                     <label for="quantity">Кількість <span id="unit-display"></span></label>
                                     <input type="number" 
-                                           class="form-control <?= Util::getErrorClass($errors, 'quantity') ?>" 
+                                           class="form-control <?= isset($errors['quantity']) ? 'is-invalid' : '' ?>" 
                                            id="quantity" 
                                            name="quantity" 
                                            step="0.01" 
                                            min="0.01" 
                                            value="<?= isset($_POST['quantity']) ? htmlspecialchars($_POST['quantity']) : '' ?>" 
                                            required>
-                                    <?= Util::getErrorMessage($errors, 'quantity') ?>
+                                    <?php if (isset($errors['quantity'])): ?>
+                                        <div class="invalid-feedback"><?= $errors['quantity'] ?></div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="price_per_unit">Ціна за одиницю (грн)</label>
                                     <input type="number" 
-                                           class="form-control <?= Util::getErrorClass($errors, 'price_per_unit') ?>" 
+                                           class="form-control <?= isset($errors['price_per_unit']) ? 'is-invalid' : '' ?>" 
                                            id="price_per_unit" 
                                            name="price_per_unit" 
                                            step="0.01" 
                                            min="0.01" 
                                            value="<?= isset($_POST['price_per_unit']) ? htmlspecialchars($_POST['price_per_unit']) : '' ?>" 
                                            required>
-                                    <?= Util::getErrorMessage($errors, 'price_per_unit') ?>
+                                    <?php if (isset($errors['price_per_unit'])): ?>
+                                        <div class="invalid-feedback"><?= $errors['price_per_unit'] ?></div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -93,32 +99,14 @@
                 <div class="card-body">
                     <p><strong>Номер замовлення:</strong> <?= $order['id'] ?></p>
                     <p><strong>Постачальник:</strong> <?= htmlspecialchars($order['supplier_name']) ?></p>
-                    <p><strong>Дата створення:</strong> <?= Util::formatDate($order['created_at'], 'd.m.Y H:i') ?></p>
-                    <p><strong>Очікувана доставка:</strong> <?= $order['delivery_date'] ? date('d.m.Y', strtotime($order['delivery_date'])) : 'Не вказано' ?></p>
+                    <p><strong>Дата створення:</strong> <?= isset($order['created_at']) ? date('d.m.Y H:i', strtotime($order['created_at'])) : 'Не вказано' ?></p>
+                    <p><strong>Очікувана доставка:</strong> <?= isset($order['delivery_date']) && $order['delivery_date'] ? date('d.m.Y', strtotime($order['delivery_date'])) : 'Не вказано' ?></p>
                     <p><strong>Статус:</strong> 
-                        <span class="badge status-<?= $order['status'] ?>">
-                            <?= Util::getOrderStatusName($order['status']) ?>
+                        <span class="badge bg-warning">
+                            <?= isset($order['status']) ? ucfirst($order['status']) : 'Pending' ?>
                         </span>
                     </p>
-                    <p><strong>Поточна сума:</strong> <?= Util::formatMoney($order['total_amount']) ?></p>
-                </div>
-            </div>
-            
-            <!-- Підказки -->
-            <div class="card shadow-sm">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Підказки</h5>
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <h6><i class="fas fa-lightbulb text-warning me-2"></i>Вибір сировини</h6>
-                        <p class="small">Виберіть сировину з наявної у постачальника. Ціна за одиницю буде автоматично заповнена, але ви можете змінити її.</p>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <h6><i class="fas fa-lightbulb text-warning me-2"></i>Кількість</h6>
-                        <p class="small">Вкажіть необхідну кількість сировини в одиницях виміру, які використовує постачальник.</p>
-                    </div>
+                    <p><strong>Поточна сума:</strong> <?= isset($order['total_amount']) ? number_format($order['total_amount'], 2) . ' грн' : '0.00 грн' ?></p>
                 </div>
             </div>
         </div>
@@ -140,18 +128,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateMaterialInfo() {
         const selectedOption = materialSelect.options[materialSelect.selectedIndex];
         
-        // Оновлюємо відображення одиниці виміру
         if (selectedOption.value) {
             const unit = selectedOption.getAttribute('data-unit');
             unitDisplay.textContent = `(${unit})`;
             
-            // Автоматично заповнюємо ціну, якщо поле порожнє або змінився матеріал
             const price = selectedOption.getAttribute('data-price');
             if (!priceInput.value || materialSelect.dataset.lastSelected !== selectedOption.value) {
                 priceInput.value = price;
             }
             
-            // Запам'ятовуємо останній вибраний матеріал
             materialSelect.dataset.lastSelected = selectedOption.value;
         } else {
             unitDisplay.textContent = '';
@@ -169,12 +154,10 @@ document.addEventListener('DOMContentLoaded', function() {
         totalAmountDisplay.textContent = formatMoney(total);
     }
     
-    // Слухачі подій
     materialSelect.addEventListener('change', updateMaterialInfo);
     quantityInput.addEventListener('input', calculateTotal);
     priceInput.addEventListener('input', calculateTotal);
     
-    // Ініціалізація при завантаженні сторінки
     updateMaterialInfo();
 });
 </script>

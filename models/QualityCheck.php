@@ -332,4 +332,272 @@ class QualityCheck {
         
         return $recommendations;
     }
+
+    // Получить количество ожидающих проверок (для API)
+public function getPendingCount() {
+    $sql = "SELECT COUNT(*) as count FROM quality_checks WHERE status = 'pending'";
+    $result = $this->db->single($sql);
+    return $result ? $result['count'] : 0;
+}
+
+// Получить ежедневную статистику за период
+public function getDailyStatsByPeriod($start_date, $end_date) {
+    $sql = "SELECT 
+                DATE(check_date) as date,
+                COUNT(*) as total_checks,
+                SUM(CASE WHEN status = 'approved' THEN 1 ELSE 0 END) as approved,
+                SUM(CASE WHEN status = 'rejected' THEN 1 ELSE 0 END) as rejected,
+                SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) as pending
+            FROM quality_checks 
+            WHERE DATE(check_date) BETWEEN ? AND ?
+            GROUP BY DATE(check_date)
+            ORDER BY date";
+    
+    return $this->db->resultSet($sql, [$start_date, $end_date]);
+}
+
+// Получить проверки по технологу
+public function getByTechnologist($technologist_id, $limit = null) {
+    $sql = "SELECT qc.*, 
+            o.id as order_number,
+            u_supplier.name as supplier_name
+            FROM quality_checks qc
+            JOIN orders o ON qc.order_id = o.id
+            JOIN users u_supplier ON o.supplier_id = u_supplier.id
+            WHERE qc.technologist_id = ?
+            ORDER BY qc.check_date DESC";
+    
+    if ($limit) {
+        $sql .= " LIMIT " . intval($limit);
+    }
+    
+    return $this->db->resultSet($sql, [$technologist_id]);
+}
+
+// Получить проверки по поставщику
+public function getBySupplier($supplier_id, $start_date = null, $end_date = null) {
+    $sql = "SELECT qc.*, 
+            o.id as order_number,
+            u_tech.name as technologist_name
+            FROM quality_checks qc
+            JOIN orders o ON qc.order_id = o.id
+            JOIN users u_tech ON qc.technologist_id = u_tech.id
+            WHERE o.supplier_id = ?";
+    
+    $params = [$supplier_id];
+    
+    if ($start_date && $end_date) {
+        $sql .= " AND DATE(qc.check_date) BETWEEN ? AND ?";
+        $params[] = $start_date;
+        $params[] = $end_date;
+    }
+    
+    $sql .= " ORDER BY qc.check_date DESC";
+    
+    return $this->db->resultSet($sql, $params);
+}
+
+// Получить топ поставщиков по качеству
+public function getTopSuppliersByQuality($start_date, $end_date, $limit = 10) {
+    $sql = "SELECT 
+                u.id,
+                u.name as supplier_name,
+                COUNT(qc.id) as total_checks,
+                SUM(CASE WHEN qc.status = 'approved' THEN 1 ELSE 0 END) as approved,
+                SUM(CASE WHEN qc.status = 'rejected' THEN 1 ELSE 0 END) as rejected,
+                ROUND(SUM(CASE WHEN qc.status = 'approved' THEN 1 ELSE 0 END) * 100.0 / COUNT(qc.id), 2) as approval_rate,
+                AVG(CASE 
+                    WHEN qc.overall_grade = 'excellent' THEN 5
+                    WHEN qc.overall_grade = 'good' THEN 4
+                    WHEN qc.overall_grade = 'satisfactory' THEN 3
+                    WHEN qc.overall_grade = 'unsatisfactory' THEN 2
+                    ELSE 0
+                END) as avg_grade
+            FROM users u
+            JOIN orders o ON u.id = o.supplier_id
+            JOIN quality_checks qc ON o.id = qc.order_id
+            WHERE u.role = 'supplier'
+            AND DATE(qc.check_date) BETWEEN ? AND ?
+            GROUP BY u.id, u.name
+            HAVING total_checks >= 1
+            ORDER BY approval_rate DESC, avg_grade DESC
+            LIMIT ?";
+    
+    return $this->db->resultSet($sql, [$start_date, $end_date, $limit]);
+}
+
+// Получить проблемные материалы (с низким процентом одобрения)
+public function getProblematicMaterials($start_date, $end_date, $min_checks = 2) {
+    $sql = "SELECT 
+                rm.id,
+                rm.name as material_name,
+                rm.unit,
+                COUNT(qc.id) as total_checks,
+                SUM(CASE WHEN qc.status = 'approved' THEN 1 ELSE 0 END) as approved,
+                SUM(CASE WHEN qc.status = 'rejected' THEN 1 ELSE 0 END) as rejected,
+                ROUND(SUM(CASE WHEN qc.status = 'rejected' THEN 1 ELSE 0 END) * 100.0 / COUNT(qc.id), 2) as rejection_rate,
+                GROUP_CONCAT(DISTINCT qc.rejection_reason SEPARATOR '; ') as common_issues
+            FROM raw_materials rm
+            JOIN order_items oi ON rm.id = oi.raw_material_id
+            JOIN orders o ON oi.order_id = o.id
+            JOIN quality_checks qc ON o.id = qc.order_id
+            WHERE DATE(qc.check_date) BETWEEN ? AND ?
+            GROUP BY rm.id, rm.name, rm.unit
+            HAVING total_checks >= ? AND rejection_rate > 20
+            ORDER BY rejection_rate DESC";
+    
+    return $this->db->resultSet($sql, [$start_date, $end_date, $min_checks]);
+}
+
+// Получить средние значения параметров по материалу
+public function getAverageParametersByMaterial($material_id, $start_date, $end_date) {
+    $sql = "SELECT 
+                AVG(qc.temperature) as avg_temperature,
+                AVG(qc.ph_level) as avg_ph_level,
+                AVG(qc.moisture_content) as avg_moisture_content,
+                AVG(qc.visual_assessment) as avg_visual_assessment,
+                AVG(qc.smell_assessment) as avg_smell_assessment,
+                COUNT(*) as total_checks
+            FROM quality_checks qc
+            JOIN orders o ON qc.order_id = o.id
+            JOIN order_items oi ON o.id = oi.order_id
+            WHERE oi.raw_material_id = ?
+            AND DATE(qc.check_date) BETWEEN ? AND ?
+            AND qc.status IN ('approved', 'rejected')";
+    
+    return $this->db->single($sql, [$material_id, $start_date, $end_date]);
+}
+
+// Получить тренды качества (сравнение с предыдущим периодом)
+public function getQualityTrends($start_date, $end_date) {
+    // Вычисляем предыдущий период той же длительности
+    $period_length = (strtotime($end_date) - strtotime($start_date)) / (60 * 60 * 24);
+    $prev_end_date = date('Y-m-d', strtotime($start_date . ' -1 day'));
+    $prev_start_date = date('Y-m-d', strtotime($prev_end_date . ' -' . $period_length . ' days'));
+    
+    // Статистика текущего периода
+    $current_stats = $this->getStatsByPeriod($start_date, $end_date);
+    
+    // Статистика предыдущего периода
+    $previous_stats = $this->getStatsByPeriod($prev_start_date, $prev_end_date);
+    
+    // Вычисляем изменения
+    $trends = [
+        'current' => $current_stats,
+        'previous' => $previous_stats,
+        'changes' => [
+            'total_checks' => ($current_stats['total_checks'] ?: 0) - ($previous_stats['total_checks'] ?: 0),
+            'approval_rate' => ($current_stats['approval_rate'] ?: 0) - ($previous_stats['approval_rate'] ?: 0),
+            'rejection_rate' => ($current_stats['rejection_rate'] ?: 0) - ($previous_stats['rejection_rate'] ?: 0)
+        ]
+    ];
+    
+    return $trends;
+}
+
+// Получить детальную статистику для дашборда технолога
+public function getDashboardStats($technologist_id = null) {
+    $where_clause = $technologist_id ? "WHERE qc.technologist_id = ?" : "";
+    $params = $technologist_id ? [$technologist_id] : [];
+    
+    $sql = "SELECT 
+                COUNT(*) as total_checks,
+                SUM(CASE WHEN qc.status = 'pending' THEN 1 ELSE 0 END) as pending_checks,
+                SUM(CASE WHEN qc.status = 'approved' THEN 1 ELSE 0 END) as approved_checks,
+                SUM(CASE WHEN qc.status = 'rejected' THEN 1 ELSE 0 END) as rejected_checks,
+                SUM(CASE WHEN DATE(qc.check_date) = CURDATE() THEN 1 ELSE 0 END) as today_checks,
+                SUM(CASE WHEN DATE(qc.check_date) = CURDATE() AND qc.status = 'approved' THEN 1 ELSE 0 END) as today_approved,
+                SUM(CASE WHEN DATE(qc.check_date) = CURDATE() AND qc.status = 'rejected' THEN 1 ELSE 0 END) as today_rejected
+            FROM quality_checks qc
+            $where_clause";
+    
+    return $this->db->single($sql, $params);
+}
+
+// Получить список критических нарушений
+public function getCriticalViolations($start_date, $end_date) {
+    $sql = "SELECT 
+                qc.id,
+                qc.check_date,
+                qc.rejection_reason,
+                o.id as order_number,
+                u_supplier.name as supplier_name,
+                u_tech.name as technologist_name,
+                rm.name as material_name
+            FROM quality_checks qc
+            JOIN orders o ON qc.order_id = o.id
+            JOIN users u_supplier ON o.supplier_id = u_supplier.id
+            JOIN users u_tech ON qc.technologist_id = u_tech.id
+            JOIN order_items oi ON o.id = oi.order_id
+            JOIN raw_materials rm ON oi.raw_material_id = rm.id
+            WHERE qc.status = 'rejected'
+            AND qc.overall_grade = 'unsatisfactory'
+            AND DATE(qc.check_date) BETWEEN ? AND ?
+            ORDER BY qc.check_date DESC";
+    
+    return $this->db->resultSet($sql, [$start_date, $end_date]);
+}
+
+// Экспорт данных в CSV формат
+public function exportToCsv($start_date, $end_date, $filename = null) {
+    if (!$filename) {
+        $filename = 'quality_checks_' . date('Y-m-d') . '.csv';
+    }
+    
+    $checks = $this->getAll('', $start_date, $end_date);
+    
+    // Заголовки CSV
+    $headers = [
+        'ID',
+        'Дата перевірки',
+        'Замовлення',
+        'Постачальник',
+        'Технолог',
+        'Статус',
+        'Загальна оцінка',
+        'Температура',
+        'pH',
+        'Вологість',
+        'Візуальна оцінка',
+        'Оцінка запаху',
+        'Примітки',
+        'Причина відхилення'
+    ];
+    
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
+    
+    $output = fopen('php://output', 'w');
+    
+    // Добавляем BOM для корректного отображения UTF-8 в Excel
+    fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
+    
+    // Записываем заголовки
+    fputcsv($output, $headers);
+    
+    // Записываем данные
+    foreach ($checks as $check) {
+        $row = [
+            $check['id'],
+            date('d.m.Y H:i', strtotime($check['check_date'])),
+            '#' . $check['order_number'],
+            $check['supplier_name'],
+            $check['technologist_name'],
+            Util::getQualityStatusName($check['status']),
+            $check['overall_grade'] ? Util::getOverallGradeName($check['overall_grade']) : '',
+            $check['temperature'] ? $check['temperature'] . '°C' : '',
+            $check['ph_level'] ?: '',
+            $check['moisture_content'] ? $check['moisture_content'] . '%' : '',
+            $check['visual_assessment'] ?: '',
+            $check['smell_assessment'] ?: '',
+            $check['notes'] ?: '',
+            $check['rejection_reason'] ?: ''
+        ];
+        
+        fputcsv($output, $row);
+    }
+    
+    fclose($output);
+    exit;
+}
 }

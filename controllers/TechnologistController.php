@@ -150,6 +150,420 @@ class TechnologistController {
         
         include VIEWS_PATH . '/technologist/quick_approval.php';
     }
+
+// Создание новой проверки качества (если нужно создать вручную)
+public function createQualityCheck() {
+    $errors = [];
+    
+    // Получаем заказы, которые нуждаются в проверке
+    $ordersForCheck = $this->orderModel->getOrdersForQualityCheck();
+    
+    if (Util::isPost()) {
+        $order_id = Util::sanitize($_POST['order_id']);
+        $notes = Util::sanitize($_POST['notes']);
+        
+        // Валидация
+        if (empty($order_id)) {
+            $errors['order_id'] = 'Виберіть замовлення';
+        }
+        
+        // Проверяем, не существует ли уже проверка для этого заказа
+        $existingCheck = $this->qualityCheckModel->getByOrderId($order_id);
+        if ($existingCheck) {
+            $errors['order_id'] = 'Для цього замовлення вже створена перевірка якості';
+        }
+        
+        if (empty($errors)) {
+            $check_id = $this->qualityCheckModel->create($order_id, Auth::getCurrentUserId(), $notes);
+            
+            if ($check_id) {
+                $_SESSION['success'] = 'Перевірку якості успішно створено';
+                Util::redirect(BASE_URL . '/technologist/editQualityCheck/' . $check_id);
+            } else {
+                $_SESSION['error'] = 'Помилка при створенні перевірки якості';
+            }
+        }
+    }
+    
+    $data = [
+        'title' => 'Створення перевірки якості',
+        'orders' => $ordersForCheck,
+        'errors' => $errors
+    ];
+    
+    include VIEWS_PATH . '/technologist/create_quality_check.php';
+}
+
+// Редактирование проверки качества (детальная форма)
+public function editQualityCheck($id) {
+    $check = $this->qualityCheckModel->getById($id);
+    
+    if (!$check) {
+        $_SESSION['error'] = 'Перевірку якості не знайдено';
+        Util::redirect(BASE_URL . '/technologist/qualityChecks');
+    }
+    
+    $errors = [];
+    
+    if (Util::isPost()) {
+        $temperature = Util::sanitize($_POST['temperature']);
+        $ph_level = Util::sanitize($_POST['ph_level']);
+        $moisture_content = Util::sanitize($_POST['moisture_content']);
+        $visual_assessment = Util::sanitize($_POST['visual_assessment']);
+        $smell_assessment = Util::sanitize($_POST['smell_assessment']);
+        $texture_assessment = Util::sanitize($_POST['texture_assessment']);
+        $notes = Util::sanitize($_POST['notes']);
+        $status = Util::sanitize($_POST['status']);
+        $rejection_reason = Util::sanitize($_POST['rejection_reason']);
+        
+        // Валидация
+        if (!empty($temperature) && (!is_numeric($temperature) || $temperature < -10 || $temperature > 10)) {
+            $errors['temperature'] = 'Температура повинна бути від -10°C до +10°C';
+        }
+        
+        if (!empty($ph_level) && (!is_numeric($ph_level) || $ph_level < 4 || $ph_level > 8)) {
+            $errors['ph_level'] = 'pH повинен бути від 4 до 8';
+        }
+        
+        if (!empty($moisture_content) && (!is_numeric($moisture_content) || $moisture_content < 0 || $moisture_content > 100)) {
+            $errors['moisture_content'] = 'Вологість повинна бути від 0% до 100%';
+        }
+        
+        if ($status === 'rejected' && empty($rejection_reason)) {
+            $errors['rejection_reason'] = 'Вкажіть причину відхилення';
+        }
+        
+        if (empty($errors)) {
+            $overall_grade = $this->calculateOverallGrade($visual_assessment, $smell_assessment, $temperature, $ph_level);
+            
+            $updateData = [
+                'temperature' => !empty($temperature) ? $temperature : null,
+                'ph_level' => !empty($ph_level) ? $ph_level : null,
+                'moisture_content' => !empty($moisture_content) ? $moisture_content : null,
+                'visual_assessment' => $visual_assessment,
+                'smell_assessment' => $smell_assessment,
+                'texture_assessment' => $texture_assessment,
+                'overall_grade' => $overall_grade,
+                'status' => $status,
+                'notes' => $notes,
+                'rejection_reason' => $rejection_reason
+            ];
+            
+            if ($this->qualityCheckModel->update($id, $updateData)) {
+                // Обновляем статус качества в заказе
+                $this->orderModel->updateQualityStatus($check['order_id'], $status);
+                
+                // Отправляем уведомления
+                $this->sendQualityCheckNotification($check, $status);
+                
+                // Если одобрено - добавляем в инвентарь
+                if ($status === 'approved') {
+                    $this->addApprovedMaterialsToInventory($check['order_id']);
+                }
+                
+                $_SESSION['success'] = 'Перевірку якості успішно оновлено';
+                Util::redirect(BASE_URL . '/technologist/viewQualityCheck/' . $id);
+            } else {
+                $_SESSION['error'] = 'Помилка при оновленні перевірки якості';
+            }
+        }
+    }
+    
+    $order_items = $this->orderModel->getItems($check['order_id']);
+    $standards = $this->qualityCheckModel->getStandardsForOrder($check['order_id']);
+    
+    $data = [
+        'title' => 'Редагування перевірки якості',
+        'check' => $check,
+        'order_items' => $order_items,
+        'standards' => $standards,
+        'errors' => $errors
+    ];
+    
+    include VIEWS_PATH . '/technologist/edit_quality_check.php';
+}
+
+// Управление стандартами качества
+public function qualityStandards() {
+    $standards = $this->qualityCheckModel->getAllStandards();
+    
+    $data = [
+        'title' => 'Стандарти якості',
+        'standards' => $standards
+    ];
+    
+    include VIEWS_PATH . '/technologist/quality_standards.php';
+}
+
+// Добавление стандарта качества
+public function addQualityStandard() {
+    $errors = [];
+    
+    // Получаем все материалы для выбора
+    $rawMaterialModel = new RawMaterial();
+    $materials = $rawMaterialModel->getAll();
+    
+    if (Util::isPost()) {
+        $raw_material_id = Util::sanitize($_POST['raw_material_id']);
+        $parameter_name = Util::sanitize($_POST['parameter_name']);
+        $min_value = Util::sanitize($_POST['min_value']);
+        $max_value = Util::sanitize($_POST['max_value']);
+        $unit = Util::sanitize($_POST['unit']);
+        $description = Util::sanitize($_POST['description']);
+        $is_critical = isset($_POST['is_critical']) ? 1 : 0;
+        
+        // Валидация
+        if (empty($raw_material_id)) {
+            $errors['raw_material_id'] = 'Виберіть сировину';
+        }
+        
+        if (empty($parameter_name)) {
+            $errors['parameter_name'] = 'Назва параметру не може бути порожньою';
+        }
+        
+        if (!empty($min_value) && !is_numeric($min_value)) {
+            $errors['min_value'] = 'Мінімальне значення повинно бути числом';
+        }
+        
+        if (!empty($max_value) && !is_numeric($max_value)) {
+            $errors['max_value'] = 'Максимальне значення повинно бути числом';
+        }
+        
+        if (!empty($min_value) && !empty($max_value) && floatval($min_value) >= floatval($max_value)) {
+            $errors['max_value'] = 'Максимальне значення повинно бути більше мінімального';
+        }
+        
+        if (empty($errors)) {
+            if ($this->qualityCheckModel->addStandard($raw_material_id, $parameter_name, $min_value, $max_value, $unit, $description, $is_critical)) {
+                $_SESSION['success'] = 'Стандарт якості успішно додано';
+                Util::redirect(BASE_URL . '/technologist/qualityStandards');
+            } else {
+                $_SESSION['error'] = 'Помилка при додаванні стандарту якості';
+            }
+        }
+    }
+    
+    $data = [
+        'title' => 'Додавання стандарту якості',
+        'materials' => $materials,
+        'errors' => $errors
+    ];
+    
+    include VIEWS_PATH . '/technologist/add_quality_standard.php';
+}
+
+// Редактирование стандарта качества
+public function editQualityStandard($id) {
+    $sql = "SELECT qs.*, rm.name as material_name 
+            FROM quality_standards qs
+            JOIN raw_materials rm ON qs.raw_material_id = rm.id
+            WHERE qs.id = ?";
+    
+    $db = Database::getInstance();
+    $standard = $db->single($sql, [$id]);
+    
+    if (!$standard) {
+        $_SESSION['error'] = 'Стандарт якості не знайдено';
+        Util::redirect(BASE_URL . '/technologist/qualityStandards');
+    }
+    
+    $errors = [];
+    
+    if (Util::isPost()) {
+        $parameter_name = Util::sanitize($_POST['parameter_name']);
+        $min_value = Util::sanitize($_POST['min_value']);
+        $max_value = Util::sanitize($_POST['max_value']);
+        $unit = Util::sanitize($_POST['unit']);
+        $description = Util::sanitize($_POST['description']);
+        $is_critical = isset($_POST['is_critical']) ? 1 : 0;
+        
+        // Валидация
+        if (empty($parameter_name)) {
+            $errors['parameter_name'] = 'Назва параметру не може бути порожньою';
+        }
+        
+        if (!empty($min_value) && !is_numeric($min_value)) {
+            $errors['min_value'] = 'Мінімальне значення повинно бути числом';
+        }
+        
+        if (!empty($max_value) && !is_numeric($max_value)) {
+            $errors['max_value'] = 'Максимальне значення повинно бути числом';
+        }
+        
+        if (!empty($min_value) && !empty($max_value) && floatval($min_value) >= floatval($max_value)) {
+            $errors['max_value'] = 'Максимальне значення повинно бути більше мінімального';
+        }
+        
+        if (empty($errors)) {
+            if ($this->qualityCheckModel->updateStandard($id, $parameter_name, $min_value, $max_value, $unit, $description, $is_critical)) {
+                $_SESSION['success'] = 'Стандарт якості успішно оновлено';
+                Util::redirect(BASE_URL . '/technologist/qualityStandards');
+            } else {
+                $_SESSION['error'] = 'Помилка при оновленні стандарту якості';
+            }
+        }
+    }
+    
+    $data = [
+        'title' => 'Редагування стандарту якості',
+        'standard' => $standard,
+        'errors' => $errors
+    ];
+    
+    include VIEWS_PATH . '/technologist/edit_quality_standard.php';
+}
+
+// Удаление стандарта качества
+public function deleteQualityStandard($id) {
+    if ($this->qualityCheckModel->deleteStandard($id)) {
+        $_SESSION['success'] = 'Стандарт якості успішно видалено';
+    } else {
+        $_SESSION['error'] = 'Помилка при видаленні стандарту якості';
+    }
+    
+    Util::redirect(BASE_URL . '/technologist/qualityStandards');
+}
+
+// Быстрые действия (approve/reject без детальной проверки)
+public function quickAction($check_id, $action) {
+    $check = $this->qualityCheckModel->getById($check_id);
+    
+    if (!$check) {
+        $_SESSION['error'] = 'Перевірку якості не знайдено';
+        Util::redirect(BASE_URL . '/technologist/qualityChecks');
+    }
+    
+    if ($action === 'approve') {
+        $updateData = [
+            'status' => 'approved',
+            'overall_grade' => 'good',
+            'notes' => 'Швидко схвалено технологом'
+        ];
+        
+        if ($this->qualityCheckModel->update($check_id, $updateData)) {
+            $this->orderModel->updateQualityStatus($check['order_id'], 'approved');
+            $this->sendQualityCheckNotification($check, 'approved');
+            $this->addApprovedMaterialsToInventory($check['order_id']);
+            
+            $_SESSION['success'] = 'Сировину швидко схвалено';
+        } else {
+            $_SESSION['error'] = 'Помилка при схваленні сировини';
+        }
+        
+    } elseif ($action === 'reject') {
+        $updateData = [
+            'status' => 'rejected',
+            'overall_grade' => 'unsatisfactory',
+            'rejection_reason' => 'Відхилено за результатами швидкої перевірки',
+            'notes' => 'Швидко відхилено технологом'
+        ];
+        
+        if ($this->qualityCheckModel->update($check_id, $updateData)) {
+            $this->orderModel->updateQualityStatus($check['order_id'], 'rejected');
+            $this->sendQualityCheckNotification($check, 'rejected');
+            
+            $_SESSION['success'] = 'Сировину швидко відхилено';
+        } else {
+            $_SESSION['error'] = 'Помилка при відхиленні сировини';
+        }
+    }
+    
+    Util::redirect(BASE_URL . '/technologist');
+}
+
+// Генерация PDF отчета по качеству
+public function generateQualityReportPdf() {
+    $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : date('Y-m-01');
+    $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-t');
+    
+    $stats = $this->qualityCheckModel->getStatsByPeriod($start_date, $end_date);
+    $material_stats = $this->qualityCheckModel->getMaterialStatsByPeriod($start_date, $end_date);
+    $grade_distribution = $this->qualityCheckModel->getGradeDistribution($start_date, $end_date);
+    
+    $pdf = new PDF('Звіт по якості сировини');
+    $pdf->addTitle('Звіт по якості сировини за період', 'з ' . date('d.m.Y', strtotime($start_date)) . ' по ' . date('d.m.Y', strtotime($end_date)));
+    
+    // Добавляем общую статистику
+    $pdf->addText('Загальна статистика:');
+    $pdf->addText('Всього перевірок: ' . ($stats['total_checks'] ?: 0));
+    $pdf->addText('Схвалено: ' . ($stats['approved'] ?: 0));
+    $pdf->addText('Відхилено: ' . ($stats['rejected'] ?: 0));
+    $pdf->addText('Відсоток схвалення: ' . ($stats['approval_rate'] ?: 0) . '%');
+    $pdf->addText('');
+    
+    // Статистика по материалам
+    if (!empty($material_stats)) {
+        $header = ['Матеріал', 'Перевірок', 'Схвалено', 'Відхилено', '% схвалення'];
+        $data = [];
+        
+        foreach ($material_stats as $item) {
+            $data[] = [
+                $item['material_name'],
+                $item['total_checks'],
+                $item['approved'],
+                $item['rejected'],
+                $item['approval_rate'] . '%'
+            ];
+        }
+        
+        $pdf->addText('Статистика по матеріалах:');
+        $pdf->addTable($header, $data);
+    }
+    
+    // Распределение оценок
+    if (!empty($grade_distribution)) {
+        $pdf->addText('Розподіл оцінок:');
+        foreach ($grade_distribution as $grade) {
+            $grade_name = Util::getOverallGradeName($grade['overall_grade']);
+            $pdf->addText('• ' . $grade_name . ': ' . $grade['count'] . ' перевірок');
+        }
+    }
+    
+    $pdf->addDateAndSignature();
+    $pdf->output('quality_report_' . date('Y-m-d') . '.pdf');
+}
+
+// Получение данных для отчетов (JSON для AJAX)
+public function getReportsData() {
+    $type = isset($_GET['type']) ? $_GET['type'] : 'stats';
+    $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : date('Y-m-01');
+    $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-t');
+    
+    $data = [];
+    
+    switch ($type) {
+        case 'stats':
+            $data = $this->qualityCheckModel->getStatsByPeriod($start_date, $end_date);
+            break;
+        case 'materials':
+            $data = $this->qualityCheckModel->getMaterialStatsByPeriod($start_date, $end_date);
+            break;
+        case 'grades':
+            $data = $this->qualityCheckModel->getGradeDistribution($start_date, $end_date);
+            break;
+        case 'daily':
+            $sql = "SELECT DATE(check_date) as date,
+                           COUNT(*) as total_checks,
+                           SUM(CASE WHEN status = 'approved' THEN 1 ELSE 0 END) as approved,
+                           SUM(CASE WHEN status = 'rejected' THEN 1 ELSE 0 END) as rejected
+                    FROM quality_checks 
+                    WHERE DATE(check_date) BETWEEN ? AND ?
+                    GROUP BY DATE(check_date)
+                    ORDER BY date";
+            
+            $db = Database::getInstance();
+            $data = $db->resultSet($sql, [$start_date, $end_date]);
+            break;
+    }
+    
+    header('Content-Type: application/json');
+    echo json_encode($data);
+    exit;
+}
+
+
+
+
     
     // Розрахунок загальної оцінки
     private function calculateOverallGrade($visual, $smell, $temperature, $ph) {

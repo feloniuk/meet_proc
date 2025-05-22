@@ -20,33 +20,34 @@ class Order {
     
     // Отримати замовлення, що потребують перевірки якості
     public function getOrdersForQualityCheck() {
-        $sql = "SELECT o.id, o.supplier_id, o.delivery_date, o.total_amount,
+        $sql = "SELECT DISTINCT o.id, o.supplier_id, o.delivery_date, o.total_amount,
                 us.name as supplier_name,
                 uo.name as ordered_by_name
                 FROM orders o 
                 JOIN users us ON o.supplier_id = us.id
                 JOIN users uo ON o.ordered_by = uo.id
                 WHERE o.status = 'shipped' 
-                AND o.quality_status IN ('not_checked', 'pending')
+                AND o.quality_status IN ('not_checked')
                 AND NOT EXISTS (
                     SELECT 1 FROM quality_checks qc 
-                    WHERE qc.order_id = o.id 
-                    AND qc.status IN ('approved', 'rejected')
+                    WHERE qc.order_id = o.id
                 )
                 ORDER BY o.delivery_date ASC";
                 
         return $this->db->resultSet($sql);
     }
     
-    // Отримати замовлення з проблемами якості
+    // Получить заказы с проблемами качества
     public function getQualityIssues() {
         $sql = "SELECT o.*, 
                 us.name as supplier_name,
                 qc.rejection_reason,
-                qc.check_date
+                qc.check_date,
+                u_tech.name as technologist_name
                 FROM orders o 
                 JOIN users us ON o.supplier_id = us.id
                 JOIN quality_checks qc ON o.id = qc.order_id
+                JOIN users u_tech ON qc.technologist_id = u_tech.id
                 WHERE o.quality_status = 'rejected'
                 AND qc.status = 'rejected'
                 ORDER BY qc.check_date DESC";
@@ -62,16 +63,16 @@ class Order {
             return false;
         }
         
-        // Перевіряємо статус якості
+        // Проверяем статус качества
         if ($order['quality_status'] !== 'approved') {
-            return false; // Не можна приймати без схвалення технолога
+            return false; // Нельзя принимать без одобрения технолога
         }
         
-        // Отримуємо елементи замовлення
+        // Получаем элементы заказа
         $items = $this->getItems($order_id);
         
         if ($items) {
-            // Оновлюємо інвентаризацію
+            // Обновляем инвентаризацию
             $this->db->beginTransaction();
             
             try {
@@ -79,7 +80,7 @@ class Order {
                     $inventory->addQuantity($item['raw_material_id'], $item['quantity'], Auth::getCurrentUserId());
                 }
                 
-                // Оновлюємо статус замовлення
+                // Обновляем статус заказа
                 $this->updateStatus($order_id, 'delivered');
                 
                 $this->db->commit();
@@ -95,18 +96,37 @@ class Order {
     
     // Автоматичне встановлення потреби в перевірці якості
     public function ship($order_id) {
-        // Спочатку оновлюємо статус на 'shipped'
+        // Сначала обновляем статус на 'shipped'
         $result = $this->updateStatus($order_id, 'shipped');
         
         if ($result) {
-            // Встановлюємо потребу в перевірці якості
+            // Устанавливаем потребность в проверке качества
             $this->updateQualityStatus($order_id, 'not_checked');
             
-            // Відправляємо повідомлення технологу
+            // Автоматически создаем проверку качества
+            $this->createQualityCheckForOrder($order_id);
+            
+            // Отправляем уведомления технологу
             $this->notifyTechnologistAboutDelivery($order_id);
         }
         
         return $result;
+    }
+
+    private function createQualityCheckForOrder($order_id) {
+        // Находим технологов в системе
+        $sql = "SELECT id FROM users WHERE role = 'technologist' AND id IS NOT NULL LIMIT 1";
+        $technologist = $this->db->single($sql);
+        
+        if ($technologist) {
+            // Создаем проверку качества
+            $qualityCheckModel = new QualityCheck();
+            $qualityCheckModel->create(
+                $order_id, 
+                $technologist['id'], 
+                'Автоматично створена перевірка при доставці замовлення'
+            );
+        }
     }
     
     // Повідомлення технологу про доставку
@@ -114,21 +134,23 @@ class Order {
         $order = $this->getById($order_id);
         
         if ($order) {
-            // Знаходимо всіх технологів
-            $userModel = new User();
-            $technologists = $userModel->getByRole('technologist');
+            // Находим всех технологов
+            $sql = "SELECT id, name FROM users WHERE role = 'technologist'";
+            $technologists = $this->db->resultSet($sql);
             
-            $messageModel = new Message();
-            
-            foreach ($technologists as $technologist) {
-                $messageModel->send(
-                    $order['supplier_id'], // Від постачальника
-                    $technologist['id'],
-                    'Нова сировина для перевірки - Замовлення №' . $order_id,
-                    'Доставлена сировина по замовленню №' . $order_id . ' від постачальника "' . $order['supplier_name'] . '". ' .
-                    'Загальна сума: ' . Util::formatMoney($order['total_amount']) . '. ' .
-                    'Потрібна перевірка якості перед прийманням на склад.'
-                );
+            if (!empty($technologists)) {
+                $messageModel = new Message();
+                
+                foreach ($technologists as $technologist) {
+                    $messageModel->send(
+                        $order['supplier_id'], // От поставщика
+                        $technologist['id'],
+                        'Нова сировина для перевірки - Замовлення №' . $order_id,
+                        'Доставлена сировина по замовленню №' . $order_id . ' від постачальника "' . $order['supplier_name'] . '". ' .
+                        'Загальна сума: ' . Util::formatMoney($order['total_amount']) . '. ' .
+                        'Потрібна перевірка якості перед прийманням на склад.'
+                    );
+                }
             }
         }
     }
@@ -149,7 +171,7 @@ class Order {
         return $this->db->single($sql, [$start_date . ' 00:00:00', $end_date . ' 23:59:59']);
     }
     
-    // Отримати проблемних постачальників по якості
+    // Получить проблемных поставщиков по качеству
     public function getProblematicSuppliers($start_date, $end_date) {
         $sql = "SELECT 
                     u.id,
@@ -157,10 +179,10 @@ class Order {
                     COUNT(o.id) as total_orders,
                     SUM(CASE WHEN o.quality_status = 'rejected' THEN 1 ELSE 0 END) as rejected_orders,
                     ROUND(SUM(CASE WHEN o.quality_status = 'rejected' THEN 1 ELSE 0 END) * 100.0 / COUNT(o.id), 2) as rejection_rate,
-                    AVG(qc.overall_grade) as avg_grade
+                    GROUP_CONCAT(DISTINCT qc.rejection_reason SEPARATOR '; ') as common_issues
                 FROM users u
                 JOIN orders o ON u.id = o.supplier_id
-                LEFT JOIN quality_checks qc ON o.id = qc.order_id
+                LEFT JOIN quality_checks qc ON o.id = qc.order_id AND qc.status = 'rejected'
                 WHERE u.role = 'supplier'
                 AND o.created_at BETWEEN ? AND ?
                 AND o.status IN ('shipped', 'delivered')
@@ -183,15 +205,42 @@ class Order {
                     WHEN o.quality_status = 'rejected' THEN 'Відхилено'
                     WHEN o.quality_status = 'pending' THEN 'На перевірці'
                     ELSE 'Не перевірялось'
-                END as quality_status_name
+                END as quality_status_name,
+                qc.id as quality_check_id,
+                qc.technologist_id,
+                u_tech.name as technologist_name
                 FROM orders o 
                 JOIN users us ON o.supplier_id = us.id
                 JOIN users uo ON o.ordered_by = uo.id
+                LEFT JOIN quality_checks qc ON o.id = qc.order_id
+                LEFT JOIN users u_tech ON qc.technologist_id = u_tech.id
                 ORDER BY o.created_at DESC";
         return $this->db->resultSet($sql);
     }
+
+    public function setupQualityChecksForExistingOrders() {
+        // Находим заказы со статусом 'delivered' без статуса качества
+        $sql = "UPDATE orders 
+                SET quality_check_required = TRUE, 
+                    quality_status = 'approved' 
+                WHERE status = 'delivered' 
+                AND (quality_status IS NULL OR quality_status = 'not_checked')";
+        
+        $this->db->query($sql);
+        
+        // Находим заказы со статусом 'shipped' без проверок качества
+        $sql = "UPDATE orders 
+                SET quality_check_required = TRUE, 
+                    quality_status = 'not_checked' 
+                WHERE status = 'shipped' 
+                AND (quality_status IS NULL OR quality_status = 'not_checked')";
+        
+        $this->db->query($sql);
+        
+        return true;
+    }
     
-    // Отримати замовлення за ID
+    // Обновленный метод получения заказа по ID с информацией о качестве
     public function getById($id) {
         $sql = "SELECT o.*, 
                 us.name as supplier_name, us.email as supplier_email, us.phone as supplier_phone,
@@ -201,10 +250,15 @@ class Order {
                     WHEN o.quality_status = 'rejected' THEN 'Відхилено'
                     WHEN o.quality_status = 'pending' THEN 'На перевірці'
                     ELSE 'Не перевірялось'
-                END as quality_status_name
+                END as quality_status_name,
+                qc.id as quality_check_id,
+                qc.technologist_id,
+                u_tech.name as technologist_name
                 FROM orders o 
                 JOIN users us ON o.supplier_id = us.id
                 JOIN users uo ON o.ordered_by = uo.id
+                LEFT JOIN quality_checks qc ON o.id = qc.order_id
+                LEFT JOIN users u_tech ON qc.technologist_id = u_tech.id
                 WHERE o.id = ?";
         return $this->db->single($sql, [$id]);
     }
@@ -296,7 +350,7 @@ class Order {
     // Оновити статус замовлення
     public function updateStatus($order_id, $status) {
         $sql = "UPDATE orders 
-                SET status = ? 
+                SET status = ?, updated_at = NOW() 
                 WHERE id = ?";
                 
         return $this->db->query($sql, [$status, $order_id]);

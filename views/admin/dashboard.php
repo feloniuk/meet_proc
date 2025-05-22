@@ -1,10 +1,46 @@
 <?php 
-// Проверка и инициализация переменных, если они не определены
+// views/admin/dashboard.php - ИСПРАВЛЕННАЯ ВЕРСИЯ
+
+// Инициализация всех переменных значениями по умолчанию
 if (!isset($active_orders)) $active_orders = []; 
 if (!isset($low_stock)) $low_stock = []; 
 if (!isset($active_production)) $active_production = []; 
 if (!isset($unread_messages)) $unread_messages = 0; 
 if (!isset($messages)) $messages = []; 
+if (!isset($production_stats)) $production_stats = [];
+if (!isset($materials_stats)) $materials_stats = [];
+
+// Безопасное получение данных
+try {
+    // Если данные не переданы, пытаемся получить их
+    if (empty($active_orders)) {
+        $orderModel = new Order();
+        $active_orders = $orderModel->getActive() ?: [];
+    }
+    
+    if (empty($low_stock)) {
+        $inventoryModel = new Inventory();
+        $low_stock = $inventoryModel->getCriticalLowStock() ?: [];
+    }
+    
+    if (empty($active_production)) {
+        $productionModel = new Production();
+        $active_production = $productionModel->getActive() ?: [];
+    }
+    
+    if (empty($messages)) {
+        $messageModel = new Message();
+        $user_id = Auth::getCurrentUserId();
+        if ($user_id) {
+            $messages = $messageModel->getLatest($user_id, 5) ?: [];
+            $unread_messages = $messageModel->countUnread($user_id) ?: 0;
+        }
+    }
+    
+} catch (Exception $e) {
+    Util::logError("Dashboard data loading error: " . $e->getMessage());
+    // Данные остаются пустыми массивами по умолчанию
+}
 ?>
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -55,7 +91,7 @@ if (!isset($messages)) $messages = [];
                         </div>
                     </div>
                     <p class="text-muted small mt-3 mb-0">
-                        <a href="<?= BASE_URL ?>/admin/production" class="text-decoration-none">
+                        <a href="<?= BASE_URL ?>/warehouse/production" class="text-decoration-none">
                             Деталі <i class="fas fa-arrow-right ms-1"></i>
                         </a>
                     </p>
@@ -106,6 +142,7 @@ if (!isset($messages)) $messages = [];
         </div>
     </div>
     
+    <!-- Контроль якості -->
     <div class="row mb-4">
         <div class="col-md-12">
             <div class="card shadow-sm border-warning">
@@ -114,35 +151,55 @@ if (!isset($messages)) $messages = [];
                 </div>
                 <div class="card-body">
                     <?php 
-                        // Отримуємо статистику по якості за поточний місяць
-                        $orderModel = new Order();
-                        $start_date = date('Y-m-01');
-                        $end_date = date('Y-m-t');
-                        $quality_stats = $orderModel->getQualityStatsByPeriod($start_date, $end_date);
-                        
-                        // Отримуємо замовлення, що потребують перевірки
-                        $orders_for_check = $orderModel->getOrdersForQualityCheck();
-                        
-                        // Отримуємо проблемних постачальників
-                        $problematic_suppliers = $orderModel->getProblematicSuppliers($start_date, $end_date);
+                        // Безопасное получение статистики по качеству
+                        try {
+                            $orderModel = new Order();
+                            $start_date = date('Y-m-01');
+                            $end_date = date('Y-m-t');
+                            $quality_stats = $orderModel->getQualityStatsByPeriod($start_date, $end_date);
+                            
+                            if (!$quality_stats) {
+                                $quality_stats = [
+                                    'total_orders' => 0,
+                                    'approved_orders' => 0,
+                                    'rejected_orders' => 0,
+                                    'pending_orders' => 0,
+                                    'approval_rate' => 0
+                                ];
+                            }
+                            
+                            $orders_for_check = $orderModel->getOrdersForQualityCheck() ?: [];
+                            $problematic_suppliers = $orderModel->getProblematicSuppliers($start_date, $end_date) ?: [];
+                        } catch (Exception $e) {
+                            Util::logError("Quality stats error: " . $e->getMessage());
+                            $quality_stats = [
+                                'total_orders' => 0,
+                                'approved_orders' => 0,
+                                'rejected_orders' => 0,
+                                'pending_orders' => 0,
+                                'approval_rate' => 0
+                            ];
+                            $orders_for_check = [];
+                            $problematic_suppliers = [];
+                        }
                     ?>
                     
                     <div class="row">
                         <div class="col-md-3">
                             <div class="text-center">
-                                <h3 class="text-primary"><?= $quality_stats['total_orders'] ?? 0 ?></h3>
+                                <h3 class="text-primary"><?= $quality_stats['total_orders'] ?></h3>
                                 <small class="text-muted">Всього замовлень</small>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="text-center">
-                                <h3 class="text-success"><?= $quality_stats['approved_orders'] ?? 0 ?></h3>
+                                <h3 class="text-success"><?= $quality_stats['approved_orders'] ?></h3>
                                 <small class="text-muted">Схвалено</small>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="text-center">
-                                <h3 class="text-danger"><?= $quality_stats['rejected_orders'] ?? 0 ?></h3>
+                                <h3 class="text-danger"><?= $quality_stats['rejected_orders'] ?></h3>
                                 <small class="text-muted">Відхилено</small>
                             </div>
                         </div>
@@ -208,14 +265,14 @@ if (!isset($messages)) $messages = [];
                                     <?php foreach (array_slice($active_orders, 0, 5) as $order): ?>
                                         <tr>
                                             <td><?= $order['id'] ?></td>
-                                            <td><?= htmlspecialchars($order['supplier_name']) ?></td>
+                                            <td><?= htmlspecialchars($order['supplier_name'] ?? 'Не вказано') ?></td>
                                             <td>
                                                 <span class="badge status-<?= $order['status'] ?>">
                                                     <?= Util::getOrderStatusName($order['status']) ?>
                                                 </span>
                                             </td>
-                                            <td><?= Util::formatMoney($order['total_amount']) ?></td>
-                                            <td><?= Util::formatDate($order['created_at'], 'd.m.Y') ?></td>
+                                            <td><?= Util::formatMoney($order['total_amount'] ?? 0) ?></td>
+                                            <td><?= Util::formatDate($order['created_at'] ?? date('Y-m-d H:i:s'), 'd.m.Y') ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
@@ -254,9 +311,9 @@ if (!isset($messages)) $messages = [];
                                 <?php else: ?>
                                     <?php foreach ($messages as $message): ?>
                                         <tr class="<?= $message['is_read'] ? '' : 'message-unread' ?>">
-                                            <td><?= htmlspecialchars($message['sender_name']) ?></td>
-                                            <td><?= htmlspecialchars($message['subject']) ?></td>
-                                            <td><?= Util::formatDate($message['created_at']) ?></td>
+                                            <td><?= htmlspecialchars($message['sender_name'] ?? 'Невідомий') ?></td>
+                                            <td><?= htmlspecialchars($message['subject'] ?? 'Без теми') ?></td>
+                                            <td><?= Util::formatDate($message['created_at'] ?? date('Y-m-d H:i:s')) ?></td>
                                             <td>
                                                 <a href="<?= BASE_URL ?>/home/viewMessage/<?= $message['id'] ?>" 
                                                    class="btn btn-sm btn-outline-info">
@@ -274,15 +331,13 @@ if (!isset($messages)) $messages = [];
         </div>
     </div>
     
-    
+    <!-- Активні виробничі процеси -->
     <div class="row">
-        
-        <!-- Активні виробничі процеси -->
         <div class="col-md-12 mb-4">
             <div class="card shadow-sm">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0"><i class="fas fa-industry me-2"></i>Активні виробничі процеси</h5>
-                    <a href="<?= BASE_URL ?>/admin/production" class="btn btn-sm btn-outline-primary">
+                    <a href="<?= BASE_URL ?>/warehouse/production" class="btn btn-sm btn-outline-primary">
                         Всі процеси
                     </a>
                 </div>
@@ -308,15 +363,15 @@ if (!isset($messages)) $messages = [];
                                     <?php foreach (array_slice($active_production, 0, 5) as $process): ?>
                                         <tr>
                                             <td><?= $process['id'] ?></td>
-                                            <td><?= htmlspecialchars($process['product_name']) ?></td>
-                                            <td><?= $process['quantity'] ?></td>
+                                            <td><?= htmlspecialchars($process['product_name'] ?? 'Не вказано') ?></td>
+                                            <td><?= $process['quantity'] ?? 0 ?></td>
                                             <td>
                                                 <span class="badge status-<?= $process['status'] ?>">
                                                     <?= Util::getProductionStatusName($process['status']) ?>
                                                 </span>
                                             </td>
-                                            <td><?= Util::formatDate($process['started_at']) ?></td>
-                                            <td><?= htmlspecialchars($process['manager_name']) ?></td>
+                                            <td><?= Util::formatDate($process['started_at'] ?? date('Y-m-d H:i:s')) ?></td>
+                                            <td><?= htmlspecialchars($process['manager_name'] ?? 'Не вказано') ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
@@ -357,10 +412,10 @@ if (!isset($messages)) $messages = [];
                             <tbody>
                                 <?php foreach ($low_stock as $item): ?>
                                     <tr>
-                                        <td><?= htmlspecialchars($item['material_name']) ?></td>
-                                        <td class="text-danger"><?= Util::formatQuantity($item['quantity'], $item['unit']) ?></td>
-                                        <td><?= Util::formatQuantity($item['min_stock'], $item['unit']) ?></td>
-                                        <td><?= htmlspecialchars($item['supplier_name']) ?></td>
+                                        <td><?= htmlspecialchars($item['material_name'] ?? 'Не вказано') ?></td>
+                                        <td class="text-danger"><?= Util::formatQuantity($item['quantity'] ?? 0, $item['unit'] ?? '') ?></td>
+                                        <td><?= Util::formatQuantity($item['min_stock'] ?? 0, $item['unit'] ?? '') ?></td>
+                                        <td><?= htmlspecialchars($item['supplier_name'] ?? 'Не вказано') ?></td>
                                         <td>
                                             <a href="<?= BASE_URL ?>/admin/createOrder" class="btn btn-sm btn-outline-primary">
                                                 <i class="fas fa-shopping-cart me-1"></i>Замовити
@@ -382,3 +437,63 @@ if (!isset($messages)) $messages = [];
         </div>
     </div>
 </div>
+
+<style>
+.dashboard-stats .card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.dashboard-stats .card:hover {
+    transform: translateY(-2px);
+}
+
+.card-icon {
+    font-size: 2rem;
+    color: #6c757d;
+}
+
+.message-unread {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.status-pending {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.status-accepted {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.status-shipped {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.status-delivered {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.status-canceled {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.status-planned {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.status-in_progress {
+    background-color: #fd7e14;
+    color: #fff;
+}
+
+.status-completed {
+    background-color: #28a745;
+    color: #fff;
+}
+</style>

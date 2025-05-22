@@ -294,3 +294,13 @@ INSERT INTO quality_standards (raw_material_id, parameter_name, min_value, max_v
 
 -- 8. Обновляем существующие заказы для совместимости
 UPDATE orders SET quality_check_required = TRUE, quality_status = 'not_checked' WHERE status IN ('shipped', 'delivered');
+
+SELECT id, username, role, name, email, created_at 
+FROM users 
+ORDER BY id;
+
+-- Если нужно обновить роль существующего пользователя:
+UPDATE users SET role = 'admin' WHERE username = 'admin';
+UPDATE users SET role = 'warehouse_manager' WHERE username = 'warehouse';
+UPDATE users SET role = 'supplier' WHERE username = 'supplier1';
+UPDATE users SET role = 'technologist' WHERE username = 'technologist';

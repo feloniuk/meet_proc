@@ -72,7 +72,8 @@ class HomeController {
         }
         
         // Дані для постачальника
-        else if ($user_role === 'technologist') {            
+        else if ($user_role === 'technologist') {
+            
             // Відображення шаблону technologist
             include VIEWS_PATH . '/technologist/dashboard.php';
         }

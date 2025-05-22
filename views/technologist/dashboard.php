@@ -1,337 +1,306 @@
 <?php
-// views/technologist/dashboard.php
+// Инициализируем переменные если они не переданы
+$dashboard_stats = $dashboard_stats ?? [];
+$pending_checks = $pending_checks ?? [];
+$recent_checks = $recent_checks ?? [];
+$monthly_stats = $monthly_stats ?? [];
 ?>
+
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3"><i class="fas fa-microscope me-2"></i>Панель технолога</h1>
-        <div class="btn-group">
-            <a href="<?= BASE_URL ?>/technologist/reports" class="btn btn-outline-primary">
-                <i class="fas fa-chart-bar me-1"></i>Звіти
-            </a>
-            <a href="<?= BASE_URL ?>/technologist/qualityChecks" class="btn btn-outline-primary">
-                <i class="fas fa-clipboard-check me-1"></i>Перевірки якості
-            </a>
+        <h1 class="h3">
+            <i class="fas fa-microscope me-2"></i>Панель технолога
+        </h1>
+        <div class="text-muted">
+            <?= Util::formatDate(date('Y-m-d H:i:s'), 'd.m.Y H:i') ?>
         </div>
     </div>
-    
-    <!-- Основні показники -->
-    <div class="row dashboard-stats mb-4">
-        <div class="col-md-3 mb-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="card-title text-muted mb-0">Очікують перевірки</h6>
-                            <h2 class="mt-2 mb-0"><?= count($pending_checks) ?></h2>
-                        </div>
-                        <div class="card-icon text-warning">
-                            <i class="fas fa-hourglass-half"></i>
-                        </div>
+
+    <!-- Приветствие -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="alert alert-info">
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <i class="fas fa-user-circle fa-3x"></i>
                     </div>
-                    <p class="text-muted small mt-3 mb-0">
-                        <a href="<?= BASE_URL ?>/technologist/qualityChecks?status=pending" class="text-decoration-none">
-                            Деталі <i class="fas fa-arrow-right ms-1"></i>
-                        </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-3 mb-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="card-title text-muted mb-0">Завершено сьогодні</h6>
-                            <h2 class="mt-2 mb-0">
-                                <?= count(array_filter($completed_checks, function($check) {
-                                    return date('Y-m-d', strtotime($check['check_date'])) === date('Y-m-d');
-                                })) ?>
-                            </h2>
-                        </div>
-                        <div class="card-icon text-success">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
+                    <div>
+                        <h5 class="mb-1">Вітаємо, <?= Auth::getCurrentUserName() ?>!</h5>
+                        <p class="mb-0">
+                            Контроль якості сировини та забезпечення стандартів виробництва
+                        </p>
+                        <small class="text-muted">
+                            Сьогодні <?= Util::formatDate(date('Y-m-d'), 'd.m.Y') ?>
+                        </small>
                     </div>
-                    <p class="text-muted small mt-3 mb-0">
-                        <a href="<?= BASE_URL ?>/technologist/qualityChecks" class="text-decoration-none">
-                            Деталі <i class="fas fa-arrow-right ms-1"></i>
-                        </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-3 mb-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="card-title text-muted mb-0">Повідомлення</h6>
-                            <h2 class="mt-2 mb-0"><?= $unread_messages ?></h2>
-                        </div>
-                        <div class="card-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                    </div>
-                    <p class="text-muted small mt-3 mb-0">
-                        <a href="<?= BASE_URL ?>/home/messages" class="text-decoration-none">
-                            Деталі <i class="fas fa-arrow-right ms-1"></i>
-                        </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-3 mb-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="card-title text-muted mb-0">Стандарти якості</h6>
-                            <h2 class="mt-2 mb-0">
-                                <?php
-                                    // Підрахунок кількості стандартів
-                                    $qualityCheckModel = new QualityCheck();
-                                    $standards = $qualityCheckModel->getAllStandards();
-                                    echo count($standards);
-                                ?>
-                            </h2>
-                        </div>
-                        <div class="card-icon text-info">
-                            <i class="fas fa-clipboard-list"></i>
-                        </div>
-                    </div>
-                    <p class="text-muted small mt-3 mb-0">
-                        <a href="<?= BASE_URL ?>/technologist/qualityStandards" class="text-decoration-none">
-                            Деталі <i class="fas fa-arrow-right ms-1"></i>
-                        </a>
-                    </p>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div class="row">
-        <!-- Замовлення, що очікують перевірки -->
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0"><i class="fas fa-hourglass-half me-2"></i>Очікують перевірки</h5>
-                    <a href="<?= BASE_URL ?>/technologist/createQualityCheck" class="btn btn-sm btn-success">
-                        <i class="fas fa-plus me-1"></i>Нова перевірка
+
+    <!-- Статистические карточки -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="fas fa-clock fa-2x text-warning mb-2"></i>
+                    <h4 class="text-warning"><?= $dashboard_stats['pending_checks'] ?? 0 ?></h4>
+                    <h6 class="card-title">Очікують перевірки</h6>
+                    <a href="<?= BASE_URL ?>/technologist/qualityChecks?status=pending" class="btn btn-warning btn-sm">
+                        Переглянути
                     </a>
                 </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Замовлення</th>
-                                    <th>Постачальник</th>
-                                    <th>Дата доставки</th>
-                                    <th>Дії</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php if (empty($pending_checks)): ?>
+            </div>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="fas fa-check-circle fa-2x text-success mb-2"></i>
+                    <h4 class="text-success"><?= $dashboard_stats['approved_checks'] ?? 0 ?></h4>
+                    <h6 class="card-title">Схвалено</h6>
+                    <small class="text-muted">Всього перевірок</small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="fas fa-times-circle fa-2x text-danger mb-2"></i>
+                    <h4 class="text-danger"><?= $dashboard_stats['rejected_checks'] ?? 0 ?></h4>
+                    <h6 class="card-title">Відхилено</h6>
+                    <small class="text-muted">Всього перевірок</small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="fas fa-calendar-check fa-2x text-info mb-2"></i>
+                    <h4 class="text-info"><?= $dashboard_stats['today_checks'] ?? 0 ?></h4>
+                    <h6 class="card-title">Сьогодні</h6>
+                    <small class="text-muted">Перевірок проведено</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Быстрые действия -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h4 class="mb-3">
+                <i class="fas fa-bolt me-2"></i>Швидкі дії
+            </h4>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="fas fa-clipboard-check fa-2x text-primary mb-2"></i>
+                    <h6 class="card-title">Перевірки якості</h6>
+                    <p class="card-text small">Перегляд та проведення перевірок</p>
+                    <a href="<?= BASE_URL ?>/technologist/qualityChecks" class="btn btn-primary btn-sm">Перейти</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="fas fa-cog fa-2x text-success mb-2"></i>
+                    <h6 class="card-title">Стандарти якості</h6>
+                    <p class="card-text small">Управління стандартами</p>
+                    <a href="<?= BASE_URL ?>/technologist/standards" class="btn btn-success btn-sm">Перейти</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="fas fa-chart-area fa-2x text-info mb-2"></i>
+                    <h6 class="card-title">Звіти якості</h6>
+                    <p class="card-text small">Аналіз та статистика</p>
+                    <a href="<?= BASE_URL ?>/technologist/reports" class="btn btn-info btn-sm">Перейти</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="fas fa-plus fa-2x text-warning mb-2"></i>
+                    <h6 class="card-title">Новий стандарт</h6>
+                    <p class="card-text small">Додати стандарт якості</p>
+                    <a href="<?= BASE_URL ?>/technologist/addStandard" class="btn btn-warning btn-sm">Додати</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Ожидающие проверки -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="fas fa-hourglass-half me-2"></i>Очікують перевірки
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <?php if (empty($pending_checks)): ?>
+                        <div class="text-center py-3">
+                            <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                            <p class="text-muted">Всі перевірки виконано!</p>
+                        </div>
+                    <?php else: ?>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
                                     <tr>
-                                        <td colspan="4" class="text-center py-3">Немає замовлень для перевірки</td>
+                                        <th>Замовлення</th>
+                                        <th>Постачальник</th>
+                                        <th>Дата</th>
                                     </tr>
-                                <?php else: ?>
-                                    <?php foreach ($pending_checks as $check): ?>
+                                </thead>
+                                <tbody>
+                                    <?php foreach (array_slice($pending_checks, 0, 5) as $check): ?>
                                         <tr>
-                                            <td>#<?= $check['order_number'] ?></td>
-                                            <td><?= htmlspecialchars($check['supplier_name']) ?></td>
-                                            <td><?= $check['delivery_date'] ? date('d.m.Y', strtotime($check['delivery_date'])) : '-' ?></td>
                                             <td>
-                                                <div class="btn-group btn-group-sm">
-                                                    <a href="<?= BASE_URL ?>/technologist/editQualityCheck/<?= $check['id'] ?>" 
-                                                       class="btn btn-outline-primary">
-                                                        <i class="fas fa-microscope"></i>
-                                                    </a>
-                                                    <a href="<?= BASE_URL ?>/technologist/quickAction/<?= $check['id'] ?>/approve" 
-                                                       class="btn btn-outline-success" 
-                                                       onclick="return confirm('Схвалити сировину без детальної перевірки?');">
-                                                        <i class="fas fa-check"></i>
-                                                    </a>
-                                                    <a href="<?= BASE_URL ?>/technologist/quickAction/<?= $check['id'] ?>/reject" 
-                                                       class="btn btn-outline-danger" 
-                                                       onclick="return confirm('Відхилити сировину?');">
-                                                        <i class="fas fa-times"></i>
-                                                    </a>
-                                                </div>
+                                                <a href="<?= BASE_URL ?>/technologist/viewCheck/<?= $check['id'] ?>" class="text-decoration-none">
+                                                    #<?= $check['order_number'] ?>
+                                                </a>
                                             </td>
+                                            <td><?= htmlspecialchars($check['supplier_name']) ?></td>
+                                            <td><?= Util::formatDate($check['check_date'], 'd.m.Y') ?></td>
                                         </tr>
                                     <?php endforeach; ?>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
-                    </div>
+                                </tbody>
+                            </table>
+                        </div>
+                        <?php if (count($pending_checks) > 5): ?>
+                            <div class="text-center mt-2">
+                                <a href="<?= BASE_URL ?>/technologist/qualityChecks?status=pending" class="btn btn-outline-primary btn-sm">
+                                    Переглянути всі (<?= count($pending_checks) ?>)
+                                </a>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
-        
-        <!-- Останні завершені перевірки -->
+
+        <!-- Последние проверки -->
         <div class="col-md-6 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0"><i class="fas fa-history me-2"></i>Останні перевірки</h5>
-                    <a href="<?= BASE_URL ?>/technologist/qualityChecks" class="btn btn-sm btn-outline-primary">
-                        Всі перевірки
-                    </a>
+            <div class="card h-100">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="fas fa-history me-2"></i>Останні перевірки
+                    </h6>
                 </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Замовлення</th>
-                                    <th>Постачальник</th>
-                                    <th>Статус</th>
-                                    <th>Дата</th>
-                                    <th>Дії</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php if (empty($completed_checks)): ?>
+                <div class="card-body">
+                    <?php if (empty($recent_checks)): ?>
+                        <div class="text-center py-3">
+                            <i class="fas fa-clipboard-list fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">Перевірок ще не проводилось</p>
+                        </div>
+                    <?php else: ?>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
                                     <tr>
-                                        <td colspan="5" class="text-center py-3">Немає завершених перевірок</td>
+                                        <th>Замовлення</th>
+                                        <th>Статус</th>
+                                        <th>Дата</th>
                                     </tr>
-                                <?php else: ?>
-                                    <?php foreach ($completed_checks as $check): ?>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($recent_checks as $check): ?>
                                         <tr>
-                                            <td>#<?= $check['order_number'] ?></td>
-                                            <td><?= htmlspecialchars($check['supplier_name']) ?></td>
                                             <td>
-                                                <span class="badge bg-<?= 
-                                                    $check['status'] === 'approved' ? 'success' : 
-                                                    ($check['status'] === 'rejected' ? 'danger' : 'warning') 
-                                                ?>">
-                                                    <?= $check['status'] === 'approved' ? 'Схвалено' : 
-                                                        ($check['status'] === 'rejected' ? 'Відхилено' : 'Очікує') ?>
+                                                <a href="<?= BASE_URL ?>/technologist/viewCheck/<?= $check['id'] ?>" class="text-decoration-none">
+                                                    #<?= $check['order_number'] ?>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-<?= Util::getQualityStatusClass($check['status']) ?>">
+                                                    <?= Util::getQualityStatusName($check['status']) ?>
                                                 </span>
                                             </td>
-                                            <td><?= date('d.m.Y', strtotime($check['check_date'])) ?></td>
-                                            <td>
-                                                <a href="<?= BASE_URL ?>/technologist/viewQualityCheck/<?= $check['id'] ?>" 
-                                                   class="btn btn-sm btn-outline-info">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                            </td>
+                                            <td><?= Util::formatDate($check['check_date'], 'd.m H:i') ?></td>
                                         </tr>
                                     <?php endforeach; ?>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
-                    </div>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center mt-2">
+                            <a href="<?= BASE_URL ?>/technologist/qualityChecks" class="btn btn-outline-info btn-sm">
+                                Переглянути всі перевірки
+                            </a>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
-    
+
+    <!-- Статистика за месяц -->
+    <?php if (!empty($monthly_stats)): ?>
     <div class="row">
-        <!-- Останні повідомлення -->
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0"><i class="fas fa-envelope me-2"></i>Останні повідомлення</h5>
-                    <a href="<?= BASE_URL ?>/home/messages" class="btn btn-sm btn-outline-primary">
-                        Всі повідомлення
-                    </a>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Відправник</th>
-                                    <th>Тема</th>
-                                    <th>Дата</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php if (empty($messages)): ?>
-                                    <tr>
-                                        <td colspan="4" class="text-center py-3">Немає повідомлень</td>
-                                    </tr>
-                                <?php else: ?>
-                                    <?php foreach ($messages as $message): ?>
-                                        <tr class="<?= $message['is_read'] ? '' : 'message-unread' ?>">
-                                            <td><?= htmlspecialchars($message['sender_name']) ?></td>
-                                            <td><?= htmlspecialchars($message['subject']) ?></td>
-                                            <td><?= Util::formatDate($message['created_at']) ?></td>
-                                            <td>
-                                                <a href="<?= BASE_URL ?>/home/viewMessage/<?= $message['id'] ?>" 
-                                                   class="btn btn-sm btn-outline-info">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Швидка статистика якості -->
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-sm">
+        <div class="col-12">
+            <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Статистика якості (поточний місяць)</h5>
+                    <h6 class="mb-0">
+                        <i class="fas fa-chart-line me-2"></i>Статистика за останні 30 днів
+                    </h6>
                 </div>
                 <div class="card-body">
-                    <?php
-                        // Отримуємо статистику за поточний місяць
-                        $qualityCheckModel = new QualityCheck();
-                        $start_date = date('Y-m-01');
-                        $end_date = date('Y-m-t');
-                        $stats = $qualityCheckModel->getStatsByPeriod($start_date, $end_date);
-                    ?>
-                    
                     <div class="row text-center">
-                        <div class="col-4">
-                            <div class="border rounded p-3">
-                                <h4 class="text-primary"><?= $stats['total_checks'] ?: 0 ?></h4>
+                        <div class="col-md-3">
+                            <div class="p-3">
+                                <div class="h4 text-primary"><?= $monthly_stats['total_checks'] ?? 0 ?></div>
                                 <small class="text-muted">Всього перевірок</small>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <div class="border rounded p-3">
-                                <h4 class="text-success"><?= $stats['approved'] ?: 0 ?></h4>
-                                <small class="text-muted">Схвалено</small>
+                        <div class="col-md-3">
+                            <div class="p-3">
+                                <div class="h4 text-success"><?= $monthly_stats['approval_rate'] ?? 0 ?>%</div>
+                                <small class="text-muted">Рівень схвалення</small>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <div class="border rounded p-3">
-                                <h4 class="text-danger"><?= $stats['rejected'] ?: 0 ?></h4>
-                                <small class="text-muted">Відхилено</small>
+                        <div class="col-md-3">
+                            <div class="p-3">
+                                <div class="h4 text-danger"><?= $monthly_stats['rejection_rate'] ?? 0 ?>%</div>
+                                <small class="text-muted">Рівень відхилення</small>
                             </div>
                         </div>
-                    </div>
-                    
-                    <?php if ($stats['total_checks'] > 0): ?>
-                        <div class="progress mt-3" style="height: 25px;">
-                            <div class="progress-bar bg-success" role="progressbar" 
-                                 style="width: <?= $stats['approval_rate'] ?>%"
-                                 aria-valuenow="<?= $stats['approval_rate'] ?>" 
-                                 aria-valuemin="0" aria-valuemax="100">
-                                <?= round($stats['approval_rate'], 1) ?>% схвалено
+                        <div class="col-md-3">
+                            <div class="p-3">
+                                <div class="h4 text-warning"><?= $monthly_stats['pending'] ?? 0 ?></div>
+                                <small class="text-muted">Очікують рішення</small>
                             </div>
                         </div>
-                    <?php endif; ?>
-                    
-                    <div class="text-center mt-3">
-                        <a href="<?= BASE_URL ?>/technologist/qualityReport" class="btn btn-outline-primary">
-                            <i class="fas fa-chart-bar me-1"></i>Детальний звіт
-                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <?php endif; ?>
 </div>
+
+<style>
+.card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.h-100 {
+    height: 100%!important;
+}
+
+.table-sm td {
+    padding: 0.5rem 0.25rem;
+}
+</style>

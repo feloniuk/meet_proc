@@ -1,101 +1,212 @@
-<div class="auth-container">
-    <div class="card auth-card shadow">
-        <div class="card-body p-5">
-            <div class="text-center mb-4">
-                <i class="fas fa-user-plus auth-icon"></i>
-                <h3 class="card-title">Реєстрація постачальника</h3>
-                <p class="text-muted">Створіть обліковий запис для вашої організації</p>
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow">
+            <div class="card-header text-center">
+                <h4 class="mb-0">
+                    <i class="fas fa-user-plus me-2"></i>Реєстрація в системі
+                </h4>
             </div>
-            
-            <form action="<?= BASE_URL ?>/auth/register" method="post">
-                <div class="form-group mb-3">
-                    <label for="username">Ім'я користувача</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        <input type="text" class="form-control <?= isset($errors['username']) ? 'is-invalid' : '' ?>" 
-                              id="username" name="username" placeholder="Введіть ім'я користувача" 
-                              value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : '' ?>">
-                        <?php if (isset($errors['username'])): ?>
-                            <div class="invalid-feedback"><?= $errors['username'] ?></div>
-                        <?php endif; ?>
+            <div class="card-body">
+                <?php if (isset($errors['register'])): ?>
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle me-2"></i><?= $errors['register'] ?>
                     </div>
-                    <small class="form-text text-muted">Мінімум 3 символи, буде використовуватись для входу.</small>
-                </div>
+                <?php endif; ?>
                 
-                <div class="form-group mb-3">
-                    <label for="password">Пароль</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                        <input type="password" class="form-control <?= isset($errors['password']) ? 'is-invalid' : '' ?>" 
-                              id="password" name="password" placeholder="Введіть пароль">
-                        <?php if (isset($errors['password'])): ?>
-                            <div class="invalid-feedback"><?= $errors['password'] ?></div>
-                        <?php endif; ?>
+                <form action="<?= BASE_URL ?>/auth/register" method="post">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">
+                                    <i class="fas fa-user me-1"></i>Логін *
+                                </label>
+                                <input type="text" 
+                                       class="form-control <?= isset($errors['username']) ? 'is-invalid' : '' ?>" 
+                                       id="username" 
+                                       name="username" 
+                                       value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : '' ?>" 
+                                       placeholder="Мінімум 3 символи"
+                                       required>
+                                <?php if (isset($errors['username'])): ?>
+                                    <div class="invalid-feedback"><?= $errors['username'] ?></div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="role" class="form-label">
+                                    <i class="fas fa-user-tag me-1"></i>Роль *
+                                </label>
+                                <select class="form-select <?= isset($errors['role']) ? 'is-invalid' : '' ?>" 
+                                        id="role" 
+                                        name="role" 
+                                        required>
+                                    <option value="">Виберіть роль</option>
+                                    <option value="warehouse_manager" <?= isset($_POST['role']) && $_POST['role'] === 'warehouse_manager' ? 'selected' : '' ?>>
+                                        Начальник складу
+                                    </option>
+                                    <option value="supplier" <?= isset($_POST['role']) && $_POST['role'] === 'supplier' ? 'selected' : '' ?>>
+                                        Постачальник
+                                    </option>
+                                    <option value="technologist" <?= isset($_POST['role']) && $_POST['role'] === 'technologist' ? 'selected' : '' ?>>
+                                        Технолог
+                                    </option>
+                                </select>
+                                <?php if (isset($errors['role'])): ?>
+                                    <div class="invalid-feedback"><?= $errors['role'] ?></div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
-                    <small class="form-text text-muted">Мінімум 6 символів.</small>
-                </div>
-                
-                <div class="form-group mb-3">
-                    <label for="confirm_password">Підтвердження пароля</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                        <input type="password" class="form-control <?= isset($errors['confirm_password']) ? 'is-invalid' : '' ?>" 
-                              id="confirm_password" name="confirm_password" placeholder="Повторіть пароль">
-                        <?php if (isset($errors['confirm_password'])): ?>
-                            <div class="invalid-feedback"><?= $errors['confirm_password'] ?></div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                
-                <div class="form-group mb-3">
-                    <label for="name">Назва організації</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-building"></i></span>
-                        <input type="text" class="form-control <?= isset($errors['name']) ? 'is-invalid' : '' ?>" 
-                              id="name" name="name" placeholder="Введіть назву організації" 
-                              value="<?= isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '' ?>">
+                    
+                    <div class="mb-3">
+                        <label for="name" class="form-label">
+                            <i class="fas fa-id-card me-1"></i>Повне ім'я / Назва організації *
+                        </label>
+                        <input type="text" 
+                               class="form-control <?= isset($errors['name']) ? 'is-invalid' : '' ?>" 
+                               id="name" 
+                               name="name" 
+                               value="<?= isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '' ?>" 
+                               placeholder="Введіть повне ім'я або назву організації"
+                               required>
                         <?php if (isset($errors['name'])): ?>
                             <div class="invalid-feedback"><?= $errors['name'] ?></div>
                         <?php endif; ?>
                     </div>
-                </div>
-                
-                <div class="form-group mb-3">
-                    <label for="email">Email</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                        <input type="email" class="form-control <?= isset($errors['email']) ? 'is-invalid' : '' ?>" 
-                              id="email" name="email" placeholder="Введіть email" 
-                              value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>">
-                        <?php if (isset($errors['email'])): ?>
-                            <div class="invalid-feedback"><?= $errors['email'] ?></div>
-                        <?php endif; ?>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">
+                                    <i class="fas fa-envelope me-1"></i>Email *
+                                </label>
+                                <input type="email" 
+                                       class="form-control <?= isset($errors['email']) ? 'is-invalid' : '' ?>" 
+                                       id="email" 
+                                       name="email" 
+                                       value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>" 
+                                       placeholder="example@domain.com"
+                                       required>
+                                <?php if (isset($errors['email'])): ?>
+                                    <div class="invalid-feedback"><?= $errors['email'] ?></div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">
+                                    <i class="fas fa-phone me-1"></i>Телефон
+                                </label>
+                                <input type="tel" 
+                                       class="form-control" 
+                                       id="phone" 
+                                       name="phone" 
+                                       value="<?= isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : '' ?>" 
+                                       placeholder="+380XXXXXXXXX">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="form-group mb-4">
-                    <label for="phone">Телефон</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                        <input type="text" class="form-control" id="phone" name="phone" 
-                              placeholder="Введіть номер телефону" 
-                              value="<?= isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : '' ?>">
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="password" class="form-label">
+                                    <i class="fas fa-lock me-1"></i>Пароль *
+                                </label>
+                                <input type="password" 
+                                       class="form-control <?= isset($errors['password']) ? 'is-invalid' : '' ?>" 
+                                       id="password" 
+                                       name="password" 
+                                       placeholder="Мінімум 6 символів"
+                                       required>
+                                <?php if (isset($errors['password'])): ?>
+                                    <div class="invalid-feedback"><?= $errors['password'] ?></div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="confirm_password" class="form-label">
+                                    <i class="fas fa-lock me-1"></i>Підтвердження пароля *
+                                </label>
+                                <input type="password" 
+                                       class="form-control <?= isset($errors['confirm_password']) ? 'is-invalid' : '' ?>" 
+                                       id="confirm_password" 
+                                       name="confirm_password" 
+                                       placeholder="Повторіть пароль"
+                                       required>
+                                <?php if (isset($errors['confirm_password'])): ?>
+                                    <div class="invalid-feedback"><?= $errors['confirm_password'] ?></div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-user-plus me-1"></i>Зареєструватися
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <small class="text-muted">
+                    Вже маєте обліковий запис? 
+                    <a href="<?= BASE_URL ?>/auth/login" class="text-decoration-none">
+                        Увійти
+                    </a>
+                </small>
+            </div>
+        </div>
+        
+        <div class="alert alert-info mt-4">
+            <div class="d-flex">
+                <div class="me-3">
+                    <i class="fas fa-info-circle fa-2x"></i>
                 </div>
-                
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-user-plus me-2"></i>Зареєструватися
-                    </button>
+                <div>
+                    <h6>Інформація про реєстрацію</h6>
+                    <small>
+                        • Поля позначені * є обов'язковими<br>
+                        • Пароль повинен містити мінімум 6 символів<br>
+                        • Email буде використовуватися для повідомлень<br>
+                        • Після реєстрації ви зможете увійти в систему
+                    </small>
                 </div>
-            </form>
-            
-            <div class="text-center mt-4">
-                <p>Вже маєте обліковий запис?</p>
-                <a href="<?= BASE_URL ?>/auth/login" class="btn btn-outline-secondary">
-                    <i class="fas fa-sign-in-alt me-2"></i>Увійти
-                </a>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm_password');
+    
+    // Проверка совпадения паролей
+    function checkPasswordMatch() {
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        
+        if (confirmPassword.length === 0) {
+            confirmPasswordInput.classList.remove('is-valid', 'is-invalid');
+            return;
+        }
+        
+        if (password === confirmPassword) {
+            confirmPasswordInput.classList.remove('is-invalid');
+            confirmPasswordInput.classList.add('is-valid');
+        } else {
+            confirmPasswordInput.classList.remove('is-valid');
+            confirmPasswordInput.classList.add('is-invalid');
+        }
+    }
+    
+    confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+    passwordInput.addEventListener('input', checkPasswordMatch);
+});
+</script>

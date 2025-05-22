@@ -1,0 +1,84 @@
+[2025-05-22 13:46:43] Error: Illegal string offset 'id' in D:\diploms-2025\meet_proc\includes\Auth.php on line 55
+[2025-05-22 13:46:51] Error: Illegal string offset 'id' in D:\diploms-2025\meet_proc\includes\Auth.php on line 55
+[2025-05-22 13:46:58] Error: Illegal string offset 'id' in D:\diploms-2025\meet_proc\includes\Auth.php on line 55
+[2025-05-22 13:47:59] Fatal Error: Cannot redeclare Auth::getCurrentUsername() in D:\diploms-2025\meet_proc\controllers\AuthController.php on line 51
+[2025-05-22 13:48:00] Fatal Error: Cannot redeclare Auth::getCurrentUsername() in D:\diploms-2025\meet_proc\controllers\AuthController.php on line 51
+[2025-05-22 13:48:12] Fatal Error: Cannot declare class Auth, because the name is already in use in D:\diploms-2025\meet_proc\controllers\AuthController.php on line 2
+[2025-05-22 13:48:13] Fatal Error: Cannot declare class Auth, because the name is already in use in D:\diploms-2025\meet_proc\controllers\AuthController.php on line 2
+[2025-05-22 13:48:32] Fatal Error: Cannot redeclare Auth::getCurrentUsername() in D:\diploms-2025\meet_proc\includes\Auth.php on line 51
+[2025-05-22 13:48:33] Fatal Error: Cannot redeclare Auth::getCurrentUsername() in D:\diploms-2025\meet_proc\includes\Auth.php on line 51
+[2025-05-22 17:27:09] Error: Constant DEBUG already defined in D:\diploms-2025\meet_proc\index.php on line 11
+[2025-05-22 17:27:10] Error: Constant DEBUG already defined in D:\diploms-2025\meet_proc\index.php on line 11
+[2025-05-22 17:27:42] Error: Constant DEBUG already defined in D:\diploms-2025\meet_proc\index.php on line 7
+[2025-05-22 17:27:43] Error: Constant DEBUG already defined in D:\diploms-2025\meet_proc\index.php on line 7
+[2025-05-22 17:28:09] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:28:17] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:28:20] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:28:25] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:28:29] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:28:46] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:28:48] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:29:01] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:29:04] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:29:07] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:29:10] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:29:21] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:29:32] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:29:45] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:29:46] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:29:49] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:29:52] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:29:59] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:30:34] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:30:41] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:30:53] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:30:54] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:31:00] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:31:03] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:31:05] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:31:09] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:31:22] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:31:30] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:31:40] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:31:42] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:31:46] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:32:11] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:32:30] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:32:33] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:33:14] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:33:48] Error: require_once(D:\diploms-2025\meet_proc/controllers/Favicon.icoController.php): failed to open stream: No such file or directory in D:\diploms-2025\meet_proc\index.php on line 41
+[2025-05-22 17:35:50] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:35:51] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:35:56] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:35:57] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:35:59] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:36:02] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:36:08] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:36:20] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:36:21] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:36:24] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:36:29] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:36:31] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:37:04] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:37:05] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:37:21] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:37:22] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:37:56] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:37:58] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:39:08] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:39:09] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:40:01] Error: Undefined variable: pending_checks in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:40:03] Error: Undefined variable: pending_checks in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:40:18] Error: Undefined variable: pending_checks in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:40:19] Error: Undefined variable: pending_checks in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:40:59] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:41:00] Error: count(): Parameter must be an array or an object that implements Countable in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:41:10] Error: Undefined variable: pending_checks in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:41:11] Error: Undefined variable: pending_checks in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:43:16] Error: Undefined variable: pending_checks in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:43:17] Error: Undefined variable: pending_checks in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:43:40] Error: Undefined variable: completed_checks in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 54
+[2025-05-22 17:43:41] Error: Undefined variable: completed_checks in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 54
+[2025-05-22 17:46:38] Error: Undefined variable: pending_checks in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:46:39] Error: Undefined variable: pending_checks in D:\diploms-2025\meet_proc\views\technologist\dashboard.php on line 25
+[2025-05-22 17:49:07] Error: Undefined variable: locations in D:\diploms-2025\meet_proc\views\admin\add_camera.php on line 49

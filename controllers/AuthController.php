@@ -1,96 +1,103 @@
 <?php
 class AuthController {
-    private $auth;
     
-    public function __construct() {
-        $this->auth = new Auth();
+    public function index() {
+        // Если пользователь уже авторизован, перенаправляем на главную
+        if (Auth::isLoggedIn()) {
+            header('Location: ' . BASE_URL . '/home');
+            exit;
+        }
+        
+        // Показываем страницу авторизации
+        $this->login();
     }
     
-    // Сторінка входу
     public function login() {
-        // Якщо користувач вже авторизований, перенаправляємо на головну
+        // Если пользователь уже авторизован, перенаправляем на главную
         if (Auth::isLoggedIn()) {
-            Util::redirect(BASE_URL . '/home');
+            header('Location: ' . BASE_URL . '/home');
+            exit;
         }
         
         $errors = [];
         
-        // Обробка форми входу
-        if (Util::isPost()) {
-            $username = Util::sanitize($_POST['username']);
-            $password = $_POST['password'];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $username = trim($_POST['username'] ?? '');
+            $password = $_POST['password'] ?? '';
             
-            // Валідація
+            // Валидация
             if (empty($username)) {
-                $errors['username'] = 'Ім\'я користувача не може бути порожнім';
+                $errors['username'] = 'Логін не може бути порожнім';
             }
             
             if (empty($password)) {
                 $errors['password'] = 'Пароль не може бути порожнім';
             }
             
-            // Якщо помилок немає, виконуємо вхід
+            // Если нет ошибок валидации, пытаемся авторизовать
             if (empty($errors)) {
-                if ($this->auth->login($username, $password)) {
-                    // Перенаправляємо на головну сторінку
-                    Util::redirect(BASE_URL . '/home');
+                if (Auth::login($username, $password)) {
+                    $_SESSION['success'] = 'Ви успішно увійшли в систему';
+                    
+                    // Перенаправляем на главную страницу
+                    header('Location: ' . BASE_URL . '/home');
+                    exit;
                 } else {
-                    $errors['auth'] = 'Неправильне ім\'я користувача або пароль';
+                    $errors['login'] = 'Невірний логін або пароль';
                 }
             }
         }
         
+        // Показываем форму входа
         $data = [
-            'title' => 'Вхід до системи',
+            'title' => 'Вхід в систему',
             'errors' => $errors
         ];
         
-        require VIEWS_PATH . '/auth/login.php';
+        $this->renderAuth('login', $data);
     }
     
-    // Вихід з системи
-    public function logout() {
-        $this->auth->logout();
-        Util::redirect(BASE_URL . '/auth/login');
-    }
-    
-    // Сторінка реєстрації (тільки для постачальників)
     public function register() {
-        // Якщо користувач вже авторизований, перенаправляємо на головну
+        // Если пользователь уже авторизован, перенаправляем на главную
         if (Auth::isLoggedIn()) {
-            Util::redirect(BASE_URL . '/home');
+            header('Location: ' . BASE_URL . '/home');
+            exit;
         }
         
         $errors = [];
         
-        // Обробка форми реєстрації
-        if (Util::isPost()) {
-            $username = Util::sanitize($_POST['username']);
-            $password = $_POST['password'];
-            $confirm_password = $_POST['confirm_password'];
-            $name = Util::sanitize($_POST['name']);
-            $email = Util::sanitize($_POST['email']);
-            $phone = Util::sanitize($_POST['phone']);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $username = trim($_POST['username'] ?? '');
+            $password = $_POST['password'] ?? '';
+            $confirm_password = $_POST['confirm_password'] ?? '';
+            $role = $_POST['role'] ?? '';
+            $name = trim($_POST['name'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+            $phone = trim($_POST['phone'] ?? '');
             
-            // Валідація
+            // Валидация
             if (empty($username)) {
-                $errors['username'] = 'Ім\'я користувача не може бути порожнім';
+                $errors['username'] = 'Логін не може бути порожнім';
             } elseif (strlen($username) < 3) {
-                $errors['username'] = 'Ім\'я користувача повинно містити не менше 3 символів';
+                $errors['username'] = 'Логін повинен містити мінімум 3 символи';
             }
             
             if (empty($password)) {
                 $errors['password'] = 'Пароль не може бути порожнім';
             } elseif (strlen($password) < 6) {
-                $errors['password'] = 'Пароль повинен містити не менше 6 символів';
+                $errors['password'] = 'Пароль повинен містити мінімум 6 символів';
             }
             
             if ($password !== $confirm_password) {
                 $errors['confirm_password'] = 'Паролі не співпадають';
             }
             
+            if (empty($role) || !in_array($role, ['warehouse_manager', 'supplier', 'technologist'])) {
+                $errors['role'] = 'Виберіть коректну роль';
+            }
+            
             if (empty($name)) {
-                $errors['name'] = 'Назва організації не може бути порожньою';
+                $errors['name'] = 'Ім\'я не може бути порожнім';
             }
             
             if (empty($email)) {
@@ -99,28 +106,63 @@ class AuthController {
                 $errors['email'] = 'Некоректний формат email';
             }
             
-            // Перевірка, чи існує користувач з таким ім'ям або email
-            $userModel = new User();
-            if ($userModel->isUserExist($username, $email)) {
-                $errors['username'] = 'Користувач з таким ім\'ям або email вже існує';
+            // Проверка уникальности
+            if (empty($errors['username']) || empty($errors['email'])) {
+                $userModel = new User();
+                if ($userModel->isUserExist($username, $email)) {
+                    $errors['username'] = 'Користувач з таким логіном або email вже існує';
+                }
             }
             
-            // Якщо помилок немає, реєструємо користувача
+            // Если нет ошибок, создаем пользователя
             if (empty($errors)) {
-                if ($this->auth->registerSupplier($username, $password, $name, $email, $phone)) {
-                    $_SESSION['success'] = 'Реєстрація успішна. Тепер ви можете увійти до системи.';
-                    Util::redirect(BASE_URL . '/auth/login');
+                $userModel = new User();
+                if ($userModel->add($username, $password, $role, $name, $email, $phone)) {
+                    $_SESSION['success'] = 'Реєстрація пройшла успішно. Тепер ви можете увійти в систему';
+                    header('Location: ' . BASE_URL . '/auth/login');
+                    exit;
                 } else {
-                    $_SESSION['error'] = 'Помилка при реєстрації. Спробуйте ще раз.';
+                    $errors['register'] = 'Помилка при реєстрації. Спробуйте ще раз';
                 }
             }
         }
         
+        // Показываем форму регистрации
         $data = [
-            'title' => 'Реєстрація постачальника',
+            'title' => 'Реєстрація',
             'errors' => $errors
         ];
         
-        require VIEWS_PATH . '/auth/register.php';
+        $this->renderAuth('register', $data);
+    }
+    
+    public function logout() {
+        Auth::logout();
+        $_SESSION['success'] = 'Ви успішно вийшли з системи';
+        header('Location: ' . BASE_URL . '/auth/login');
+        exit;
+    }
+    
+    private function renderAuth($view, $data = []) {
+        // Подключаем файл представления
+        $viewFile = VIEWS_PATH . '/auth/' . $view . '.php';
+        
+        if (file_exists($viewFile)) {
+            // Извлекаем переменные из массива $data
+            extract($data);
+            
+            // Начинаем буферизацию вывода
+            ob_start();
+            include $viewFile;
+            $content = ob_get_clean();
+            
+            // Подключаем layout для неавторизованных пользователей
+            include VIEWS_PATH . '/layouts/auth_layout.php';
+        } else {
+            // Если файл представления не найден
+            $_SESSION['error'] = 'Сторінка не знайдена';
+            header('Location: ' . BASE_URL . '/auth/login');
+            exit;
+        }
     }
 }

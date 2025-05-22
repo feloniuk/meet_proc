@@ -106,6 +106,77 @@ if (!isset($messages)) $messages = [];
         </div>
     </div>
     
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card shadow-sm border-warning">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="fas fa-microscope me-2"></i>Контроль якості сировини</h5>
+                </div>
+                <div class="card-body">
+                    <?php 
+                        // Отримуємо статистику по якості за поточний місяць
+                        $orderModel = new Order();
+                        $start_date = date('Y-m-01');
+                        $end_date = date('Y-m-t');
+                        $quality_stats = $orderModel->getQualityStatsByPeriod($start_date, $end_date);
+                        
+                        // Отримуємо замовлення, що потребують перевірки
+                        $orders_for_check = $orderModel->getOrdersForQualityCheck();
+                        
+                        // Отримуємо проблемних постачальників
+                        $problematic_suppliers = $orderModel->getProblematicSuppliers($start_date, $end_date);
+                    ?>
+                    
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h3 class="text-primary"><?= $quality_stats['total_orders'] ?? 0 ?></h3>
+                                <small class="text-muted">Всього замовлень</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h3 class="text-success"><?= $quality_stats['approved_orders'] ?? 0 ?></h3>
+                                <small class="text-muted">Схвалено</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h3 class="text-danger"><?= $quality_stats['rejected_orders'] ?? 0 ?></h3>
+                                <small class="text-muted">Відхилено</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h3 class="text-warning"><?= count($orders_for_check) ?></h3>
+                                <small class="text-muted">Очікують перевірки</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <?php if ($quality_stats['total_orders'] > 0): ?>
+                        <div class="progress mt-3" style="height: 25px;">
+                            <div class="progress-bar bg-success" role="progressbar" 
+                                 style="width: <?= $quality_stats['approval_rate'] ?>%"
+                                 aria-valuenow="<?= $quality_stats['approval_rate'] ?>" 
+                                 aria-valuemin="0" aria-valuemax="100">
+                                <?= round($quality_stats['approval_rate'], 1) ?>% схвалено
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <?php if (!empty($problematic_suppliers)): ?>
+                        <div class="alert alert-warning mt-3 mb-0">
+                            <strong><i class="fas fa-exclamation-triangle me-2"></i>Увага!</strong>
+                            Виявлено <?= count($problematic_suppliers) ?> постачальників з високим рівнем відхилення якості.
+                            <a href="#problematicSuppliersModal" data-bs-toggle="modal" class="alert-link">Переглянути деталі</a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div class="row">
         <!-- Останні замовлення -->
         <div class="col-md-6 mb-4">
@@ -203,7 +274,9 @@ if (!isset($messages)) $messages = [];
         </div>
     </div>
     
+    
     <div class="row">
+        
         <!-- Активні виробничі процеси -->
         <div class="col-md-12 mb-4">
             <div class="card shadow-sm">

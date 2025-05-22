@@ -17,13 +17,13 @@ $method = !empty($segments[1]) ? $segments[1] : 'index';
 // Определение параметров
 $params = array_slice($segments, 2);
 
+// Специальная обработка для роли технолога
+if (!empty($segments[0]) && $segments[0] === 'technologist') {
+    $controller = 'TechnologistController';
+}
+
 // Поиск контроллера
 $controller_file = CONTROLLERS_PATH . '/' . $controller . '.php';
-
-// Определяем переменные для шаблона
-$view_file = null;
-$title = 'Автоматизація забезпечення виробництва ковбасної продукції';
-$data = [];
 
 // Проверка наличия контроллера
 if (!file_exists($controller_file)) {
@@ -43,10 +43,6 @@ if (!file_exists($controller_file)) {
 
 // Подключение контроллера
 require_once $controller_file;
-
-// Для отладки (можно удалить в продакшене)
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 // Создание экземпляра контроллера
 $controllerInstance = new $controller();
@@ -82,3 +78,4 @@ if ($controller === 'AuthController') {
     // Подключение главного шаблона
     include VIEWS_PATH . '/layouts/main.php';
 }
+?>

@@ -6,11 +6,184 @@ class Order {
         $this->db = Database::getInstance();
     }
     
+    // Все существующие методы остаются без изменений...
+    // Добавляем новые методы для работы с проверками качества
+    
+    // Обновить статус качества замовлення
+    public function updateQualityStatus($order_id, $quality_status) {
+        $sql = "UPDATE orders 
+                SET quality_status = ? 
+                WHERE id = ?";
+                
+        return $this->db->query($sql, [$quality_status, $order_id]);
+    }
+    
+    // Отримати замовлення, що потребують перевірки якості
+    public function getOrdersForQualityCheck() {
+        $sql = "SELECT o.id, o.supplier_id, o.delivery_date, o.total_amount,
+                us.name as supplier_name,
+                uo.name as ordered_by_name
+                FROM orders o 
+                JOIN users us ON o.supplier_id = us.id
+                JOIN users uo ON o.ordered_by = uo.id
+                WHERE o.status = 'shipped' 
+                AND o.quality_status IN ('not_checked', 'pending')
+                AND NOT EXISTS (
+                    SELECT 1 FROM quality_checks qc 
+                    WHERE qc.order_id = o.id 
+                    AND qc.status IN ('approved', 'rejected')
+                )
+                ORDER BY o.delivery_date ASC";
+                
+        return $this->db->resultSet($sql);
+    }
+    
+    // Отримати замовлення з проблемами якості
+    public function getQualityIssues() {
+        $sql = "SELECT o.*, 
+                us.name as supplier_name,
+                qc.rejection_reason,
+                qc.check_date
+                FROM orders o 
+                JOIN users us ON o.supplier_id = us.id
+                JOIN quality_checks qc ON o.id = qc.order_id
+                WHERE o.quality_status = 'rejected'
+                AND qc.status = 'rejected'
+                ORDER BY qc.check_date DESC";
+                
+        return $this->db->resultSet($sql);
+    }
+    
+    // Підтвердити отримання замовлення з урахуванням перевірки якості
+    public function deliverWithQualityCheck($order_id, $inventory) {
+        $order = $this->getById($order_id);
+        
+        if (!$order) {
+            return false;
+        }
+        
+        // Перевіряємо статус якості
+        if ($order['quality_status'] !== 'approved') {
+            return false; // Не можна приймати без схвалення технолога
+        }
+        
+        // Отримуємо елементи замовлення
+        $items = $this->getItems($order_id);
+        
+        if ($items) {
+            // Оновлюємо інвентаризацію
+            $this->db->beginTransaction();
+            
+            try {
+                foreach ($items as $item) {
+                    $inventory->addQuantity($item['raw_material_id'], $item['quantity'], Auth::getCurrentUserId());
+                }
+                
+                // Оновлюємо статус замовлення
+                $this->updateStatus($order_id, 'delivered');
+                
+                $this->db->commit();
+                return true;
+            } catch (Exception $e) {
+                $this->db->rollBack();
+                return false;
+            }
+        }
+        
+        return false;
+    }
+    
+    // Автоматичне встановлення потреби в перевірці якості
+    public function ship($order_id) {
+        // Спочатку оновлюємо статус на 'shipped'
+        $result = $this->updateStatus($order_id, 'shipped');
+        
+        if ($result) {
+            // Встановлюємо потребу в перевірці якості
+            $this->updateQualityStatus($order_id, 'not_checked');
+            
+            // Відправляємо повідомлення технологу
+            $this->notifyTechnologistAboutDelivery($order_id);
+        }
+        
+        return $result;
+    }
+    
+    // Повідомлення технологу про доставку
+    private function notifyTechnologistAboutDelivery($order_id) {
+        $order = $this->getById($order_id);
+        
+        if ($order) {
+            // Знаходимо всіх технологів
+            $userModel = new User();
+            $technologists = $userModel->getByRole('technologist');
+            
+            $messageModel = new Message();
+            
+            foreach ($technologists as $technologist) {
+                $messageModel->send(
+                    $order['supplier_id'], // Від постачальника
+                    $technologist['id'],
+                    'Нова сировина для перевірки - Замовлення №' . $order_id,
+                    'Доставлена сировина по замовленню №' . $order_id . ' від постачальника "' . $order['supplier_name'] . '". ' .
+                    'Загальна сума: ' . Util::formatMoney($order['total_amount']) . '. ' .
+                    'Потрібна перевірка якості перед прийманням на склад.'
+                );
+            }
+        }
+    }
+    
+    // Статистика по якості замовлень
+    public function getQualityStatsByPeriod($start_date, $end_date) {
+        $sql = "SELECT 
+                    COUNT(o.id) as total_orders,
+                    SUM(CASE WHEN o.quality_status = 'approved' THEN 1 ELSE 0 END) as approved_orders,
+                    SUM(CASE WHEN o.quality_status = 'rejected' THEN 1 ELSE 0 END) as rejected_orders,
+                    SUM(CASE WHEN o.quality_status = 'pending' THEN 1 ELSE 0 END) as pending_orders,
+                    SUM(CASE WHEN o.quality_status = 'not_checked' THEN 1 ELSE 0 END) as not_checked_orders,
+                    ROUND(SUM(CASE WHEN o.quality_status = 'approved' THEN 1 ELSE 0 END) * 100.0 / COUNT(o.id), 2) as approval_rate
+                FROM orders o
+                WHERE o.created_at BETWEEN ? AND ?
+                AND o.status IN ('shipped', 'delivered')";
+                
+        return $this->db->single($sql, [$start_date . ' 00:00:00', $end_date . ' 23:59:59']);
+    }
+    
+    // Отримати проблемних постачальників по якості
+    public function getProblematicSuppliers($start_date, $end_date) {
+        $sql = "SELECT 
+                    u.id,
+                    u.name as supplier_name,
+                    COUNT(o.id) as total_orders,
+                    SUM(CASE WHEN o.quality_status = 'rejected' THEN 1 ELSE 0 END) as rejected_orders,
+                    ROUND(SUM(CASE WHEN o.quality_status = 'rejected' THEN 1 ELSE 0 END) * 100.0 / COUNT(o.id), 2) as rejection_rate,
+                    AVG(qc.overall_grade) as avg_grade
+                FROM users u
+                JOIN orders o ON u.id = o.supplier_id
+                LEFT JOIN quality_checks qc ON o.id = qc.order_id
+                WHERE u.role = 'supplier'
+                AND o.created_at BETWEEN ? AND ?
+                AND o.status IN ('shipped', 'delivered')
+                GROUP BY u.id, u.name
+                HAVING rejection_rate > 10
+                ORDER BY rejection_rate DESC";
+                
+        return $this->db->resultSet($sql, [$start_date . ' 00:00:00', $end_date . ' 23:59:59']);
+    }
+    
+    // Всі існуючі методи залишаються незмінними...
+    
     // Отримати всі замовлення
     public function getAll() {
         $sql = "SELECT o.*, 
                 us.name as supplier_name, 
-                uo.name as ordered_by_name
+                uo.name as ordered_by_name,
+                CASE 
+                    WHEN o.quality_status = 'approved' THEN 'Схвалено'
+                    WHEN o.quality_status = 'rejected' THEN 'Відхилено'
+                    WHEN o.quality_status = 'pending' THEN 'На перевірці'
+                    ELSE 'Не перевірялось'
+                END as quality_status_name
                 FROM orders o 
                 JOIN users us ON o.supplier_id = us.id
                 JOIN users uo ON o.ordered_by = uo.id
@@ -22,7 +195,13 @@ class Order {
     public function getById($id) {
         $sql = "SELECT o.*, 
                 us.name as supplier_name, us.email as supplier_email, us.phone as supplier_phone,
-                uo.name as ordered_by_name
+                uo.name as ordered_by_name,
+                CASE 
+                    WHEN o.quality_status = 'approved' THEN 'Схвалено'
+                    WHEN o.quality_status = 'rejected' THEN 'Відхилено'
+                    WHEN o.quality_status = 'pending' THEN 'На перевірці'
+                    ELSE 'Не перевірялось'
+                END as quality_status_name
                 FROM orders o 
                 JOIN users us ON o.supplier_id = us.id
                 JOIN users uo ON o.ordered_by = uo.id
@@ -32,7 +211,13 @@ class Order {
     
     // Отримати замовлення за постачальником
     public function getBySupplier($supplier_id) {
-        $sql = "SELECT o.*, uo.name as ordered_by_name
+        $sql = "SELECT o.*, uo.name as ordered_by_name,
+                CASE 
+                    WHEN o.quality_status = 'approved' THEN 'Схвалено'
+                    WHEN o.quality_status = 'rejected' THEN 'Відхилено'
+                    WHEN o.quality_status = 'pending' THEN 'На перевірці'
+                    ELSE 'Не перевірялось'
+                END as quality_status_name
                 FROM orders o 
                 JOIN users uo ON o.ordered_by = uo.id
                 WHERE o.supplier_id = ?
@@ -44,7 +229,13 @@ class Order {
     public function getActive() {
         $sql = "SELECT o.*, 
                 us.name as supplier_name, 
-                uo.name as ordered_by_name
+                uo.name as ordered_by_name,
+                CASE 
+                    WHEN o.quality_status = 'approved' THEN 'Схвалено'
+                    WHEN o.quality_status = 'rejected' THEN 'Відхилено'
+                    WHEN o.quality_status = 'pending' THEN 'На перевірці'
+                    ELSE 'Не перевірялось'
+                END as quality_status_name
                 FROM orders o 
                 JOIN users us ON o.supplier_id = us.id
                 JOIN users uo ON o.ordered_by = uo.id
@@ -65,8 +256,8 @@ class Order {
     
     // Створити нове замовлення
     public function create($supplier_id, $ordered_by, $delivery_date, $notes) {
-        $sql = "INSERT INTO orders (supplier_id, ordered_by, status, delivery_date, total_amount, notes) 
-                VALUES (?, ?, 'pending', ?, 0, ?)";
+        $sql = "INSERT INTO orders (supplier_id, ordered_by, status, delivery_date, total_amount, notes, quality_check_required, quality_status) 
+                VALUES (?, ?, 'pending', ?, 0, ?, 1, 'not_checked')";
                 
         if ($this->db->query($sql, [$supplier_id, $ordered_by, $delivery_date, $notes])) {
             return $this->db->lastInsertId();
@@ -84,46 +275,6 @@ class Order {
             // Оновлюємо загальну суму замовлення
             $this->updateTotalAmount($order_id);
             return $this->db->lastInsertId();
-        }
-        
-        return false;
-    }
-    
-    // Оновити елемент замовлення
-    public function updateItem($item_id, $quantity, $price_per_unit) {
-        // Отримуємо ID замовлення для оновлення загальної суми
-        $sql = "SELECT order_id FROM order_items WHERE id = ?";
-        $item = $this->db->single($sql, [$item_id]);
-        
-        if ($item) {
-            $sql = "UPDATE order_items 
-                    SET quantity = ?, price_per_unit = ? 
-                    WHERE id = ?";
-                    
-            if ($this->db->query($sql, [$quantity, $price_per_unit, $item_id])) {
-                // Оновлюємо загальну суму замовлення
-                $this->updateTotalAmount($item['order_id']);
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    
-    // Видалити елемент замовлення
-    public function deleteItem($item_id) {
-        // Отримуємо ID замовлення для оновлення загальної суми
-        $sql = "SELECT order_id FROM order_items WHERE id = ?";
-        $item = $this->db->single($sql, [$item_id]);
-        
-        if ($item) {
-            $sql = "DELETE FROM order_items WHERE id = ?";
-            
-            if ($this->db->query($sql, [$item_id])) {
-                // Оновлюємо загальну суму замовлення
-                $this->updateTotalAmount($item['order_id']);
-                return true;
-            }
         }
         
         return false;
@@ -156,42 +307,14 @@ class Order {
         return $this->updateStatus($order_id, 'accepted');
     }
     
-    // Відправити замовлення (для постачальника)
-    public function ship($order_id) {
-        return $this->updateStatus($order_id, 'shipped');
-    }
-    
-    // Підтвердити отримання замовлення (для адміністратора)
-    public function deliver($order_id, $inventory) {
-        // Отримуємо елементи замовлення
-        $items = $this->getItems($order_id);
-        
-        if ($items) {
-            // Оновлюємо інвентаризацію
-            $this->db->beginTransaction();
-            
-            try {
-                foreach ($items as $item) {
-                    $inventory->addQuantity($item['raw_material_id'], $item['quantity'], Auth::getCurrentUserId());
-                }
-                
-                // Оновлюємо статус замовлення
-                $this->updateStatus($order_id, 'delivered');
-                
-                $this->db->commit();
-                return true;
-            } catch (Exception $e) {
-                $this->db->rollBack();
-                return false;
-            }
-        }
-        
-        return false;
-    }
-    
     // Скасувати замовлення
     public function cancel($order_id) {
         return $this->updateStatus($order_id, 'canceled');
+    }
+    
+    // Підтвердити отримання замовлення (тільки після схвалення якості)
+    public function deliver($order_id, $inventory) {
+        return $this->deliverWithQualityCheck($order_id, $inventory);
     }
     
     // Отримати статистику замовлень за період

@@ -780,8 +780,7 @@ public function setCameraStatus($id, $status) {
         require VIEWS_PATH . '/admin/edit_order.php';
     }
     
-    /// Додавання елемента до замовлення
-// Додавання елемента до замовлення
+    // Додавання елемента до замовлення
 public function addOrderItem($order_id) {
     $order = $this->orderModel->getById($order_id);
     
@@ -831,8 +830,11 @@ public function addOrderItem($order_id) {
         }
     }
     
+    // Отримуємо матеріали постачальника
+    $materials = $this->rawMaterialModel->getBySupplier($order['supplier_id']);
+    
     // Якщо є material_id в GET параметрах, автоматично вибираємо матеріал
-    if (isset($_GET['material_id']) && !$_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_GET['material_id']) && !isset($_POST['raw_material_id'])) {
         $_POST['raw_material_id'] = $_GET['material_id'];
         
         // Автоматично заповнюємо ціну
@@ -842,17 +844,12 @@ public function addOrderItem($order_id) {
         }
     }
     
-    $materials = $this->rawMaterialModel->getBySupplier($order['supplier_id']);
-    
     $data = [
         'title' => 'Додавання елемента замовлення',
         'order' => $order,
         'materials' => $materials,
         'errors' => $errors
     ];
-    
-    // Извлекаем переменные из массива $data
-    extract($data);
     
     require VIEWS_PATH . '/admin/add_order_item.php';
 }
@@ -1515,6 +1512,93 @@ public function ajaxDeleteOrderItem() {
         echo json_encode(['success' => true, 'message' => 'Позицію успішно видалено']);
     } else {
         echo json_encode(['success' => false, 'message' => 'Помилка при видаленні позиції']);
+    }
+    exit;
+}
+
+// AJAX метод для обновления позиции заказа
+public function ajaxUpdateOrderItem() {
+    header('Content-Type: application/json');
+    
+    if (!Util::isPost()) {
+        echo json_encode(['success' => false, 'message' => 'Invalid request method']);
+        exit;
+    }
+    
+    $item_id = Util::sanitize($_POST['item_id']);
+    $quantity = Util::sanitize($_POST['quantity']);
+    $price_per_unit = Util::sanitize($_POST['price_per_unit']);
+    
+    // Проверка позиции
+    $sql = "SELECT oi.*, o.status 
+            FROM order_items oi 
+            JOIN orders o ON oi.order_id = o.id 
+            WHERE oi.id = ?";
+    $db = Database::getInstance();
+    $item = $db->single($sql, [$item_id]);
+    
+    if (!$item) {
+        echo json_encode(['success' => false, 'message' => 'Позицію не знайдено']);
+        exit;
+    }
+    
+    if ($item['status'] !== 'pending') {
+        echo json_encode(['success' => false, 'message' => 'Можна редагувати тільки замовлення в статусі "Очікує підтвердження"']);
+        exit;
+    }
+    
+    // Валидация
+    if (empty($quantity) || !is_numeric($quantity) || $quantity <= 0) {
+        echo json_encode(['success' => false, 'message' => 'Кількість повинна бути більше нуля']);
+        exit;
+    }
+    
+    if (empty($price_per_unit) || !is_numeric($price_per_unit) || $price_per_unit <= 0) {
+        echo json_encode(['success' => false, 'message' => 'Ціна повинна бути більше нуля']);
+        exit;
+    }
+    
+    // Обновление позиции
+    if ($this->orderModel->updateItem($item_id, $quantity, $price_per_unit)) {
+        // Получаем обновленную информацию
+        $updatedItem = $db->single("SELECT oi.*, rm.name as material_name, rm.unit 
+                                    FROM order_items oi 
+                                    JOIN raw_materials rm ON oi.raw_material_id = rm.id 
+                                    WHERE oi.id = ?", [$item_id]);
+        
+        // Получаем обновленную общую сумму заказа
+        $order = $this->orderModel->getById($item['order_id']);
+        
+        echo json_encode([
+            'success' => true, 
+            'message' => 'Позицію успішно оновлено',
+            'item' => $updatedItem,
+            'totalAmount' => $order['total_amount']
+        ]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Помилка при оновленні позиції']);
+    }
+    exit;
+}
+
+// AJAX метод для получения данных позиции
+public function ajaxGetOrderItem() {
+    header('Content-Type: application/json');
+    
+    $item_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+    
+    $sql = "SELECT oi.*, rm.name as material_name, rm.unit 
+            FROM order_items oi 
+            JOIN raw_materials rm ON oi.raw_material_id = rm.id 
+            WHERE oi.id = ?";
+    
+    $db = Database::getInstance();
+    $item = $db->single($sql, [$item_id]);
+    
+    if ($item) {
+        echo json_encode(['success' => true, 'item' => $item]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Позицію не знайдено']);
     }
     exit;
 }

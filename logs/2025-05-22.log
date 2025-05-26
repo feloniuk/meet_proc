@@ -1,1229 +1,376 @@
-[2025-05-22 13:46:17] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:46:18] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 13:46:18] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:46:18] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:46:40] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:46:41] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 13:46:41] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:46:41] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:46:43] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:46:44] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 13:46:44] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:46:44] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:46:49] [info] Request: , Controller: HomeController, Method: index, User: Not logged in
-[2025-05-22 13:46:49] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:46:50] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 13:46:50] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:46:50] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:46:51] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:46:52] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 13:46:52] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:46:52] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:46:53] [info] Request: , Controller: HomeController, Method: index, User: Not logged in
-[2025-05-22 13:46:53] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:46:54] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 13:46:54] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:46:54] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:46:58] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:47:00] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 13:47:00] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:47:00] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:47:59] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:48:00] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 13:48:00] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:48:00] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:48:12] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:48:13] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 13:48:13] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:48:13] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:48:40] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 13:48:40] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:48:41] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:48:41] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:48:41] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 13:48:41] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:48:49] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 1, Role: admin
-[2025-05-22 13:48:50] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:48:50] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:48:50] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 13:48:50] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:03] [info] Request: admin/recipes, Controller: AdminController, Method: recipes, User ID: 1, Role: admin
-[2025-05-22 13:49:04] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:04] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:49:04] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 13:49:04] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:04] [info] Request: admin/products, Controller: AdminController, Method: products, User ID: 1, Role: admin
-[2025-05-22 13:49:05] [info] Request: admin/users, Controller: AdminController, Method: users, User ID: 1, Role: admin
-[2025-05-22 13:49:07] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:07] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:49:07] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 13:49:07] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:07] [info] Request: admin/reports, Controller: AdminController, Method: reports, User ID: 1, Role: admin
-[2025-05-22 13:49:08] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:08] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:49:08] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 13:49:08] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:10] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:11] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:11] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:49:11] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 13:49:11] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:17] [info] Request: admin/orders, Controller: AdminController, Method: orders, User ID: 1, Role: admin
-[2025-05-22 13:49:18] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:18] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:49:18] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 13:49:18] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:20] [info] Request: admin/orders, Controller: AdminController, Method: orders, User ID: 1, Role: admin
-[2025-05-22 13:49:21] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:21] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:49:21] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 13:49:21] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:24] [info] Request: admin/orders, Controller: AdminController, Method: orders, User ID: 1, Role: admin
-[2025-05-22 13:49:25] [info] Request: admin/orders, Controller: AdminController, Method: orders, User ID: 1, Role: admin
-[2025-05-22 13:49:26] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:26] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:49:26] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 13:49:26] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:45] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:46] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 13:49:46] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 13:49:46] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 13:49:46] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:28:07] [info] Доступ до сторінки: AuthController::login від користувача: Адміністратор системи
-[2025-05-22 17:28:07] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:28:16] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:28:19] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:28:24] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:28:27] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:28:45] [info] Доступ до сторінки: AdminController::orders від користувача: Адміністратор системи
-[2025-05-22 17:28:47] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:28:59] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:29:02] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:29:05] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:29:09] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:29:20] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:29:30] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:29:43] [info] Доступ до сторінки: AdminController::reports від користувача: Адміністратор системи
-[2025-05-22 17:29:45] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:29:47] [info] Доступ до сторінки: AuthController::login від користувача: Адміністратор системи
-[2025-05-22 17:29:47] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:29:50] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:29:51] [info] Доступ до сторінки: AuthController::login від користувача: Адміністратор системи
-[2025-05-22 17:29:51] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:29:57] [info] Доступ до сторінки: AuthController::login від користувача: Guest
-[2025-05-22 17:30:14] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:30:15] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 17:30:15] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:30:15] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:30:33] [info] Доступ до сторінки: AuthController::login від користувача: Guest
-[2025-05-22 17:30:40] [info] Доступ до сторінки: AuthController::login від користувача: Guest
-[2025-05-22 17:30:50] [info] Доступ до сторінки: AuthController::register від користувача: Guest
-[2025-05-22 17:30:50] [info] Доступ до сторінки: AuthController::register від користувача: Guest
-[2025-05-22 17:30:52] [info] Доступ до сторінки: AuthController::login від користувача: Guest
-[2025-05-22 17:30:53] [info] Доступ до сторінки: AuthController::login від користувача: Guest
-[2025-05-22 17:30:59] [info] Доступ до сторінки: AuthController::login від користувача: Guest
-[2025-05-22 17:31:01] [info] Доступ до сторінки: AuthController::login від користувача: Guest
-[2025-05-22 17:31:03] [info] Доступ до сторінки: AuthController::login від користувача: Guest
-[2025-05-22 17:31:04] [info] Доступ до сторінки: AuthController::login від користувача: Guest
-[2025-05-22 17:31:08] [info] Доступ до сторінки: AuthController::login від користувача: Guest
-[2025-05-22 17:31:08] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:31:20] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:31:29] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:31:38] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:31:41] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:31:44] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:32:10] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:32:28] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:32:32] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:33:13] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:33:47] [info] Доступ до сторінки: HomeController::index від користувача: Адміністратор системи
-[2025-05-22 17:34:03] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:04] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:04] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:34:04] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:34:04] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:07] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:08] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:08] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:34:08] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:34:08] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:10] [info] Request: admin/users, Controller: AdminController, Method: users, User ID: 1, Role: admin
-[2025-05-22 17:34:11] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:11] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:34:11] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:34:11] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:11] [info] Request: admin/recipes, Controller: AdminController, Method: recipes, User ID: 1, Role: admin
-[2025-05-22 17:34:13] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:14] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:14] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:34:14] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:34:14] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:16] [info] Request: admin/users, Controller: AdminController, Method: users, User ID: 1, Role: admin
-[2025-05-22 17:34:17] [info] Request: admin/recipes, Controller: AdminController, Method: recipes, User ID: 1, Role: admin
-[2025-05-22 17:34:18] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:18] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:34:18] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:34:18] [info] Request: admin/products, Controller: AdminController, Method: products, User ID: 1, Role: admin
-[2025-05-22 17:34:18] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:20] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:20] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:34:20] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:34:20] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:20] [info] Request: admin/videoSurveillance, Controller: AdminController, Method: videoSurveillance, User ID: 1, Role: admin
-[2025-05-22 17:34:21] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:21] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:34:21] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:34:21] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:21] [info] Request: warehouse/inventory, Controller: WarehouseController, Method: inventory, User ID: 1, Role: admin
-[2025-05-22 17:34:23] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:23] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:34:23] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:34:23] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:23] [info] Request: warehouse/production, Controller: WarehouseController, Method: production, User ID: 1, Role: admin
-[2025-05-22 17:34:24] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:24] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:34:24] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:34:24] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:24] [info] Request: warehouse/reports, Controller: WarehouseController, Method: reports, User ID: 1, Role: admin
-[2025-05-22 17:34:26] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:26] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:34:26] [info] Request: warehouse/production, Controller: WarehouseController, Method: production, User ID: 1, Role: admin
-[2025-05-22 17:34:26] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:34:27] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:27] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:34:27] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:34:27] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:28] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 1, Role: admin
-[2025-05-22 17:34:29] [info] Request: supplier/materials, Controller: SupplierController, Method: materials, User ID: 1, Role: admin
-[2025-05-22 17:34:30] [info] Request: supplier/reports, Controller: SupplierController, Method: reports, User ID: 1, Role: admin
-[2025-05-22 17:34:32] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:32] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:34:32] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:34:32] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:33] [info] Request: supplier/materials, Controller: SupplierController, Method: materials, User ID: 1, Role: admin
-[2025-05-22 17:34:34] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:34] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:34:34] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:34:34] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:49] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:51] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:51] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:34:51] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:34:51] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:34:52] [info] Request: auth/logout, Controller: AuthController, Method: logout, User ID: 1, Role: admin
-[2025-05-22 17:34:52] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:34:54] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 17:34:54] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:34:54] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:34:55] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:34:55] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 17:34:56] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 17:34:56] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:34:56] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 17:34:56] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 17:34:58] [info] Request: auth/logout, Controller: AuthController, Method: logout, User ID: 4, Role: supplier
-[2025-05-22 17:34:58] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:34:59] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 17:34:59] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:34:59] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:35:02] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:35:03] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 17:35:03] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:35:03] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:35:13] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:35:14] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 17:35:14] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:35:14] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:35:49] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:35:50] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:35:51] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:35:51] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:35:51] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:35:51] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:35:54] [info] Request: technologist/qualityChecks, Controller: TechnologistController, Method: qualityChecks, User ID: 8, Role: technologist
-[2025-05-22 17:35:56] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:35:56] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:35:56] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:35:56] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:35:57] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:35:59] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:35:59] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:35:59] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:35:59] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:36:01] [info] Request: technologist/qualityChecks, Controller: TechnologistController, Method: qualityChecks, User ID: 8, Role: technologist
-[2025-05-22 17:36:02] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:36:02] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:36:02] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:36:02] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:36:07] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 8, Role: technologist
-[2025-05-22 17:36:08] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:36:08] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:36:08] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:36:08] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:36:11] [info] Request: home/profile, Controller: HomeController, Method: profile, User ID: 8, Role: technologist
-[2025-05-22 17:36:12] [info] Request: auth/logout, Controller: AuthController, Method: logout, User ID: 8, Role: technologist
-[2025-05-22 17:36:12] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:36:13] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 17:36:13] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:36:13] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:36:20] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:36:20] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:36:21] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:36:21] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:36:21] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:36:21] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:36:23] [info] Request: technologist/qualityChecks, Controller: TechnologistController, Method: qualityChecks, User ID: 8, Role: technologist
-[2025-05-22 17:36:24] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:36:24] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:36:24] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:36:24] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:36:28] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 8, Role: technologist
-[2025-05-22 17:36:29] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:36:31] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:36:31] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:36:31] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:36:31] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:37:04] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:37:05] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:37:05] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:37:05] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:37:05] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:37:21] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:37:22] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:37:22] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:37:22] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:37:22] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:37:56] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:37:58] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:37:58] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:37:58] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:37:58] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:39:08] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:39:09] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:39:09] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:39:09] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:39:09] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:40:01] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:40:03] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:40:03] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:40:03] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:40:03] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:40:18] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:40:19] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:40:19] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:40:19] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:40:19] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:40:59] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:41:00] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:41:00] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:41:00] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:41:00] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:41:10] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:41:11] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:41:11] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:41:11] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:41:11] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:43:16] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:43:17] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:43:17] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:43:17] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:43:17] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:43:40] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:43:41] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:43:41] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:43:41] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:43:41] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:31] [info] Request: supplier/materials, Controller: SupplierController, Method: materials, User ID: 8, Role: technologist
-[2025-05-22 17:46:31] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:33] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:33] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:46:33] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:46:33] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:38] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:39] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:39] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:46:39] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:46:39] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:42] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:43] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:43] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:46:43] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:46:43] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:44] [info] Request: technologist/qualityChecks, Controller: TechnologistController, Method: qualityChecks, User ID: 8, Role: technologist
-[2025-05-22 17:46:45] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:45] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:46:45] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:46:45] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:45] [info] Request: technologist/qualityStandards, Controller: TechnologistController, Method: qualityStandards, User ID: 8, Role: technologist
-[2025-05-22 17:46:46] [info] Request: technologist/reports, Controller: TechnologistController, Method: reports, User ID: 8, Role: technologist
-[2025-05-22 17:46:46] [warning] Method not found: reports in controller: TechnologistController, redirecting to index
-[2025-05-22 17:46:46] [info] Request: technologist, Controller: TechnologistController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:48] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:48] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:46:48] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:46:48] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:51] [info] Request: technologist/standards, Controller: TechnologistController, Method: standards, User ID: 8, Role: technologist
-[2025-05-22 17:46:51] [warning] Method not found: standards in controller: TechnologistController, redirecting to index
-[2025-05-22 17:46:51] [info] Request: technologist, Controller: TechnologistController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:52] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:52] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:46:52] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:46:52] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:54] [info] Request: technologist/qualityChecks, Controller: TechnologistController, Method: qualityChecks, User ID: 8, Role: technologist
-[2025-05-22 17:46:56] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:56] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:46:56] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:46:56] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:57] [info] Request: technologist/viewQualityCheck/3, Controller: TechnologistController, Method: viewQualityCheck, User ID: 8, Role: technologist
-[2025-05-22 17:46:58] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:46:58] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:46:58] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:46:58] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:01] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 8, Role: technologist
-[2025-05-22 17:47:02] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:02] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:47:02] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:47:02] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:04] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:05] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:05] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:47:05] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:47:05] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:05] [info] Request: home/profile, Controller: HomeController, Method: profile, User ID: 8, Role: technologist
-[2025-05-22 17:47:07] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:07] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:47:07] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:47:07] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:08] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 8, Role: technologist
-[2025-05-22 17:47:09] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:09] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:47:09] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:47:09] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:09] [info] Request: technologist/qualityChecks, Controller: TechnologistController, Method: qualityChecks, User ID: 8, Role: technologist
-[2025-05-22 17:47:11] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:11] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:47:11] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:47:11] [info] Request: technologist/qualityStandards, Controller: TechnologistController, Method: qualityStandards, User ID: 8, Role: technologist
-[2025-05-22 17:47:11] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:12] [info] Request: technologist/reports, Controller: TechnologistController, Method: reports, User ID: 8, Role: technologist
-[2025-05-22 17:47:12] [warning] Method not found: reports in controller: TechnologistController, redirecting to index
-[2025-05-22 17:47:12] [info] Request: technologist, Controller: TechnologistController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:13] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:13] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:47:13] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:47:13] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:13] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:15] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:15] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:47:15] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:47:15] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:19] [info] Request: home/profile, Controller: HomeController, Method: profile, User ID: 8, Role: technologist
-[2025-05-22 17:47:20] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:20] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:47:20] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:47:20] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:20] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 8, Role: technologist
-[2025-05-22 17:47:22] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:22] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:47:22] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 17:47:22] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 17:47:23] [info] Request: auth/logout, Controller: AuthController, Method: logout, User ID: 8, Role: technologist
-[2025-05-22 17:47:23] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:47:25] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 17:47:25] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:47:25] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:47:27] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:47:28] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 17:47:28] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:47:28] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:47:38] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:47:39] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 17:47:39] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:47:39] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:47:42] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:47:42] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 17:47:44] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 17:47:44] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:47:44] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
-[2025-05-22 17:47:44] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 17:47:48] [info] Request: warehouse/inventory, Controller: WarehouseController, Method: inventory, User ID: 2, Role: warehouse_manager
-[2025-05-22 17:47:49] [info] Request: warehouse/production, Controller: WarehouseController, Method: production, User ID: 2, Role: warehouse_manager
-[2025-05-22 17:47:51] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 17:47:51] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:47:51] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
-[2025-05-22 17:47:51] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 17:48:01] [info] Request: warehouse/inventory, Controller: WarehouseController, Method: inventory, User ID: 2, Role: warehouse_manager
-[2025-05-22 17:48:02] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 17:48:02] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:48:02] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
-[2025-05-22 17:48:02] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 17:48:15] [info] Request: auth/logout, Controller: AuthController, Method: logout, User ID: 2, Role: warehouse_manager
-[2025-05-22 17:48:15] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:48:17] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 17:48:17] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:48:17] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:48:19] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 17:48:19] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:48:20] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:48:20] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:48:20] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:48:20] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:48:22] [info] Request: admin/recipes, Controller: AdminController, Method: recipes, User ID: 1, Role: admin
-[2025-05-22 17:48:23] [info] Request: admin/products, Controller: AdminController, Method: products, User ID: 1, Role: admin
-[2025-05-22 17:48:24] [info] Request: admin/orders, Controller: AdminController, Method: orders, User ID: 1, Role: admin
-[2025-05-22 17:48:26] [info] Request: admin/cameras, Controller: AdminController, Method: cameras, User ID: 1, Role: admin
-[2025-05-22 17:48:27] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:48:27] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:48:27] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:48:27] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:48:29] [info] Request: admin/videoSurveillance, Controller: AdminController, Method: videoSurveillance, User ID: 1, Role: admin
-[2025-05-22 17:48:30] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:48:30] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:48:30] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:48:30] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:48:34] [info] Request: admin/cameras, Controller: AdminController, Method: cameras, User ID: 1, Role: admin
-[2025-05-22 17:48:35] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:48:35] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:48:35] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:48:35] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:48:43] [info] Request: admin/videoSurveillance, Controller: AdminController, Method: videoSurveillance, User ID: 1, Role: admin
-[2025-05-22 17:48:44] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:48:44] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:48:44] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:48:44] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:48:47] [info] Request: admin/cameras, Controller: AdminController, Method: cameras, User ID: 1, Role: admin
-[2025-05-22 17:48:48] [info] Request: admin/videoSurveillance, Controller: AdminController, Method: videoSurveillance, User ID: 1, Role: admin
-[2025-05-22 17:48:49] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 1, Role: admin
-[2025-05-22 17:48:50] [info] Request: admin/cameras, Controller: AdminController, Method: cameras, User ID: 1, Role: admin
-[2025-05-22 17:48:52] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:48:52] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:48:52] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:48:52] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:48:52] [info] Request: admin/cameras, Controller: AdminController, Method: cameras, User ID: 1, Role: admin
-[2025-05-22 17:48:53] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:48:53] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:48:53] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:48:53] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:04] [info] Request: admin/cameras, Controller: AdminController, Method: cameras, User ID: 1, Role: admin
-[2025-05-22 17:49:05] [info] Request: admin/videoSurveillance, Controller: AdminController, Method: videoSurveillance, User ID: 1, Role: admin
-[2025-05-22 17:49:06] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:06] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:49:06] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:49:06] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:07] [info] Request: admin/addCamera, Controller: AdminController, Method: addCamera, User ID: 1, Role: admin
-[2025-05-22 17:49:08] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:08] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:49:08] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:49:08] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:10] [info] Request: admin/videoSurveillance, Controller: AdminController, Method: videoSurveillance, User ID: 1, Role: admin
-[2025-05-22 17:49:11] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:11] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:49:11] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:49:11] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:32] [info] Request: admin/videoSurveillance, Controller: AdminController, Method: videoSurveillance, User ID: 1, Role: admin
-[2025-05-22 17:49:34] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:34] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:49:34] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:49:34] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:34] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 1, Role: admin
-[2025-05-22 17:49:36] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:36] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:49:36] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:49:36] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:37] [info] Request: admin/users, Controller: AdminController, Method: users, User ID: 1, Role: admin
-[2025-05-22 17:49:38] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:38] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:49:38] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:49:38] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:39] [info] Request: admin/orders, Controller: AdminController, Method: orders, User ID: 1, Role: admin
-[2025-05-22 17:49:40] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:40] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:49:40] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:49:40] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:41] [info] Request: admin/createOrder, Controller: AdminController, Method: createOrder, User ID: 1, Role: admin
-[2025-05-22 17:49:43] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:43] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:49:43] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:49:43] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:43] [info] Request: admin/addUser, Controller: AdminController, Method: addUser, User ID: 1, Role: admin
-[2025-05-22 17:49:44] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:44] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:49:45] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:49:45] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:45] [info] Request: admin/createOrder, Controller: AdminController, Method: createOrder, User ID: 1, Role: admin
-[2025-05-22 17:49:46] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:46] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:49:46] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:49:46] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:57] [info] Request: admin/addUser, Controller: AdminController, Method: addUser, User ID: 1, Role: admin
-[2025-05-22 17:49:59] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:49:59] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:49:59] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:49:59] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:50:00] [info] Request: admin/users, Controller: AdminController, Method: users, User ID: 1, Role: admin
-[2025-05-22 17:50:01] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 17:50:01] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 17:50:01] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 17:50:01] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:06:10] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:06:12] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:06:12] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:06:13] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:06:13] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:06:22] [info] Request: admin/products, Controller: AdminController, Method: products, User ID: 1, Role: admin
-[2025-05-22 19:06:23] [info] Request: admin/recipes, Controller: AdminController, Method: recipes, User ID: 1, Role: admin
-[2025-05-22 19:06:25] [info] Request: admin/users, Controller: AdminController, Method: users, User ID: 1, Role: admin
-[2025-05-22 19:06:26] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:06:26] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:06:26] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:06:26] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:06:31] [info] Request: admin/recipes, Controller: AdminController, Method: recipes, User ID: 1, Role: admin
-[2025-05-22 19:06:32] [info] Request: admin/products, Controller: AdminController, Method: products, User ID: 1, Role: admin
-[2025-05-22 19:06:33] [info] Request: admin/orders, Controller: AdminController, Method: orders, User ID: 1, Role: admin
-[2025-05-22 19:06:35] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:06:35] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:06:35] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:06:35] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:06:36] [info] Request: admin/videoSurveillance, Controller: AdminController, Method: videoSurveillance, User ID: 1, Role: admin
-[2025-05-22 19:06:37] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 1, Role: admin
-[2025-05-22 19:06:39] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:06:39] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:06:39] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:06:39] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:07:44] [info] Request: admin/videoSurveillance, Controller: AdminController, Method: videoSurveillance, User ID: 1, Role: admin
-[2025-05-22 19:07:46] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:07:46] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:07:46] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:07:46] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:07:46] [info] Request: admin/recipes, Controller: AdminController, Method: recipes, User ID: 1, Role: admin
-[2025-05-22 19:07:48] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:07:48] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:07:48] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:07:48] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:11:32] [info] Request: admin/recipes, Controller: AdminController, Method: recipes, User ID: 1, Role: admin
-[2025-05-22 19:11:33] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:11:33] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:11:34] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:11:34] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:11:48] [info] Request: admin/recipes, Controller: AdminController, Method: recipes, User ID: 1, Role: admin
-[2025-05-22 19:11:49] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:11:49] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:11:49] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:11:49] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:11:52] [info] Request: admin/viewRecipe/1, Controller: AdminController, Method: viewRecipe, User ID: 1, Role: admin
-[2025-05-22 19:11:54] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:11:54] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:11:54] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:11:54] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:11:54] [info] Request: admin/recipes, Controller: AdminController, Method: recipes, User ID: 1, Role: admin
-[2025-05-22 19:11:55] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:11:55] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:11:56] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:11:56] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:14:42] [info] Request: admin/users, Controller: AdminController, Method: users, User ID: 1, Role: admin
-[2025-05-22 19:14:44] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:14:44] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:14:44] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:14:44] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:15:19] [info] Request: admin/users, Controller: AdminController, Method: users, User ID: 1, Role: admin
-[2025-05-22 19:15:20] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:15:20] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:15:20] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:15:20] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:18:58] [info] Request: admin/products, Controller: AdminController, Method: products, User ID: 1, Role: admin
-[2025-05-22 19:19:00] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:19:00] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:19:00] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:19:00] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:19:39] [info] Request: admin/products, Controller: AdminController, Method: products, User ID: 1, Role: admin
-[2025-05-22 19:19:41] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:19:41] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:19:41] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:19:41] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:19:41] [info] Request: admin/editProduct/1, Controller: AdminController, Method: editProduct, User ID: 1, Role: admin
-[2025-05-22 19:19:43] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:19:43] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:19:43] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:19:43] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:19:44] [info] Request: admin/products, Controller: AdminController, Method: products, User ID: 1, Role: admin
-[2025-05-22 19:19:45] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:19:45] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:19:45] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:19:45] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:19:46] [info] Request: admin/editProduct/3, Controller: AdminController, Method: editProduct, User ID: 1, Role: admin
-[2025-05-22 19:19:48] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:19:48] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:19:48] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:19:48] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:21:28] [info] Request: admin/products, Controller: AdminController, Method: products, User ID: 1, Role: admin
-[2025-05-22 19:21:29] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:21:29] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:21:29] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:21:29] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:21:32] [info] Request: admin/orders, Controller: AdminController, Method: orders, User ID: 1, Role: admin
-[2025-05-22 19:21:34] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:21:34] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:21:34] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:21:34] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:23:36] [info] Request: admin/orders, Controller: AdminController, Method: orders, User ID: 1, Role: admin
-[2025-05-22 19:23:37] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:23:37] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:23:37] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:23:37] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:26:03] [info] Request: admin/users, Controller: AdminController, Method: users, User ID: 1, Role: admin
-[2025-05-22 19:26:04] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:26:05] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:26:05] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:26:05] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:26:05] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:27:52] [info] Request: admin/orders, Controller: AdminController, Method: orders, User ID: 1, Role: admin
-[2025-05-22 19:27:53] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:27:53] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:27:53] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:27:53] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:27:54] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:27:55] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:27:55] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:27:55] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:27:55] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:27:56] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 1, Role: admin
-[2025-05-22 19:27:57] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:27:57] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:27:57] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:27:57] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:27:58] [info] Request: home/profile, Controller: HomeController, Method: profile, User ID: 1, Role: admin
-[2025-05-22 19:27:59] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:27:59] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:27:59] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:27:59] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:27:59] [info] Request: admin/users, Controller: AdminController, Method: users, User ID: 1, Role: admin
-[2025-05-22 19:28:01] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:28:01] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:28:01] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:28:01] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:28:02] [info] Request: auth/logout, Controller: AuthController, Method: logout, User ID: 1, Role: admin
-[2025-05-22 19:28:02] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 19:28:04] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 19:28:04] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:28:04] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 19:28:07] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 19:28:07] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:28:09] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:28:09] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:28:09] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 19:28:09] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:28:11] [info] Request: technologist/qualityChecks, Controller: TechnologistController, Method: qualityChecks, User ID: 8, Role: technologist
-[2025-05-22 19:28:13] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:28:13] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:28:13] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 19:28:13] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:28:13] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:28:14] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:28:14] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:28:14] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 19:28:15] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:28:15] [info] Request: technologist/qualityChecks, Controller: TechnologistController, Method: qualityChecks, User ID: 8, Role: technologist
-[2025-05-22 19:28:16] [info] Request: technologist/qualityStandards, Controller: TechnologistController, Method: qualityStandards, User ID: 8, Role: technologist
-[2025-05-22 19:28:18] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:28:18] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:28:18] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 19:28:18] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:36:51] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 8, Role: technologist
-[2025-05-22 19:36:53] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:36:53] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:36:53] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 19:36:53] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:36:55] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:36:56] [info] Request: technologist/qualityChecks, Controller: TechnologistController, Method: qualityChecks, User ID: 8, Role: technologist
-[2025-05-22 19:36:57] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:36:57] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:36:57] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 19:36:57] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:37:00] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 8, Role: technologist
-[2025-05-22 19:37:01] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:37:01] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:37:01] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 19:37:01] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:37:06] [info] Request: home/profile, Controller: HomeController, Method: profile, User ID: 8, Role: technologist
-[2025-05-22 19:37:07] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:37:07] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:37:07] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
-[2025-05-22 19:37:07] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
-[2025-05-22 19:37:08] [info] Request: auth/logout, Controller: AuthController, Method: logout, User ID: 8, Role: technologist
-[2025-05-22 19:37:08] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 19:37:10] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 19:37:10] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:37:10] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 19:37:11] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 19:37:12] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:37:13] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:37:13] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:37:13] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:37:13] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:37:14] [info] Request: warehouse/inventory, Controller: WarehouseController, Method: inventory, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:37:15] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:37:15] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:37:15] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:37:15] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:37:17] [info] Request: warehouse/updateQuantity/6, Controller: WarehouseController, Method: updateQuantity, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:37:18] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:37:18] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:37:18] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:37:18] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:37:20] [info] Request: warehouse/inventory, Controller: WarehouseController, Method: inventory, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:37:21] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:37:21] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:37:21] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:37:21] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:44:07] [info] Request: warehouse/inventoryReport, Controller: WarehouseController, Method: inventoryReport, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:44:08] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:44:08] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:44:08] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:44:08] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:44:12] [info] Request: warehouse/generateInventoryPdf, Controller: WarehouseController, Method: generateInventoryPdf, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:44:15] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:44:15] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:44:15] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:44:15] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:47:53] [info] Request: warehouse/production, Controller: WarehouseController, Method: production, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:47:55] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:47:55] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:47:55] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:47:55] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:47:58] [info] Request: warehouse/planProduction, Controller: WarehouseController, Method: planProduction, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:48:00] [info] Request: warehouse/production, Controller: WarehouseController, Method: production, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:48:01] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:48:01] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:48:01] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:48:01] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:48:04] [info] Request: auth/logout, Controller: AuthController, Method: logout, User ID: 2, Role: warehouse_manager
-[2025-05-22 19:48:04] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 19:48:06] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 19:48:06] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:48:06] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 19:48:07] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 19:48:07] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:48:09] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:48:09] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:48:09] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:48:09] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:48:10] [info] Request: admin/orders, Controller: AdminController, Method: orders, User ID: 1, Role: admin
-[2025-05-22 19:48:12] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:48:12] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:48:12] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:48:12] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:48:14] [info] Request: admin/createOrder, Controller: AdminController, Method: createOrder, User ID: 1, Role: admin
-[2025-05-22 19:48:16] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:48:16] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:48:16] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:48:16] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:54:24] [info] Request: admin/createOrder, Controller: AdminController, Method: createOrder, User ID: 1, Role: admin
-[2025-05-22 19:54:25] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:54:25] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:54:25] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:54:25] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:55:20] [info] Request: admin/createOrder, Controller: AdminController, Method: createOrder, User ID: 1, Role: admin
-[2025-05-22 19:55:22] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:55:22] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:55:22] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:55:22] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:55:39] [info] Request: admin/createOrder, Controller: AdminController, Method: createOrder, User ID: 1, Role: admin
-[2025-05-22 19:55:39] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 19:55:40] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:55:40] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:55:40] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 19:55:40] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 19:55:48] [info] Request: auth/logout, Controller: AuthController, Method: logout, User ID: 1, Role: admin
-[2025-05-22 19:55:48] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 19:55:49] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 19:55:49] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:55:49] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 19:55:51] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 19:55:51] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 19:55:52] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 4, Role: supplier
-[2025-05-22 19:55:53] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 19:55:53] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:55:53] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 19:55:53] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 19:55:56] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
-[2025-05-22 19:55:58] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 19:55:58] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:55:58] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 19:55:58] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 19:55:58] [info] Request: supplier/materials, Controller: SupplierController, Method: materials, User ID: 4, Role: supplier
-[2025-05-22 19:56:00] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 19:56:00] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:56:00] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 19:56:00] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 19:56:01] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
-[2025-05-22 19:56:03] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 19:56:03] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:56:03] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 19:56:03] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 19:56:10] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 4, Role: supplier
-[2025-05-22 19:56:11] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 19:56:11] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:56:11] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 19:56:12] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 19:56:12] [info] Request: home/viewMessage/10, Controller: HomeController, Method: viewMessage, User ID: 4, Role: supplier
-[2025-05-22 19:56:13] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 19:56:13] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:56:13] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 19:56:13] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 19:56:21] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
-[2025-05-22 19:56:23] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 19:56:23] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 19:56:23] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 19:56:23] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:16:29] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
-[2025-05-22 20:16:30] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:16:30] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:16:30] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:16:30] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:18:35] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
-[2025-05-22 20:18:36] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:18:36] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:18:36] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:18:36] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:18:37] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:18:38] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:18:38] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:18:38] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:18:38] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:18:46] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:18:47] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:18:47] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:18:47] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:18:48] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:18:54] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:18:55] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:18:55] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:18:55] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:18:55] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:19:46] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:19:47] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:19:47] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:19:47] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:19:47] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:19:48] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
-[2025-05-22 20:19:49] [info] Request: supplier/materials, Controller: SupplierController, Method: materials, User ID: 4, Role: supplier
-[2025-05-22 20:19:50] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:19:51] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:19:51] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:19:51] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:19:51] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:20:04] [info] Request: auth/logout, Controller: AuthController, Method: logout, User ID: 4, Role: supplier
-[2025-05-22 20:20:04] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 20:20:06] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 20:20:06] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:20:06] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 20:20:07] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 20:20:07] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:20:09] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:20:09] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:20:09] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:20:09] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:25:27] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:25:28] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:25:28] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:25:28] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:25:28] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:26:34] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:26:35] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:26:35] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:26:35] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:26:35] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:26:37] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:26:38] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:26:38] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:26:38] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:26:38] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:26:56] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 4, Role: supplier
-[2025-05-22 20:26:57] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:26:57] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:26:57] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:26:57] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:28:14] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 4, Role: supplier
-[2025-05-22 20:28:15] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:28:15] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:28:15] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:28:15] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:28:18] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 4, Role: supplier
-[2025-05-22 20:28:19] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:28:19] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:28:19] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:28:19] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:28:33] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
-[2025-05-22 20:28:34] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:28:34] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:28:34] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:28:34] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:28:51] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
-[2025-05-22 20:28:52] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:28:52] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:28:52] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:28:52] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:29:07] [info] Request: supplier/reports, Controller: SupplierController, Method: reports, User ID: 4, Role: supplier
-[2025-05-22 20:29:08] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:29:08] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:29:08] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:29:08] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:32:09] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
-[2025-05-22 20:32:10] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:32:10] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:32:10] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:32:10] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:32:12] [info] Request: supplier/materials, Controller: SupplierController, Method: materials, User ID: 4, Role: supplier
-[2025-05-22 20:32:13] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:32:14] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:32:14] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:32:14] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:32:14] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:34:19] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:34:20] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:34:20] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:34:20] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:34:20] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:35:08] [info] Request: supplier/materials, Controller: SupplierController, Method: materials, User ID: 4, Role: supplier
-[2025-05-22 20:35:09] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:35:09] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:35:09] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
-[2025-05-22 20:35:09] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
-[2025-05-22 20:35:10] [info] Request: auth/logout, Controller: AuthController, Method: logout, User ID: 4, Role: supplier
-[2025-05-22 20:35:10] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 20:35:12] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
-[2025-05-22 20:35:12] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:35:12] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 20:35:14] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
-[2025-05-22 20:35:14] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:35:16] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:35:16] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:35:16] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:35:16] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:35:17] [info] Request: admin/users, Controller: AdminController, Method: users, User ID: 1, Role: admin
-[2025-05-22 20:35:18] [info] Request: admin/recipes, Controller: AdminController, Method: recipes, User ID: 1, Role: admin
-[2025-05-22 20:35:19] [info] Request: admin/products, Controller: AdminController, Method: products, User ID: 1, Role: admin
-[2025-05-22 20:35:20] [info] Request: admin/orders, Controller: AdminController, Method: orders, User ID: 1, Role: admin
-[2025-05-22 20:35:21] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:35:21] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:35:21] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:35:21] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:35:25] [info] Request: admin/viewOrder/7, Controller: AdminController, Method: viewOrder, User ID: 1, Role: admin
-[2025-05-22 20:35:26] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:35:26] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:35:26] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:35:26] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:35:33] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:35:34] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:35:34] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:35:34] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:35:34] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:35:36] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
-[2025-05-22 20:35:37] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:35:37] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:35:37] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:35:37] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:35:41] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:35:42] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:35:42] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:35:42] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:35:42] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:35:44] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
-[2025-05-22 20:35:45] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:35:45] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:35:45] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:35:45] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:36:25] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:36:27] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:36:27] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:36:27] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:36:27] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:39:56] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:39:58] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:39:58] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:39:58] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:39:58] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:39:58] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
-[2025-05-22 20:39:59] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:39:59] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:39:59] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:39:59] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:40:02] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:40:03] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:40:03] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:40:03] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:40:03] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:42:37] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:42:39] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:42:39] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:42:39] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:42:39] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:42:40] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:42:41] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:42:41] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:42:41] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:42:41] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:42:42] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
-[2025-05-22 20:42:43] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:42:43] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:42:43] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:42:43] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:42:43] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:42:45] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:42:45] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:42:45] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:42:45] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:44:12] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:44:13] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:44:13] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:44:13] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:44:13] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:44:15] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
-[2025-05-22 20:44:16] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:44:16] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:44:16] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:44:16] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:44:21] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:44:22] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:44:22] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:44:22] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:44:22] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:44:44] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
-[2025-05-22 20:44:45] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:44:45] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:44:45] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:44:45] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:44:55] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:44:56] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:44:56] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:44:56] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:44:56] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:47:56] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:47:57] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:47:57] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:47:57] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:47:57] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:47:59] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:48:00] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:48:00] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:48:00] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:48:00] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:48:19] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:48:20] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:48:20] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:48:20] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:48:20] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:48:40] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:48:41] [info] Request: admin/viewOrder/7, Controller: AdminController, Method: viewOrder, User ID: 1, Role: admin
-[2025-05-22 20:48:43] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:48:43] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:48:43] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:48:43] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:48:44] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:48:45] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:48:45] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:48:45] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:48:45] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:49:26] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:49:28] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:49:28] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:49:28] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:49:28] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:49:34] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:49:35] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:49:35] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:49:35] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:49:35] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:49:41] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
-[2025-05-22 20:49:42] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:49:44] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:49:44] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:49:44] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:49:44] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:50:40] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:50:41] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:50:41] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:50:41] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:50:41] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:50:42] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
-[2025-05-22 20:50:43] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:50:43] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:50:43] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:50:43] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:50:44] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:50:45] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:50:45] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:50:45] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:50:45] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:52:55] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:52:57] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:52:57] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:52:57] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:52:57] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:52:58] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
-[2025-05-22 20:52:59] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:52:59] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:52:59] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:52:59] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:53:04] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:53:05] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:53:05] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:53:05] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:53:05] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:53:12] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
-[2025-05-22 20:53:13] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:53:14] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:53:14] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:53:14] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:53:14] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:53:16] [info] Request: admin/viewOrder/7, Controller: AdminController, Method: viewOrder, User ID: 1, Role: admin
-[2025-05-22 20:53:17] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:53:17] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:53:17] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:53:17] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:53:22] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 20:53:24] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 20:53:24] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 20:53:24] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 20:53:24] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 21:29:43] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 21:29:45] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 21:29:45] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 21:29:45] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 21:29:45] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 21:29:45] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
-[2025-05-22 21:29:46] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 21:29:48] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 21:29:48] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 21:29:48] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 21:29:48] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 21:51:20] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 21:51:22] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 21:51:22] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 21:51:22] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 21:51:22] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 21:53:15] [info] Request: admin/viewOrder/7, Controller: AdminController, Method: viewOrder, User ID: 1, Role: admin
-[2025-05-22 21:55:50] [info] Request: admin/viewOrder/7, Controller: AdminController, Method: viewOrder, User ID: 1, Role: admin
-[2025-05-22 21:55:52] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 21:57:11] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 22:03:44] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 22:03:45] [info] Request: admin/viewOrder/7, Controller: AdminController, Method: viewOrder, User ID: 1, Role: admin
-[2025-05-22 22:03:47] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 22:03:47] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 22:03:47] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 22:03:47] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 22:03:47] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 22:03:49] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 22:03:49] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 22:03:49] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 22:03:49] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 22:10:06] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 22:10:07] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 22:10:07] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 22:10:08] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 22:10:08] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
-[2025-05-22 22:10:19] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
-[2025-05-22 22:10:21] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
-[2025-05-22 22:10:21] [error] Controller not found: Favicon.icoController, redirecting to login
-[2025-05-22 22:10:21] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
-[2025-05-22 22:10:21] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:35:41] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
+[2025-05-22 22:35:43] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:35:43] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 22:35:43] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 22:35:43] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:36:02] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
+[2025-05-22 22:36:04] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:36:04] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 22:36:04] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 22:36:04] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:36:44] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
+[2025-05-22 22:36:46] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:36:46] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 22:36:46] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 22:36:46] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:37:16] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
+[2025-05-22 22:37:18] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:37:18] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 22:37:18] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 22:37:18] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:37:19] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
+[2025-05-22 22:37:20] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:37:20] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 22:37:20] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 22:37:20] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:37:21] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
+[2025-05-22 22:37:22] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:37:22] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 22:37:22] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 22:37:22] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:37:23] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
+[2025-05-22 22:37:24] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:37:24] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 22:37:24] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 22:37:24] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:37:28] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
+[2025-05-22 22:37:30] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:37:30] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 22:37:30] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 22:37:30] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:43:05] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
+[2025-05-22 22:43:07] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:43:07] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 22:43:07] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 22:43:07] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:43:07] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
+[2025-05-22 22:43:09] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:43:09] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 22:43:09] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 22:43:09] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:43:15] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
+[2025-05-22 22:43:17] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:43:17] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 22:43:17] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 22:43:17] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:43:17] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
+[2025-05-22 22:43:19] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:43:19] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 22:43:19] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 22:43:19] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:43:19] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
+[2025-05-22 22:43:21] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:43:21] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 22:43:21] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 22:43:21] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:46:09] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
+[2025-05-22 22:46:10] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:46:10] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 22:46:10] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 22:46:10] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:46:25] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
+[2025-05-22 22:46:27] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:46:27] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 22:46:27] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 22:46:27] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:46:28] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
+[2025-05-22 22:46:30] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:46:30] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 22:46:30] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 22:46:30] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:46:37] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
+[2025-05-22 22:46:39] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 22:46:39] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 22:46:39] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 22:46:39] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 23:01:54] [info] Request: admin/editOrder/7, Controller: AdminController, Method: editOrder, User ID: 1, Role: admin
+[2025-05-22 23:01:55] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 23:01:55] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:01:55] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 23:01:55] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 23:01:56] [info] Request: admin/addOrderItem/7, Controller: AdminController, Method: addOrderItem, User ID: 1, Role: admin
+[2025-05-22 23:01:57] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 23:01:57] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:01:58] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 23:01:58] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 23:01:59] [info] Request: auth/logout, Controller: AuthController, Method: logout, User ID: 1, Role: admin
+[2025-05-22 23:01:59] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-05-22 23:02:00] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
+[2025-05-22 23:02:00] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:02:00] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-05-22 23:02:03] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-05-22 23:02:03] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:02:05] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:02:05] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:02:05] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:02:05] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:02:37] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:02:38] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:02:38] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:02:38] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:02:38] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:02:42] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:02:44] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:02:44] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:02:44] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:02:44] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:02:45] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:02:47] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:02:47] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:02:47] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:02:47] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:03:07] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:03:09] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:03:09] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:03:09] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:03:09] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:03:24] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:03:26] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:03:26] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:03:26] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:03:26] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:04:08] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:04:09] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:04:09] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:04:09] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:04:09] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:04:11] [info] Request: home/messages, Controller: HomeController, Method: messages, User ID: 4, Role: supplier
+[2025-05-22 23:04:12] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:04:12] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:04:12] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:04:12] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:04:12] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:04:14] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
+[2025-05-22 23:04:15] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:04:15] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:04:15] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:04:15] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:04:18] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
+[2025-05-22 23:04:19] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:04:19] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:04:19] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:04:19] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:23:14] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
+[2025-05-22 23:23:15] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:23:15] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:23:15] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:23:15] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:23:45] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:23:47] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
+[2025-05-22 23:23:48] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:23:48] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:23:48] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:23:48] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:36:18] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
+[2025-05-22 23:36:19] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:36:19] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:36:19] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:36:19] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:36:21] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
+[2025-05-22 23:36:22] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:36:22] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:36:22] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:36:22] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:36:42] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
+[2025-05-22 23:36:44] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:36:44] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:36:44] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:36:44] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:36:45] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
+[2025-05-22 23:36:46] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:36:46] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:36:46] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:36:46] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:36:49] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
+[2025-05-22 23:36:50] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:36:50] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:36:50] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:36:50] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:36:51] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
+[2025-05-22 23:36:52] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:36:52] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:36:52] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:36:52] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:36:53] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
+[2025-05-22 23:36:54] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:36:54] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:36:54] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:36:54] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:36:56] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
+[2025-05-22 23:36:57] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:36:57] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:36:57] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:36:57] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:37:00] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
+[2025-05-22 23:37:02] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:37:02] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:37:02] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:37:02] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:37:03] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
+[2025-05-22 23:37:05] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:37:05] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:37:05] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:37:05] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:37:21] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
+[2025-05-22 23:37:23] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:37:23] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:37:23] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:37:23] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:37:24] [info] Request: supplier/viewOrder/4, Controller: SupplierController, Method: viewOrder, User ID: 4, Role: supplier
+[2025-05-22 23:37:25] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:37:25] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:37:25] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:37:25] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:37:26] [info] Request: supplier/orders, Controller: SupplierController, Method: orders, User ID: 4, Role: supplier
+[2025-05-22 23:37:27] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:37:27] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:37:27] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:37:27] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:37:30] [info] Request: supplier/materials, Controller: SupplierController, Method: materials, User ID: 4, Role: supplier
+[2025-05-22 23:37:31] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:37:31] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:37:31] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:37:32] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:37:32] [info] Request: supplier/reports, Controller: SupplierController, Method: reports, User ID: 4, Role: supplier
+[2025-05-22 23:37:34] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:37:34] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:37:34] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 4, Role: supplier
+[2025-05-22 23:37:34] [info] Request: home, Controller: HomeController, Method: index, User ID: 4, Role: supplier
+[2025-05-22 23:37:36] [info] Request: auth/logout, Controller: AuthController, Method: logout, User ID: 4, Role: supplier
+[2025-05-22 23:37:36] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-05-22 23:37:37] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
+[2025-05-22 23:37:37] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:37:37] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-05-22 23:37:41] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-05-22 23:37:41] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 23:37:43] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 23:37:43] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:37:43] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 23:37:43] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 23:37:50] [info] Request: admin/videoSurveillance, Controller: AdminController, Method: videoSurveillance, User ID: 1, Role: admin
+[2025-05-22 23:37:51] [info] Request: admin/reports, Controller: AdminController, Method: reports, User ID: 1, Role: admin
+[2025-05-22 23:37:52] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 23:37:52] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:37:52] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 23:37:52] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 23:37:59] [info] Request: home/profile, Controller: HomeController, Method: profile, User ID: 1, Role: admin
+[2025-05-22 23:38:00] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-22 23:38:00] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:38:00] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-22 23:38:00] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-22 23:38:12] [info] Request: auth/logout, Controller: AuthController, Method: logout, User ID: 1, Role: admin
+[2025-05-22 23:38:12] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-05-22 23:38:13] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
+[2025-05-22 23:38:13] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:38:13] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-05-22 23:38:35] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-05-22 23:38:35] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:36] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:36] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:38:36] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:36] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:40] [info] Request: warehouse/inventory, Controller: WarehouseController, Method: inventory, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:41] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:41] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:38:41] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:41] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:42] [info] Request: warehouse/updateQuantity/6, Controller: WarehouseController, Method: updateQuantity, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:44] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:44] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:38:44] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:44] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:45] [info] Request: warehouse/production, Controller: WarehouseController, Method: production, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:46] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:46] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:38:46] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:46] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:49] [info] Request: warehouse/planProduction, Controller: WarehouseController, Method: planProduction, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:51] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:51] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:38:51] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:51] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:55] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:57] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:57] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:38:57] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:38:57] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:42:24] [info] Request: auth/logout, Controller: AuthController, Method: logout, User ID: 2, Role: warehouse_manager
+[2025-05-22 23:42:24] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-05-22 23:42:26] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
+[2025-05-22 23:42:26] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:42:26] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-05-22 23:42:28] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-05-22 23:42:28] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:30] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:30] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:42:30] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
+[2025-05-22 23:42:30] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:33] [info] Request: technologist/qualityChecks, Controller: TechnologistController, Method: qualityChecks, User ID: 8, Role: technologist
+[2025-05-22 23:42:35] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:35] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:42:35] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
+[2025-05-22 23:42:35] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:37] [info] Request: technologist/createQualityCheck, Controller: TechnologistController, Method: createQualityCheck, User ID: 8, Role: technologist
+[2025-05-22 23:42:38] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:38] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:42:38] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
+[2025-05-22 23:42:38] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:38] [info] Request: technologist/qualityChecks, Controller: TechnologistController, Method: qualityChecks, User ID: 8, Role: technologist
+[2025-05-22 23:42:40] [info] Request: technologist/qualityStandards, Controller: TechnologistController, Method: qualityStandards, User ID: 8, Role: technologist
+[2025-05-22 23:42:41] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:41] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:42:41] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
+[2025-05-22 23:42:41] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:42] [info] Request: technologist/addQualityStandard, Controller: TechnologistController, Method: addQualityStandard, User ID: 8, Role: technologist
+[2025-05-22 23:42:43] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:43] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:42:43] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
+[2025-05-22 23:42:43] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:45] [info] Request: technologist/reports, Controller: TechnologistController, Method: reports, User ID: 8, Role: technologist
+[2025-05-22 23:42:45] [warning] Method not found: reports in controller: TechnologistController, redirecting to index
+[2025-05-22 23:42:45] [info] Request: technologist, Controller: TechnologistController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:47] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:47] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:42:47] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
+[2025-05-22 23:42:47] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:47] [info] Request: technologist/standards, Controller: TechnologistController, Method: standards, User ID: 8, Role: technologist
+[2025-05-22 23:42:47] [warning] Method not found: standards in controller: TechnologistController, redirecting to index
+[2025-05-22 23:42:47] [info] Request: technologist, Controller: TechnologistController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:49] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:49] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:42:49] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
+[2025-05-22 23:42:49] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:51] [info] Request: technologist/reports, Controller: TechnologistController, Method: reports, User ID: 8, Role: technologist
+[2025-05-22 23:42:51] [warning] Method not found: reports in controller: TechnologistController, redirecting to index
+[2025-05-22 23:42:51] [info] Request: technologist, Controller: TechnologistController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:52] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:52] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:42:52] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
+[2025-05-22 23:42:52] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:55] [info] Request: technologist/addStandard, Controller: TechnologistController, Method: addStandard, User ID: 8, Role: technologist
+[2025-05-22 23:42:55] [warning] Method not found: addStandard in controller: TechnologistController, redirecting to index
+[2025-05-22 23:42:55] [info] Request: technologist, Controller: TechnologistController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:56] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:56] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:42:57] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
+[2025-05-22 23:42:57] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:42:59] [info] Request: technologist/qualityChecks, Controller: TechnologistController, Method: qualityChecks, User ID: 8, Role: technologist
+[2025-05-22 23:43:01] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:43:01] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:43:01] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
+[2025-05-22 23:43:01] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:43:03] [info] Request: technologist, Controller: TechnologistController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:43:04] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:43:04] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:43:04] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
+[2025-05-22 23:43:04] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:46:28] [info] Request: technologist/qualityChecks, Controller: TechnologistController, Method: qualityChecks, User ID: 8, Role: technologist
+[2025-05-22 23:46:29] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:46:29] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:46:29] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
+[2025-05-22 23:46:29] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:46:30] [info] Request: technologist/createQualityCheck, Controller: TechnologistController, Method: createQualityCheck, User ID: 8, Role: technologist
+[2025-05-22 23:46:31] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 8, Role: technologist
+[2025-05-22 23:46:31] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-22 23:46:31] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 8, Role: technologist
+[2025-05-22 23:46:31] [info] Request: home, Controller: HomeController, Method: index, User ID: 8, Role: technologist

@@ -27,7 +27,8 @@ class RawMaterial {
     // Отримати сировинні матеріали за постачальником
     public function getBySupplier($supplier_id) {
         $sql = "SELECT * FROM raw_materials WHERE supplier_id = ? ORDER BY name";
-        return $this->db->resultSet($sql, [$supplier_id]);
+        $result = $this->db->resultSet($sql, [$supplier_id]);
+        return $result ?: []; // Возвращаем пустой массив вместо false/null
     }
     
     // Отримати сировинні матеріали з низьким запасом

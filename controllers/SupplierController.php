@@ -13,16 +13,6 @@ class SupplierController {
         $this->rawMaterialModel = new RawMaterial();
     }
     
-    // Управління замовленнями
-    public function orders() {
-        $data = [
-            'title' => 'Мої замовлення',
-            'orders' => $this->orderModel->getBySupplier(Auth::getCurrentUserId())
-        ];
-        
-        include VIEWS_PATH . '/supplier/orders.php';
-    }
-
     // Главная панель поставщика
     public function index() {
         $user_id = Auth::getCurrentUserId();
@@ -38,19 +28,17 @@ class SupplierController {
         $messages = $messageModel->getLatest($user_id, 5) ?? [];
         $unread_messages = $messageModel->countUnread($user_id) ?? 0;
         
-        // Подготавливаем данные для передачи в представление
-        $data = [
-            'title' => 'Панель постачальника',
-            'active_orders' => $active_orders,
-            'materials' => $materials,
-            'messages' => $messages,
-            'unread_messages' => $unread_messages
-        ];
-        
-        // Извлекаем переменные для использования в шаблоне
-        extract($data);
+        $title = 'Панель постачальника';
         
         include VIEWS_PATH . '/supplier/dashboard.php';
+    }
+    
+    // Управління замовленнями
+    public function orders() {
+        $orders = $this->orderModel->getBySupplier(Auth::getCurrentUserId());
+        $title = 'Мої замовлення';
+        
+        include VIEWS_PATH . '/supplier/orders.php';
     }
     
     // Перегляд замовлення
@@ -63,11 +51,8 @@ class SupplierController {
             Util::redirect(BASE_URL . '/supplier/orders');
         }
         
-        $data = [
-            'title' => 'Перегляд замовлення',
-            'order' => $order,
-            'items' => $this->orderModel->getItems($id)
-        ];
+        $title = 'Перегляд замовлення';
+        $items = $this->orderModel->getItems($id);
         
         include VIEWS_PATH . '/supplier/view_order.php';
     }
@@ -176,10 +161,8 @@ class SupplierController {
     
     // Управління сировиною
     public function materials() {
-        $data = [
-            'title' => 'Моя сировина',
-            'materials' => $this->rawMaterialModel->getBySupplier(Auth::getCurrentUserId())
-        ];
+        $title = 'Моя сировина';
+        $materials = $this->rawMaterialModel->getBySupplier(Auth::getCurrentUserId());
         
         include VIEWS_PATH . '/supplier/materials.php';
     }
@@ -224,10 +207,7 @@ class SupplierController {
             }
         }
         
-        $data = [
-            'title' => 'Додавання сировини',
-            'errors' => $errors
-        ];
+        $title = 'Додавання сировини';
         
         include VIEWS_PATH . '/supplier/add_material.php';
     }
@@ -280,11 +260,7 @@ class SupplierController {
             }
         }
         
-        $data = [
-            'title' => 'Редагування сировини',
-            'material' => $material,
-            'errors' => $errors
-        ];
+        $title = 'Редагування сировини';
         
         include VIEWS_PATH . '/supplier/edit_material.php';
     }
@@ -310,9 +286,7 @@ class SupplierController {
     
     // Звіти
     public function reports() {
-        $data = [
-            'title' => 'Звіти'
-        ];
+        $title = 'Звіти';
         
         include VIEWS_PATH . '/supplier/reports.php';
     }
@@ -363,20 +337,12 @@ class SupplierController {
                 
         $summary = $db->single($sql, [Auth::getCurrentUserId(), $start_date . ' 00:00:00', $end_date . ' 23:59:59']);
         
-        $data = [
-            'title' => 'Звіт по замовленнях',
-            'start_date' => $start_date,
-            'end_date' => $end_date,
-            'orders' => $orders,
-            'materials_stats' => $materials_stats,
-            'summary' => $summary
-        ];
+        $title = 'Звіт по замовленнях';
         
         include VIEWS_PATH . '/supplier/orders_report.php';
     }
     
     // Генерація PDF звіту по замовленнях
-    // Генерація PDF звіту по замовленнях - ИСПРАВЛЕННЫЙ МЕТОД
     public function generateOrdersPdf() {
         // Параметри періоду
         $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : date('Y-m-01');
@@ -475,7 +441,7 @@ class SupplierController {
         $pdf->output('orders_report_' . date('Y-m-d') . '.pdf');
     }
     
-    // Генерація PDF звіту по матеріалах - ИСПРАВЛЕННЫЙ МЕТОД
+    // Генерація PDF звіту по матеріалах
     public function generateMaterialsPdf() {
         // Параметри періоду
         $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : date('Y-m-01');
@@ -548,10 +514,8 @@ class SupplierController {
         $pdf->addDateAndSignature();
         $pdf->output('materials_report_' . date('Y-m-d') . '.pdf');
     }
-
-
+    
     // Метод печати заказа
-    // Временная отладочная версия printOrder
     public function printOrder($id) {
         try {
             $order = $this->orderModel->getById($id);
@@ -749,8 +713,8 @@ class SupplierController {
                     r.price_per_unit,
                     r.min_stock,
                     COUNT(oi.id) as orders_count,
-                    SUM(oi.quantity) as total_ordered,
-                    SUM(oi.quantity * oi.price_per_unit) as total_amount
+                    COALESCE(SUM(oi.quantity), 0) as total_ordered,
+                    COALESCE(SUM(oi.quantity * oi.price_per_unit), 0) as total_amount
                 FROM raw_materials r
                 LEFT JOIN order_items oi ON r.id = oi.raw_material_id
                 LEFT JOIN orders o ON oi.order_id = o.id
@@ -762,13 +726,7 @@ class SupplierController {
         $db = Database::getInstance();
         $materials_stats = $db->resultSet($sql, [Auth::getCurrentUserId(), $start_date . ' 00:00:00', $end_date . ' 23:59:59']);
         
-        $data = [
-            'title' => 'Звіт по матеріалах',
-            'start_date' => $start_date,
-            'end_date' => $end_date,
-            'materials' => $materials,
-            'materials_stats' => $materials_stats
-        ];
+        $title = 'Звіт по матеріалах';
         
         include VIEWS_PATH . '/supplier/materials_report.php';
     }

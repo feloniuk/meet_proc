@@ -29,22 +29,7 @@ abstract class BaseController {
         $content = ob_get_clean();
         
         // Если используется layout
-        if ($layout) {
-            // Извлекаем переменные для layout
-            extract($data);
-            
-            // Подключаем layout
-            $layoutFile = VIEWS_PATH . '/layouts/' . $layout . '.php';
-            if (file_exists($layoutFile)) {
-                include $layoutFile;
-            } else {
-                // Если layout не найден, выводим только контент
-                echo $content;
-            }
-        } else {
-            // Без layout выводим только контент
             echo $content;
-        }
     }
     
     /**

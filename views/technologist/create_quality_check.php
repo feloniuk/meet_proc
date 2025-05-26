@@ -22,13 +22,15 @@
                             <select class="form-control <?= isset($errors['order_id']) ? 'is-invalid' : '' ?>" 
                                    id="order_id" name="order_id" required>
                                 <option value="">Виберіть замовлення</option>
-                                <?php foreach ($orders as $order): ?>
-                                    <option value="<?= $order['id'] ?>" 
-                                           <?= isset($_POST['order_id']) && $_POST['order_id'] == $order['id'] ? 'selected' : '' ?>>
-                                        Замовлення #<?= $order['id'] ?> - <?= htmlspecialchars($order['supplier_name']) ?> 
-                                        (<?= $order['delivery_date'] ? date('d.m.Y', strtotime($order['delivery_date'])) : 'Без дати' ?>)
-                                    </option>
-                                <?php endforeach; ?>
+                                <?php if (!empty($orders)): ?>
+                                    <?php foreach ($orders as $order): ?>
+                                        <option value="<?= $order['id'] ?>" 
+                                               <?= isset($_POST['order_id']) && $_POST['order_id'] == $order['id'] ? 'selected' : '' ?>>
+                                            Замовлення #<?= $order['id'] ?> - <?= htmlspecialchars($order['supplier_name']) ?> 
+                                            (<?= $order['delivery_date'] ? date('d.m.Y', strtotime($order['delivery_date'])) : 'Без дати' ?>)
+                                        </option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </select>
                             <?php if (isset($errors['order_id'])): ?>
                                 <div class="invalid-feedback"><?= $errors['order_id'] ?></div>

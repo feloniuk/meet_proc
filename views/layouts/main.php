@@ -154,7 +154,7 @@ $current_page = $_SERVER['REQUEST_URI'];
                     <ul class="nav flex-column">
                         <!-- Загальні пункти для всіх ролей -->
                         <li class="nav-item">
-                            <a class="nav-link <?= strpos($current_page, '/home') !== false ? 'active' : '' ?>" 
+                            <a class="nav-link <?= (strpos($current_page, '/home') !== false && strpos($current_page, 'home/messages') == false ) ? 'active' : '' ?>" 
                                href="<?= BASE_URL ?>/home">
                                 <i class="fas fa-home me-2"></i>Головна
                             </a>

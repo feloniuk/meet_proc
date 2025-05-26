@@ -1,0 +1,11 @@
+[2025-05-26 12:20:28] [info] Request: , Controller: HomeController, Method: index, User: Not logged in
+[2025-05-26 12:20:28] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-05-26 12:20:30] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
+[2025-05-26 12:20:30] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-26 12:20:30] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-05-26 12:20:33] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-05-26 12:20:33] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-05-26 12:20:34] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-05-26 12:20:34] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-26 12:20:34] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-05-26 12:20:34] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin

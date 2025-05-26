@@ -1,5 +1,6 @@
 <?php
 // views/admin/add_order_item.php
+// Переменные уже доступны из контроллера: $title, $order, $materials, $errors
 ?>
 <div class="container-fluid">
     <div class="d-flex align-items-center mb-4">
@@ -24,15 +25,17 @@
                                     name="raw_material_id" 
                                     required>
                                 <option value="">Виберіть сировину</option>
-                                <?php foreach ($materials as $material): ?>
-                                    <option value="<?= $material['id'] ?>" 
-                                            data-unit="<?= htmlspecialchars($material['unit']) ?>"
-                                            data-price="<?= $material['price_per_unit'] ?>"
-                                            <?= (isset($_POST['raw_material_id']) && $_POST['raw_material_id'] == $material['id']) || 
-                                                (isset($_GET['material_id']) && $_GET['material_id'] == $material['id']) ? 'selected' : '' ?>>
-                                        <?= htmlspecialchars($material['name']) ?> (<?= htmlspecialchars($material['unit']) ?>)
-                                    </option>
-                                <?php endforeach; ?>
+                                <?php if (!empty($materials)): ?>
+                                    <?php foreach ($materials as $material): ?>
+                                        <option value="<?= $material['id'] ?>" 
+                                                data-unit="<?= htmlspecialchars($material['unit']) ?>"
+                                                data-price="<?= $material['price_per_unit'] ?>"
+                                                <?= (isset($_POST['raw_material_id']) && $_POST['raw_material_id'] == $material['id']) || 
+                                                    (isset($_GET['material_id']) && $_GET['material_id'] == $material['id'] && !isset($_POST['raw_material_id'])) ? 'selected' : '' ?>>
+                                            <?= htmlspecialchars($material['name']) ?> (<?= htmlspecialchars($material['unit']) ?>)
+                                        </option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </select>
                             <?php if (isset($errors['raw_material_id'])): ?>
                                 <div class="invalid-feedback"><?= $errors['raw_material_id'] ?></div>
@@ -97,18 +100,25 @@
                     <h5 class="card-title mb-0">Інформація про замовлення</h5>
                 </div>
                 <div class="card-body">
-                    <p><strong>Номер замовлення:</strong> <?= $order['id'] ?></p>
+                    <p><strong>Номер замовлення:</strong> #<?= $order['id'] ?></p>
                     <p><strong>Постачальник:</strong> <?= htmlspecialchars($order['supplier_name']) ?></p>
                     <p><strong>Дата створення:</strong> <?= isset($order['created_at']) ? date('d.m.Y H:i', strtotime($order['created_at'])) : 'Не вказано' ?></p>
                     <p><strong>Очікувана доставка:</strong> <?= isset($order['delivery_date']) && $order['delivery_date'] ? date('d.m.Y', strtotime($order['delivery_date'])) : 'Не вказано' ?></p>
                     <p><strong>Статус:</strong> 
                         <span class="badge bg-warning">
-                            <?= isset($order['status']) ? ucfirst($order['status']) : 'Pending' ?>
+                            <?= Util::getOrderStatusName($order['status']) ?>
                         </span>
                     </p>
                     <p><strong>Поточна сума:</strong> <?= isset($order['total_amount']) ? number_format($order['total_amount'], 2) . ' грн' : '0.00 грн' ?></p>
                 </div>
             </div>
+            
+            <?php if (empty($materials)): ?>
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    Постачальник ще не додав жодної сировини. Неможливо додати позиції до замовлення.
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>
@@ -140,7 +150,9 @@ document.addEventListener('DOMContentLoaded', function() {
             materialSelect.dataset.lastSelected = selectedOption.value;
         } else {
             unitDisplay.textContent = '';
-            priceInput.value = '';
+            if (!priceInput.value) {
+                priceInput.value = '';
+            }
         }
         
         calculateTotal();
@@ -158,6 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
     quantityInput.addEventListener('input', calculateTotal);
     priceInput.addEventListener('input', calculateTotal);
     
+    // Инициализация при загрузке страницы
     updateMaterialInfo();
 });
 </script>

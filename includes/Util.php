@@ -7,7 +7,7 @@ class Util {
     // Обновленный метод для получения названия роли пользователя
     public static function getUserRoleName($role) {
         $roles = [
-            'admin' => 'Адміністратор',
+            'admin' => 'Директора',
             'warehouse_manager' => 'Начальник складу',
             'supplier' => 'Постачальник',
             'technologist' => 'Технолог'

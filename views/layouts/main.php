@@ -160,7 +160,7 @@ $current_page = $_SERVER['REQUEST_URI'];
                             </a>
                         </li>
                         
-                        <!-- Для адміністратора -->
+                        <!-- Для директора -->
                         <?php if ($user_role === 'admin'): ?>
                             <li class="nav-item">
                                 <a class="nav-link <?= strpos($current_page, '/admin/users') !== false ? 'active' : '' ?>" 
@@ -238,7 +238,7 @@ $current_page = $_SERVER['REQUEST_URI'];
                             </a>
                         </li>
                         <?php endif; ?>
-                        
+
                         <!-- Для технолога -->
                         <?php if ($user_role === 'technologist'): ?>
                             <li class="nav-item">

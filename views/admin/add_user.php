@@ -117,7 +117,7 @@
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <h6><span class="badge bg-danger">Адміністратор</span></h6>
+                        <h6><span class="badge bg-danger">Директор</span></h6>
                         <p class="small">Має повний доступ до системи. Управляє користувачами, рецептами, продуктами, замовленнями та відеоспостереженням.</p>
                     </div>
                     

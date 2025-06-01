@@ -123,9 +123,9 @@ class HomeController extends BaseController {
             $name = Util::sanitize($_POST['name']);
             $email = Util::sanitize($_POST['email']);
             $phone = Util::sanitize($_POST['phone']);
-            $old_password = $_POST['old_password'];
-            $new_password = $_POST['new_password'];
-            $confirm_password = $_POST['confirm_password'];
+            $old_password = isset($_POST['old_password']) ? $_POST['old_password'] : '';
+            $new_password = isset($_POST['new_password']) ? $_POST['new_password'] : '';
+            $confirm_password = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
             
             // Валидация
             if (empty($name)) {

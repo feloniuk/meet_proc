@@ -192,7 +192,7 @@
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <div>
                                 <p class="mb-0 fw-bold">Створено</p>
-                                <p class="text-muted mb-0">Замовлення створено адміністратором</p>
+                                <p class="text-muted mb-0">Замовлення створено директором</p>
                             </div>
                             <span class="text-muted"><?= Util::formatDate($order['created_at'], 'd.m.Y H:i') ?></span>
                         </li>

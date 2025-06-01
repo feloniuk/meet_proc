@@ -346,7 +346,7 @@ $messages = $messages ?? [];
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
                 <a href="<?= BASE_URL ?>/home/newMessage" class="btn btn-primary">
-                    <i class="fas fa-envelope me-1"></i>Повідомити адміністратора
+                    <i class="fas fa-envelope me-1"></i>Повідомити директора
                 </a>
             </div>
         </div>

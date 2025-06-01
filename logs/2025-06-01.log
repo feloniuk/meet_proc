@@ -296,3 +296,13 @@
 [2025-06-01 20:57:42] [error] Controller not found: Favicon.icoController, redirecting to login
 [2025-06-01 20:57:42] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
 [2025-06-01 20:57:42] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-06-01 20:59:05] [info] Request: admin/users, Controller: AdminController, Method: users, User ID: 1, Role: admin
+[2025-06-01 20:59:06] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-06-01 20:59:06] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 20:59:06] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-06-01 20:59:06] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-06-01 20:59:06] [info] Request: admin/recipes, Controller: AdminController, Method: recipes, User ID: 1, Role: admin
+[2025-06-01 20:59:06] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-06-01 20:59:06] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 20:59:06] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-06-01 20:59:06] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin

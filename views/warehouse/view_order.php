@@ -1,29 +1,37 @@
 <?php
-// views/admin/view_order.php
+// views/warehouse/view_order.php
 ?>
 <div class="container-fluid">
     <div class="d-flex align-items-center mb-4">
-        <a href="<?= BASE_URL ?>/admin/orders" class="btn btn-outline-primary me-2">
+        <a href="<?= BASE_URL ?>/warehouse/orders" class="btn btn-outline-primary me-2">
             <i class="fas fa-arrow-left"></i>
         </a>
         <h1 class="h3 mb-0"><i class="fas fa-shopping-cart me-2"></i>Перегляд замовлення #<?= $order['id'] ?></h1>
         <div class="ms-auto">
             <?php if ($order['status'] === 'pending'): ?>
-                <a href="<?= BASE_URL ?>/admin/editOrder/<?= $order['id'] ?>" class="btn btn-primary me-2">
+                <a href="<?= BASE_URL ?>/warehouse/editOrder/<?= $order['id'] ?>" class="btn btn-primary me-2">
                     <i class="fas fa-edit me-1"></i>Редагувати
                 </a>
             <?php endif; ?>
 
-            <?php if ($order['status'] === 'shipped'): ?>
-                <a href="<?= BASE_URL ?>/admin/deliverOrder/<?= $order['id'] ?>" 
+            <?php if ($order['status'] === 'shipped' && (isset($order['quality_status']) && ($order['quality_status'] === 'approved' || $order['quality_status'] === 'not_checked'))): ?>
+                <a href="<?= BASE_URL ?>/warehouse/deliverOrder/<?= $order['id'] ?>" 
                    class="btn btn-success me-2" 
                    onclick="return confirm('Ви впевнені, що хочете підтвердити отримання замовлення?');">
                     <i class="fas fa-truck me-1"></i>Підтвердити отримання
                 </a>
+            <?php elseif ($order['status'] === 'shipped' && isset($order['quality_status']) && $order['quality_status'] === 'pending'): ?>
+                <div class="alert alert-warning me-2 mb-0 p-2 d-inline-block">
+                    <i class="fas fa-clock me-1"></i>Очікується перевірка якості
+                </div>
+            <?php elseif ($order['status'] === 'shipped' && isset($order['quality_status']) && $order['quality_status'] === 'rejected'): ?>
+                <div class="alert alert-danger me-2 mb-0 p-2 d-inline-block">
+                    <i class="fas fa-times me-1"></i>Сировину відхилено технологом
+                </div>
             <?php endif; ?>
 
             <?php if ($order['status'] !== 'delivered' && $order['status'] !== 'canceled'): ?>
-                <a href="<?= BASE_URL ?>/admin/cancelOrder/<?= $order['id'] ?>" 
+                <a href="<?= BASE_URL ?>/warehouse/cancelOrder/<?= $order['id'] ?>" 
                    class="btn btn-danger" 
                    onclick="return confirm('Ви впевнені, що хочете скасувати замовлення?');">
                     <i class="fas fa-times me-1"></i>Скасувати
@@ -37,20 +45,39 @@
             <!-- Статус замовлення -->
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
                         <div>
                             <h5 class="card-title mb-1">Статус замовлення</h5>
                             <p class="text-muted mb-0">Замовлення від <?= Util::formatDate($order['created_at'], 'd.m.Y') ?></p>
                         </div>
-                        <div>
+                        <div class="text-end">
                             <span class="badge bg-<?= 
                                 $order['status'] === 'delivered' ? 'success' : 
                                 ($order['status'] === 'canceled' ? 'danger' : 
                                     ($order['status'] === 'shipped' ? 'primary' : 
                                         ($order['status'] === 'accepted' ? 'info' : 'warning'))) 
-                            ?> p-2 fs-6">
+                            ?> p-2 fs-6 mb-2">
                                 <?= Util::getOrderStatusName($order['status']) ?>
                             </span>
+                            
+                            <?php if (isset($order['quality_status']) && $order['status'] === 'shipped'): ?>
+                                <br>
+                                <small class="text-muted">Якість:</small>
+                                <span class="badge bg-<?= 
+                                    $order['quality_status'] === 'approved' ? 'success' : 
+                                    ($order['quality_status'] === 'rejected' ? 'danger' : 
+                                        ($order['quality_status'] === 'pending' ? 'warning' : 'secondary')) 
+                                ?> p-2">
+                                    <?php
+                                    switch ($order['quality_status'] ?? 'not_checked') {
+                                        case 'approved': echo 'Схвалено'; break;
+                                        case 'rejected': echo 'Відхилено'; break;
+                                        case 'pending': echo 'На перевірці'; break;
+                                        default: echo 'Не перевірено';
+                                    }
+                                    ?>
+                                </span>
+                            <?php endif; ?>
                         </div>
                     </div>
                     
@@ -247,14 +274,14 @@
                 </div>
                 <div class="card-body">
                     <div class="d-grid gap-2">
-                        <a href="<?= BASE_URL ?>/admin/printOrder/<?= $order['id'] ?>" 
+                        <a href="<?= BASE_URL ?>/warehouse/printOrder/<?= $order['id'] ?>" 
                            class="btn btn-outline-dark" 
                            target="_blank">
                             <i class="fas fa-print me-1"></i>Роздрукувати замовлення
                         </a>
                         
                         <?php if ($order['status'] === 'delivered'): ?>
-                            <a href="<?= BASE_URL ?>/admin/inventoryReport" 
+                            <a href="<?= BASE_URL ?>/warehouse/inventoryReport" 
                                class="btn btn-outline-info">
                                 <i class="fas fa-boxes me-1"></i>Перевірити інвентаризацію
                             </a>

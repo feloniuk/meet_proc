@@ -762,41 +762,70 @@ class WarehouseController {
         if (!$order) {
             $_SESSION['error'] = 'Замовлення не знайдено';
             Util::redirect(BASE_URL . '/warehouse/orders');
+            return;
         }
         
         // Перевіряємо, чи можна редагувати замовлення
         if ($order['status'] !== 'pending') {
             $_SESSION['error'] = 'Можна редагувати тільки замовлення в статусі "Очікує підтвердження"';
             Util::redirect(BASE_URL . '/warehouse/viewOrder/' . $id);
+            return;
+        }
+        
+        // Получаем позиции заказа
+        $items = $this->orderModel->getItems($id);
+        
+        // Получаем материалы поставщика
+        $materials = [];
+        if (!empty($order['supplier_id'])) {
+            try {
+                $materials = $this->rawMaterialModel->getBySupplier($order['supplier_id']);
+                
+                // Если материалов нет, логируем это
+                if (empty($materials)) {
+                    error_log("No materials found for supplier ID: " . $order['supplier_id']);
+                }
+            } catch (Exception $e) {
+                error_log("Error getting materials for supplier: " . $e->getMessage());
+                $materials = [];
+            }
         }
         
         $data = [
             'title' => 'Редагування замовлення',
             'order' => $order,
-            'items' => $this->orderModel->getItems($id),
-            'materials' => $this->rawMaterialModel->getBySupplier($order['supplier_id'])
+            'items' => $items ?: [],
+            'materials' => $materials ?: []
         ];
         
         require VIEWS_PATH . '/warehouse/edit_order.php';
     }
     
-    // Перегляд замовлення для начальника склада
-    public function viewOrder($id) {
-        $order = $this->orderModel->getById($id);
-        
-        if (!$order) {
-            $_SESSION['error'] = 'Замовлення не знайдено';
-            Util::redirect(BASE_URL . '/warehouse/orders');
-        }
-        
-        $data = [
-            'title' => 'Перегляд замовлення',
-            'order' => $order,
-            'items' => $this->orderModel->getItems($id)
-        ];
-        
-        require VIEWS_PATH . '/warehouse/view_order.php';
+
+public function viewOrder($id) {
+    $order = $this->orderModel->getById($id);
+    
+    if (!$order) {
+        $_SESSION['error'] = 'Замовлення не знайдено';
+        Util::redirect(BASE_URL . '/warehouse/orders');
+        return;
     }
+    
+    $items = $this->orderModel->getItems($id);
+    
+    // Подготавливаем все необходимые переменные для представления
+    $data = [
+        'title' => 'Перегляд замовлення #' . $order['id'],
+        'order' => $order,
+        'items' => $items
+    ];
+    
+    // Извлекаем переменные для использования в представлении
+    extract($data);
+    
+    // Подключаем представление
+    require VIEWS_PATH . '/warehouse/view_order.php';
+}
     
     // Додавання елемента до замовлення для начальника склада
     public function addOrderItem($order_id) {
@@ -818,36 +847,64 @@ class WarehouseController {
         $errors = [];
         
         // Обробка форми додавання елемента
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $raw_material_id = isset($_POST['raw_material_id']) ? trim($_POST['raw_material_id']) : '';
-            $quantity = isset($_POST['quantity']) ? trim($_POST['quantity']) : '';
-            $price_per_unit = isset($_POST['price_per_unit']) ? trim($_POST['price_per_unit']) : '';
+        if (Util::isPost()) {
+            $raw_material_id = isset($_POST['raw_material_id']) ? (int)Util::sanitize($_POST['raw_material_id']) : 0;
+            $quantity = isset($_POST['quantity']) ? (float)Util::sanitize($_POST['quantity']) : 0;
+            $price_per_unit = isset($_POST['price_per_unit']) ? (float)Util::sanitize($_POST['price_per_unit']) : 0;
             
             // Валідація
             if (empty($raw_material_id)) {
                 $errors['raw_material_id'] = 'Виберіть сировину';
             }
             
-            if (empty($quantity) || !is_numeric($quantity) || $quantity <= 0) {
+            if ($quantity <= 0) {
                 $errors['quantity'] = 'Кількість повинна бути більше нуля';
             }
             
-            if (empty($price_per_unit) || !is_numeric($price_per_unit) || $price_per_unit <= 0) {
+            if ($price_per_unit <= 0) {
                 $errors['price_per_unit'] = 'Ціна повинна бути більше нуля';
+            }
+            
+            // Перевіряємо, чи не існує вже така позиція в замовленні
+            if (empty($errors)) {
+                $db = Database::getInstance();
+                $existingItem = $db->single(
+                    "SELECT id FROM order_items WHERE order_id = ? AND raw_material_id = ?", 
+                    [$order_id, $raw_material_id]
+                );
+                
+                if ($existingItem) {
+                    $errors['raw_material_id'] = 'Ця сировина вже додана до замовлення. Відредагуйте існуючу позицію.';
+                }
             }
             
             // Якщо помилок немає, додаємо елемент
             if (empty($errors)) {
-                if ($this->orderModel->addItem($order_id, $raw_material_id, $quantity, $price_per_unit)) {
-                    $_SESSION['success'] = 'Елемент замовлення успішно додано';
-                    Util::redirect(BASE_URL . '/warehouse/editOrder/' . $order_id);
-                    return;
-                } else {
-                    $_SESSION['error'] = 'Помилка при додаванні елемента замовлення';
+                try {
+                    $db = Database::getInstance();
+                    
+                    // Додаємо елемент замовлення
+                    $sql = "INSERT INTO order_items (order_id, raw_material_id, quantity, price_per_unit) VALUES (?, ?, ?, ?)";
+                    $result = $db->query($sql, [$order_id, $raw_material_id, $quantity, $price_per_unit]);
+                    
+                    if ($result) {
+                        // Оновлюємо загальну суму замовлення
+                        $this->orderModel->updateTotalAmount($order_id);
+                        
+                        $_SESSION['success'] = 'Елемент замовлення успішно додано';
+                        Util::redirect(BASE_URL . '/warehouse/editOrder/' . $order_id);
+                        return;
+                    } else {
+                        $_SESSION['error'] = 'Помилка при додаванні елемента замовлення';
+                    }
+                } catch (Exception $e) {
+                    error_log("Error adding order item: " . $e->getMessage());
+                    $_SESSION['error'] = 'Помилка бази даних при додаванні елемента замовлення';
                 }
             }
         }
         
+        // Отримуємо матеріали постачальника
         $materials = $this->rawMaterialModel->getBySupplier($order['supplier_id']);
         
         // Якщо є material_id в GET параметрах, автоматично вибираємо матеріал
@@ -871,6 +928,63 @@ class WarehouseController {
         require VIEWS_PATH . '/warehouse/add_order_item.php';
     }
     
+    // Также добавьте метод updateTotalAmount в OrderModel, если его нет:
+    // В models/Order.php добавьте этот метод:
+    
+    public function updateTotalAmount($order_id) {
+        try {
+            $db = Database::getInstance();
+            
+            // Вычисляем общую сумму заказа
+            $sql = "SELECT SUM(quantity * price_per_unit) as total FROM order_items WHERE order_id = ?";
+            $result = $db->single($sql, [$order_id]);
+            
+            $total_amount = $result['total'] ?? 0;
+            
+            // Обновляем общую сумму в заказе
+            $updateSql = "UPDATE orders SET total_amount = ? WHERE id = ?";
+            return $db->query($updateSql, [$total_amount, $order_id]);
+            
+        } catch (Exception $e) {
+            error_log("Error updating total amount: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    // Метод addItem в OrderModel должен выглядеть так:
+    public function addItem($order_id, $raw_material_id, $quantity, $price_per_unit) {
+        try {
+            $db = Database::getInstance();
+            
+            // Проверяем, существует ли уже такая позиция
+            $existing = $db->single(
+                "SELECT id FROM order_items WHERE order_id = ? AND raw_material_id = ?", 
+                [$order_id, $raw_material_id]
+            );
+            
+            if ($existing) {
+                return false; // Позиция уже существует
+            }
+            
+            $sql = "INSERT INTO order_items (order_id, raw_material_id, quantity, price_per_unit) 
+                    VALUES (?, ?, ?, ?)";
+            
+            $result = $db->query($sql, [$order_id, $raw_material_id, $quantity, $price_per_unit]);
+            
+            if ($result) {
+                // Обновляем общую сумму заказа
+                $this->updateTotalAmount($order_id);
+                return true;
+            }
+            
+            return false;
+            
+        } catch (Exception $e) {
+            error_log("Error in addItem: " . $e->getMessage());
+            return false;
+        }
+    }
+    
     // Підтвердження отримання замовлення для начальника склада
     public function deliverOrder($id) {
         $order = $this->orderModel->getById($id);
@@ -886,19 +1000,65 @@ class WarehouseController {
             Util::redirect(BASE_URL . '/warehouse/viewOrder/' . $id);
         }
         
-        // Перевіряємо статус якості
-        if ($order['quality_status'] !== 'approved') {
-            $_SESSION['error'] = 'Неможливо прийняти замовлення без схвалення технолога';
-            Util::redirect(BASE_URL . '/warehouse/viewOrder/' . $id);
+        // Перевіряємо статус якості (якщо система перевірки якості активна)
+        if (isset($order['quality_status'])) {
+            if ($order['quality_status'] === 'rejected') {
+                $_SESSION['error'] = 'Неможливо прийняти замовлення - сировину відхилено технологом';
+                Util::redirect(BASE_URL . '/warehouse/viewOrder/' . $id);
+                return;
+            }
+            
+            if ($order['quality_status'] === 'pending') {
+                $_SESSION['warning'] = 'Увага! Якість сировини ще не перевірена технологом. Замовлення буде прийнято, але рекомендується дочекатися перевірки якості.';
+            }
         }
         
-        if ($this->orderModel->deliver($id, $this->inventoryModel)) {
-            $_SESSION['success'] = 'Отримання замовлення успішно підтверджено';
-        } else {
+        try {
+            // Подтверждаем получение заказа
+            if ($this->orderModel->deliver($id, $this->inventoryModel)) {
+                $_SESSION['success'] = 'Отримання замовлення успішно підтверджено';
+                
+                // Отправляем уведомления
+                $this->sendDeliveryNotifications($order);
+            } else {
+                $_SESSION['error'] = 'Помилка при підтвердженні отримання замовлення';
+            }
+        } catch (Exception $e) {
+            error_log("Error delivering order: " . $e->getMessage());
             $_SESSION['error'] = 'Помилка при підтвердженні отримання замовлення';
         }
         
         Util::redirect(BASE_URL . '/warehouse/viewOrder/' . $id);
+    }
+    
+    // Отправка уведомлений о доставке
+    private function sendDeliveryNotifications($order) {
+        try {
+            $messageModel = new Message();
+            $userModel = new User();
+            
+            // Уведомление администратору
+            $admins = $userModel->getByRole('admin');
+            foreach ($admins as $admin) {
+                $messageModel->send(
+                    Auth::getCurrentUserId(),
+                    $admin['id'],
+                    'Замовлення №' . $order['id'] . ' доставлено',
+                    'Замовлення №' . $order['id'] . ' від постачальника "' . $order['supplier_name'] . '" успішно доставлено та прийнято на склад.'
+                );
+            }
+            
+            // Уведомление поставщику
+            $messageModel->send(
+                Auth::getCurrentUserId(),
+                $order['supplier_id'],
+                'Замовлення №' . $order['id'] . ' доставлено',
+                'Ваше замовлення №' . $order['id'] . ' успішно доставлено та прийнято на склад. Дякуємо за співпрацю!'
+            );
+            
+        } catch (Exception $e) {
+            error_log("Error sending delivery notifications: " . $e->getMessage());
+        }
     }
     
     // Скасування замовлення для начальника склада
@@ -1055,5 +1215,410 @@ class WarehouseController {
             $_SESSION['error'] = 'Матеріал з штрих-кодом "' . $barcode . '" не знайдено';
             Util::redirect(BASE_URL . '/warehouse/inventory');
         }
+    }
+
+    public function ajaxGetOrderItem() {
+        header('Content-Type: application/json');
+        
+        $item_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+        
+        if (!$item_id) {
+            echo json_encode(['success' => false, 'message' => 'Невірний ID позиції']);
+            exit;
+        }
+        
+        try {
+            $sql = "SELECT oi.*, rm.name as material_name, rm.unit 
+                    FROM order_items oi 
+                    JOIN raw_materials rm ON oi.raw_material_id = rm.id 
+                    WHERE oi.id = ?";
+            
+            $db = Database::getInstance();
+            $item = $db->single($sql, [$item_id]);
+            
+            if ($item) {
+                echo json_encode(['success' => true, 'item' => $item]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Позицію не знайдено']);
+            }
+        } catch (Exception $e) {
+            error_log("Error in ajaxGetOrderItem: " . $e->getMessage());
+            echo json_encode(['success' => false, 'message' => 'Помилка бази даних']);
+        }
+        
+        exit;
+    }
+    
+    // AJAX метод для обновления позиции заказа
+    public function ajaxUpdateOrderItem() {
+        header('Content-Type: application/json');
+        
+        if (!Util::isPost()) {
+            echo json_encode(['success' => false, 'message' => 'Неправильний метод запиту']);
+            exit;
+        }
+        
+        $item_id = isset($_POST['item_id']) ? intval($_POST['item_id']) : 0;
+        $quantity = isset($_POST['quantity']) ? floatval($_POST['quantity']) : 0;
+        $price_per_unit = isset($_POST['price_per_unit']) ? floatval($_POST['price_per_unit']) : 0;
+        
+        // Валидация
+        if (!$item_id) {
+            echo json_encode(['success' => false, 'message' => 'Невірний ID позиції']);
+            exit;
+        }
+        
+        if ($quantity <= 0) {
+            echo json_encode(['success' => false, 'message' => 'Кількість повинна бути більше нуля']);
+            exit;
+        }
+        
+        if ($price_per_unit <= 0) {
+            echo json_encode(['success' => false, 'message' => 'Ціна повинна бути більше нуля']);
+            exit;
+        }
+        
+        try {
+            $db = Database::getInstance();
+            
+            // Проверяем статус заказа
+            $sql = "SELECT o.status, o.id as order_id 
+                    FROM order_items oi 
+                    JOIN orders o ON oi.order_id = o.id 
+                    WHERE oi.id = ?";
+            $result = $db->single($sql, [$item_id]);
+            
+            if (!$result) {
+                echo json_encode(['success' => false, 'message' => 'Позицію не знайдено']);
+                exit;
+            }
+            
+            if ($result['status'] !== 'pending') {
+                echo json_encode(['success' => false, 'message' => 'Можна редагувати тільки замовлення в статусі "Очікує підтвердження"']);
+                exit;
+            }
+            
+            // Обновляем позицию
+            $updateSql = "UPDATE order_items SET quantity = ?, price_per_unit = ? WHERE id = ?";
+            $updateResult = $db->query($updateSql, [$quantity, $price_per_unit, $item_id]);
+            
+            if ($updateResult) {
+                // Обновляем общую сумму заказа
+                $this->orderModel->updateTotalAmount($result['order_id']);
+                
+                // Получаем обновленную информацию о позиции
+                $itemSql = "SELECT oi.*, rm.name as material_name, rm.unit 
+                            FROM order_items oi 
+                            JOIN raw_materials rm ON oi.raw_material_id = rm.id 
+                            WHERE oi.id = ?";
+                $updatedItem = $db->single($itemSql, [$item_id]);
+                
+                // Получаем обновленную общую сумму заказа
+                $orderSql = "SELECT total_amount FROM orders WHERE id = ?";
+                $order = $db->single($orderSql, [$result['order_id']]);
+                
+                echo json_encode([
+                    'success' => true, 
+                    'message' => 'Позицію успішно оновлено',
+                    'item' => $updatedItem,
+                    'totalAmount' => $order['total_amount']
+                ]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Помилка при оновленні позиції']);
+            }
+            
+        } catch (Exception $e) {
+            error_log("Error in ajaxUpdateOrderItem: " . $e->getMessage());
+            echo json_encode(['success' => false, 'message' => 'Помилка бази даних']);
+        }
+        
+        exit;
+    }
+    
+    // AJAX метод для удаления позиции заказа
+    public function ajaxDeleteOrderItem() {
+        header('Content-Type: application/json');
+        
+        if (!Util::isPost()) {
+            echo json_encode(['success' => false, 'message' => 'Неправильний метод запиту']);
+            exit;
+        }
+        
+        $item_id = isset($_POST['item_id']) ? intval($_POST['item_id']) : 0;
+        
+        if (!$item_id) {
+            echo json_encode(['success' => false, 'message' => 'Невірний ID позиції']);
+            exit;
+        }
+        
+        try {
+            $db = Database::getInstance();
+            
+            // Получаем информацию о позиции и заказе
+            $sql = "SELECT oi.order_id, o.status 
+                    FROM order_items oi 
+                    JOIN orders o ON oi.order_id = o.id 
+                    WHERE oi.id = ?";
+            $result = $db->single($sql, [$item_id]);
+            
+            if (!$result) {
+                echo json_encode(['success' => false, 'message' => 'Позицію не знайдено']);
+                exit;
+            }
+            
+            if ($result['status'] !== 'pending') {
+                echo json_encode(['success' => false, 'message' => 'Можна видаляти позиції тільки з замовлень в статусі "Очікує підтвердження"']);
+                exit;
+            }
+            
+            // Удаляем позицию
+            $deleteSql = "DELETE FROM order_items WHERE id = ?";
+            $deleteResult = $db->query($deleteSql, [$item_id]);
+            
+            if ($deleteResult) {
+                // Обновляем общую сумму заказа
+                $this->orderModel->updateTotalAmount($result['order_id']);
+                
+                echo json_encode(['success' => true, 'message' => 'Позицію успішно видалено']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Помилка при видаленні позиції']);
+            }
+            
+        } catch (Exception $e) {
+            error_log("Error in ajaxDeleteOrderItem: " . $e->getMessage());
+            echo json_encode(['success' => false, 'message' => 'Помилка бази даних']);
+        }
+        
+        exit;
+    }
+    
+    // Добавьте также метод для удаления позиции заказа (не AJAX)
+    public function deleteOrderItem($id) {
+        try {
+            $db = Database::getInstance();
+            
+            // Получаем ID заказа для перенаправления
+            $sql = "SELECT oi.order_id, o.status 
+                    FROM order_items oi 
+                    JOIN orders o ON oi.order_id = o.id 
+                    WHERE oi.id = ?";
+            $result = $db->single($sql, [$id]);
+            
+            if (!$result) {
+                $_SESSION['error'] = 'Елемент замовлення не знайдено';
+                Util::redirect(BASE_URL . '/warehouse/orders');
+                return;
+            }
+            
+            $order_id = $result['order_id'];
+            
+            // Проверяем статус заказа
+            if ($result['status'] !== 'pending') {
+                $_SESSION['error'] = 'Можна видаляти позиції тільки з замовлень в статусі "Очікує підтвердження"';
+                Util::redirect(BASE_URL . '/warehouse/viewOrder/' . $order_id);
+                return;
+            }
+            
+            // Удаляем позицию
+            $deleteSql = "DELETE FROM order_items WHERE id = ?";
+            if ($db->query($deleteSql, [$id])) {
+                // Обновляем общую сумму заказа
+                $this->orderModel->updateTotalAmount($order_id);
+                
+                $_SESSION['success'] = 'Позицію замовлення успішно видалено';
+            } else {
+                $_SESSION['error'] = 'Помилка при видаленні позиції замовлення';
+            }
+            
+            Util::redirect(BASE_URL . '/warehouse/editOrder/' . $order_id);
+            
+        } catch (Exception $e) {
+            error_log("Error in deleteOrderItem: " . $e->getMessage());
+            $_SESSION['error'] = 'Помилка бази даних при видаленні позиції';
+            Util::redirect(BASE_URL . '/warehouse/orders');
+        }
+    }
+
+    public function printOrder($id) {
+        try {
+            $order = $this->orderModel->getById($id);
+            
+            if (!$order) {
+                $_SESSION['error'] = 'Замовлення не знайдено';
+                Util::redirect(BASE_URL . '/warehouse/orders');
+                return;
+            }
+            
+            $items = $this->orderModel->getItems($id);
+            
+            // Проверяем, есть ли TCPDF
+            if (class_exists('PDF')) {
+                $this->printOrderWithTCPDF($order, $items);
+            } else {
+                $this->printOrderAsHtml($order, $items);
+            }
+            
+        } catch (Exception $e) {
+            error_log('Print order error: ' . $e->getMessage());
+            $_SESSION['error'] = 'Помилка при генерації документу';
+            Util::redirect(BASE_URL . '/warehouse/orders');
+        }
+    }
+    
+    private function printOrderWithTCPDF($order, $items) {
+        try {
+            $pdf = new PDF('Замовлення №' . $order['id']);
+            $pdf->addTitle('ЗАМОВЛЕННЯ №' . $order['id'], 'Дата: ' . date('d.m.Y', strtotime($order['created_at'])));
+            
+            // Информация о заказе
+            $pdf->addText('Замовник: ' . Auth::getCurrentUserName());
+            $pdf->addText('Постачальник: ' . $order['supplier_name']);
+            $pdf->addText('Статус: ' . Util::getOrderStatusName($order['status']));
+            $pdf->addText('Дата замовлення: ' . date('d.m.Y H:i', strtotime($order['created_at'])));
+            
+            if (!empty($order['delivery_date'])) {
+                $pdf->addText('Планована доставка: ' . date('d.m.Y', strtotime($order['delivery_date'])));
+            }
+            
+            $pdf->addText('');
+            
+            // Позиции заказа
+            if (!empty($items)) {
+                $header = ['№', 'Назва', 'Кількість', 'Ціна за од.', 'Сума'];
+                $data = [];
+                
+                $counter = 1;
+                foreach ($items as $item) {
+                    $data[] = [
+                        $counter++,
+                        $item['material_name'],
+                        number_format($item['quantity'], 2) . ' ' . $item['unit'],
+                        number_format($item['price_per_unit'], 2) . ' грн',
+                        number_format($item['quantity'] * $item['price_per_unit'], 2) . ' грн'
+                    ];
+                }
+                
+                // Итоговая сумма
+                $data[] = ['', '', '', 'ВСЬОГО:', number_format($order['total_amount'], 2) . ' грн'];
+                
+                $pdf->addTable($header, $data);
+            }
+            
+            // Примечания
+            if (!empty($order['notes'])) {
+                $pdf->addText('');
+                $pdf->addText('Примітки: ' . $order['notes']);
+            }
+            
+            $pdf->addDateAndSignature();
+            $pdf->output('order_' . $order['id'] . '.pdf');
+            
+        } catch (Exception $e) {
+            error_log('PDF generation error: ' . $e->getMessage());
+            $this->printOrderAsHtml($order, $items);
+        }
+    }
+    
+    private function printOrderAsHtml($order, $items) {
+        $html = '<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Замовлення №' . $order['id'] . '</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 20px; }
+                .header { text-align: center; margin-bottom: 30px; }
+                .info-table { width: 100%; margin-bottom: 20px; }
+                .info-table td { padding: 5px; }
+                table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+                th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+                th { background-color: #f5f5f5; font-weight: bold; }
+                .total { font-weight: bold; }
+                .signature { margin-top: 50px; }
+                @media print { body { margin: 0; } }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>ЗАМОВЛЕННЯ №' . $order['id'] . '</h1>
+                <p>Дата: ' . date('d.m.Y', strtotime($order['created_at'])) . '</p>
+            </div>
+            
+            <table class="info-table">
+                <tr>
+                    <td><strong>Замовник:</strong></td>
+                    <td>' . htmlspecialchars(Auth::getCurrentUserName()) . '</td>
+                </tr>
+                <tr>
+                    <td><strong>Постачальник:</strong></td>
+                    <td>' . htmlspecialchars($order['supplier_name']) . '</td>
+                </tr>
+                <tr>
+                    <td><strong>Статус:</strong></td>
+                    <td>' . Util::getOrderStatusName($order['status']) . '</td>
+                </tr>';
+        
+        if (!empty($order['delivery_date'])) {
+            $html .= '<tr>
+                <td><strong>Дата доставки:</strong></td>
+                <td>' . date('d.m.Y', strtotime($order['delivery_date'])) . '</td>
+            </tr>';
+        }
+        
+        $html .= '</table>';
+        
+        if (!empty($items)) {
+            $html .= '<h3>Позиції замовлення:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Назва</th>
+                        <th>Кількість</th>
+                        <th>Ціна за од.</th>
+                        <th>Сума</th>
+                    </tr>
+                </thead>
+                <tbody>';
+            
+            $counter = 1;
+            foreach ($items as $item) {
+                $html .= '<tr>
+                    <td>' . $counter++ . '</td>
+                    <td>' . htmlspecialchars($item['material_name']) . '</td>
+                    <td>' . number_format($item['quantity'], 2) . ' ' . $item['unit'] . '</td>
+                    <td>' . number_format($item['price_per_unit'], 2) . ' грн</td>
+                    <td>' . number_format($item['quantity'] * $item['price_per_unit'], 2) . ' грн</td>
+                </tr>';
+            }
+            
+            $html .= '<tr class="total">
+                <td colspan="4">ВСЬОГО:</td>
+                <td>' . number_format($order['total_amount'], 2) . ' грн</td>
+            </tr>
+            </tbody>
+            </table>';
+        }
+        
+        if (!empty($order['notes'])) {
+            $html .= '<h3>Примітки:</h3>
+            <p>' . nl2br(htmlspecialchars($order['notes'])) . '</p>';
+        }
+        
+        $html .= '<div class="signature">
+                <p>Дата: ' . date('d.m.Y') . '</p>
+                <p>Підпис замовника: ________________</p>
+                <p>Підпис постачальника: ________________</p>
+            </div>
+            <script>
+                window.onload = function() {
+                    window.print();
+                }
+            </script>
+        </body>
+        </html>';
+        
+        header('Content-Type: text/html; charset=utf-8');
+        echo $html;
     }
 }

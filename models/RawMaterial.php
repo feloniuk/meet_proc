@@ -7,28 +7,71 @@ class RawMaterial {
     }
     
     // Отримати всі сировинні матеріали
-    public function getAll() {
-        $sql = "SELECT r.*, u.name as supplier_name 
-                FROM raw_materials r 
-                LEFT JOIN users u ON r.supplier_id = u.id 
-                ORDER BY r.name";
-        return $this->db->resultSet($sql);
-    }
-    
-    // Отримати сировинний матеріал за ID
-    public function getById($id) {
-        $sql = "SELECT r.*, u.name as supplier_name 
-                FROM raw_materials r 
-                LEFT JOIN users u ON r.supplier_id = u.id 
-                WHERE r.id = ?";
-        return $this->db->single($sql, [$id]);
-    }
-    
-    // Отримати сировинні матеріали за постачальником
     public function getBySupplier($supplier_id) {
-        $sql = "SELECT * FROM raw_materials WHERE supplier_id = ? ORDER BY name";
-        $result = $this->db->resultSet($sql, [$supplier_id]);
-        return $result ?: []; // Возвращаем пустой массив вместо false/null
+        try {
+            if (empty($supplier_id)) {
+                return [];
+            }
+            
+            $db = Database::getInstance();
+            
+            $sql = "SELECT rm.*, u.name as supplier_name 
+                    FROM raw_materials rm 
+                    LEFT JOIN users u ON rm.supplier_id = u.id 
+                    WHERE rm.supplier_id = ? 
+                    ORDER BY rm.name ASC";
+            
+            $materials = $db->resultSet($sql, [$supplier_id]);
+            
+            // Логируем для отладки
+            error_log("Found " . count($materials) . " materials for supplier " . $supplier_id);
+            
+            return $materials ?: [];
+            
+        } catch (Exception $e) {
+            error_log("Error in RawMaterial::getBySupplier: " . $e->getMessage());
+            return [];
+        }
+    }
+    
+    // Также добавьте метод для получения всех материалов (для отладки)
+    public function getAll() {
+        try {
+            $db = Database::getInstance();
+            
+            $sql = "SELECT rm.*, u.name as supplier_name 
+                    FROM raw_materials rm 
+                    LEFT JOIN users u ON rm.supplier_id = u.id 
+                    ORDER BY rm.name ASC";
+            
+            return $db->resultSet($sql) ?: [];
+            
+        } catch (Exception $e) {
+            error_log("Error in RawMaterial::getAll: " . $e->getMessage());
+            return [];
+        }
+    }
+    
+    // Метод для получения материала по ID
+    public function getById($id) {
+        try {
+            if (empty($id)) {
+                return null;
+            }
+            
+            $db = Database::getInstance();
+            
+            $sql = "SELECT rm.*, u.name as supplier_name 
+                    FROM raw_materials rm 
+                    LEFT JOIN users u ON rm.supplier_id = u.id 
+                    WHERE rm.id = ?";
+            
+            return $db->single($sql, [$id]);
+            
+        } catch (Exception $e) {
+            error_log("Error in RawMaterial::getById: " . $e->getMessage());
+            return null;
+        }
     }
     
     // Отримати сировинні матеріали з низьким запасом

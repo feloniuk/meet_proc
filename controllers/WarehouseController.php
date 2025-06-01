@@ -17,17 +17,385 @@ class WarehouseController {
         $this->productModel = new Product();
     }
     
-    // Управління інвентаризацією
+    // Управління інвентаризацією (обновленный метод)
     public function inventory() {
+        // Получаем параметры фильтрации
+        $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+        $barcode = isset($_GET['barcode']) ? trim($_GET['barcode']) : '';
+        $status = isset($_GET['status']) ? $_GET['status'] : '';
+        
+        $inventory = $this->inventoryModel->getAll();
+        
+        // Применяем фильтры
+        if (!empty($search)) {
+            $inventory = array_filter($inventory, function($item) use ($search) {
+                return stripos($item['material_name'], $search) !== false;
+            });
+        }
+        
+        if (!empty($barcode)) {
+            $inventory = array_filter($inventory, function($item) use ($barcode) {
+                return !empty($item['barcode']) && stripos($item['barcode'], $barcode) !== false;
+            });
+        }
+        
+        if (!empty($status)) {
+            $inventory = array_filter($inventory, function($item) use ($status) {
+                $item_status = 'good';
+                if ($item['quantity'] < $item['min_stock']) {
+                    $item_status = 'low';
+                } elseif ($item['quantity'] < $item['min_stock'] * 2) {
+                    $item_status = 'medium';
+                }
+                return $item_status === $status;
+            });
+        }
+        
         $data = [
             'title' => 'Інвентаризація',
-            'inventory' => $this->inventoryModel->getAll()
+            'inventory' => $inventory
         ];
         
         require VIEWS_PATH . '/warehouse/inventory.php';
     }
     
-    // Оновлення кількості сировини
+    // AJAX метод для получения данных товара
+    public function getInventoryItem($material_id) {
+        header('Content-Type: application/json');
+        
+        $item = $this->inventoryModel->getByMaterialId($material_id);
+        
+        if ($item) {
+            echo json_encode(['success' => true, 'item' => $item]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Товар не знайдено']);
+        }
+        exit;
+    }
+    
+    // AJAX метод для обновления записи инвентаризации
+    public function updateInventoryItem() {
+        header('Content-Type: application/json');
+        
+        if (!Util::isPost()) {
+            echo json_encode(['success' => false, 'message' => 'Неправильний метод запиту']);
+            exit;
+        }
+        
+        $material_id = Util::sanitize($_POST['material_id']);
+        $quantity = Util::sanitize($_POST['quantity']);
+        $actual_quantity = !empty($_POST['actual_quantity']) ? Util::sanitize($_POST['actual_quantity']) : null;
+        $barcode = !empty($_POST['barcode']) ? Util::sanitize($_POST['barcode']) : null;
+        
+        // Валидация
+        if (empty($material_id) || empty($quantity)) {
+            echo json_encode(['success' => false, 'message' => 'Заповніть обов\'язкові поля']);
+            exit;
+        }
+        
+        if (!is_numeric($quantity) || $quantity < 0) {
+            echo json_encode(['success' => false, 'message' => 'Кількість повинна бути невід\'ємним числом']);
+            exit;
+        }
+        
+        if ($actual_quantity !== null && (!is_numeric($actual_quantity) || $actual_quantity < 0)) {
+            echo json_encode(['success' => false, 'message' => 'Фактична кількість повинна бути невід\'ємним числом']);
+            exit;
+        }
+        
+        // Проверяем уникальность штрих-кода
+        if (!empty($barcode) && !$this->inventoryModel->isBarcodeUnique($barcode, $material_id)) {
+            echo json_encode(['success' => false, 'message' => 'Штрих-код вже використовується']);
+            exit;
+        }
+        
+        // Обновляем запись
+        if ($this->inventoryModel->updateQuantity($material_id, $quantity, $actual_quantity, $barcode, Auth::getCurrentUserId())) {
+            echo json_encode(['success' => true, 'message' => 'Дані успішно оновлено']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Помилка при оновленні']);
+        }
+        exit;
+    }
+    
+    // Генерация штрих-кода для товара
+    public function generateBarcode($material_id) {
+        header('Content-Type: application/json');
+        
+        $barcode = $this->inventoryModel->generateBarcode($material_id);
+        
+        // Проверяем уникальность
+        if (!$this->inventoryModel->isBarcodeUnique($barcode, $material_id)) {
+            // Если не уникален, добавляем случайную цифру
+            $barcode .= rand(0, 9);
+        }
+        
+        // Сохраняем штрих-код
+        if ($this->inventoryModel->updateBarcode($material_id, $barcode, Auth::getCurrentUserId())) {
+            echo json_encode(['success' => true, 'barcode' => $barcode]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Помилка при генерації штрих-коду']);
+        }
+        exit;
+    }
+    
+    // Генерация штрих-кодов для всех товаров
+    public function generateAllBarcodes() {
+        header('Content-Type: application/json');
+        
+        if (!Util::isPost()) {
+            echo json_encode(['success' => false, 'message' => 'Неправильний метод запиту']);
+            exit;
+        }
+        
+        $inventory = $this->inventoryModel->getAll();
+        $generated = 0;
+        
+        foreach ($inventory as $item) {
+            if (empty($item['barcode'])) {
+                $barcode = $this->inventoryModel->generateBarcode($item['raw_material_id']);
+                
+                // Обеспечиваем уникальность
+                $counter = 0;
+                while (!$this->inventoryModel->isBarcodeUnique($barcode . ($counter > 0 ? $counter : ''), $item['raw_material_id'])) {
+                    $counter++;
+                }
+                
+                $final_barcode = $barcode . ($counter > 0 ? $counter : '');
+                
+                if ($this->inventoryModel->updateBarcode($item['raw_material_id'], $final_barcode, Auth::getCurrentUserId())) {
+                    $generated++;
+                }
+            }
+        }
+        
+        echo json_encode(['success' => true, 'message' => "Згенеровано штрих-кодів: $generated"]);
+        exit;
+    }
+    
+    // Массовое обновление инвентаризации
+    public function bulkUpdateInventory() {
+        header('Content-Type: application/json');
+        
+        if (!Util::isPost()) {
+            echo json_encode(['success' => false, 'message' => 'Неправильний метод запиту']);
+            exit;
+        }
+        
+        $input = json_decode(file_get_contents('php://input'), true);
+        
+        if (!isset($input['data']) || empty($input['data'])) {
+            echo json_encode(['success' => false, 'message' => 'Немає даних для обробки']);
+            exit;
+        }
+        
+        $lines = explode("\n", trim($input['data']));
+        $updated = 0;
+        $errors = [];
+        
+        foreach ($lines as $line_num => $line) {
+            $line = trim($line);
+            if (empty($line) || $line_num == 0) continue; // Пропускаем заголовок
+            
+            $parts = explode(';', $line);
+            if (count($parts) < 3) {
+                $errors[] = "Рядок " . ($line_num + 1) . ": Неправильний формат";
+                continue;
+            }
+            
+            $barcode = trim($parts[0]);
+            $quantity = trim($parts[1]);
+            $actual_quantity = trim($parts[2]);
+            
+            // Проверяем данные
+            if (empty($barcode) || !is_numeric($quantity) || !is_numeric($actual_quantity)) {
+                $errors[] = "Рядок " . ($line_num + 1) . ": Неправильні дані";
+                continue;
+            }
+            
+            // Ищем товар по штрих-коду
+            $item = $this->inventoryModel->getByBarcode($barcode);
+            if (!$item) {
+                $errors[] = "Рядок " . ($line_num + 1) . ": Товар з штрих-кодом $barcode не знайдено";
+                continue;
+            }
+            
+            // Обновляем данные
+            if ($this->inventoryModel->updateQuantity(
+                $item['raw_material_id'], 
+                $quantity, 
+                $actual_quantity, 
+                $barcode, 
+                Auth::getCurrentUserId()
+            )) {
+                $updated++;
+            } else {
+                $errors[] = "Рядок " . ($line_num + 1) . ": Помилка при оновленні";
+            }
+        }
+        
+        $message = "Оновлено записів: $updated";
+        if (!empty($errors)) {
+            $message .= "\nПомилки:\n" . implode("\n", $errors);
+        }
+        
+        echo json_encode(['success' => true, 'message' => $message]);
+        exit;
+    }
+    
+    // Обновленный метод для генерации PDF отчета по инвентаризации
+    public function generateInventoryPdf() {
+        $inventory = $this->inventoryModel->getInventoryReport();
+        
+        // Проверяем наличие PDF класса
+        if (class_exists('PDF')) {
+            $pdf = new PDF('Звіт інвентаризації');
+        } else {
+            // Используем HTML для печати
+            $this->generateInventoryHtml($inventory);
+            return;
+        }
+        
+        $pdf->addTitle('Звіт інвентаризації складу на ' . date('d.m.Y H:i'));
+        
+        // Подготовка данных для таблицы
+        $header = [
+            'Назва', 'Штрих-код', 'Кількість (облік)', 'Кількість (факт)', 
+            'Розбіжність', 'Од.', 'Вартість розбіжності'
+        ];
+        $data = [];
+        
+        $total_discrepancy_value = 0;
+        
+        foreach ($inventory as $item) {
+            $difference = $item['quantity_difference'] ?? 0;
+            $value_diff = $item['value_difference'] ?? 0;
+            $total_discrepancy_value += abs($value_diff);
+            
+            $data[] = [
+                $item['material_name'],
+                $item['barcode'] ?: 'Немає',
+                number_format($item['quantity'], 2),
+                $item['actual_quantity'] !== null ? number_format($item['actual_quantity'], 2) : 'Н/Д',
+                number_format($difference, 2),
+                $item['unit'],
+                number_format($value_diff, 2) . ' грн'
+            ];
+        }
+        
+        $pdf->addTable($header, $data);
+        
+        // Общая статистика
+        $total_items = count($inventory);
+        $items_with_discrepancies = count(array_filter($inventory, function($item) {
+            return abs($item['quantity_difference'] ?? 0) > 0.01;
+        }));
+        
+        $pdf->addText('');
+        $pdf->addText('ПІДСУМКИ ІНВЕНТАРИЗАЦІЇ:');
+        $pdf->addText('Всього позицій: ' . $total_items);
+        $pdf->addText('Позицій з розбіжностями: ' . $items_with_discrepancies);
+        $pdf->addText('Загальна вартість розбіжностей: ' . number_format($total_discrepancy_value, 2) . ' грн');
+        
+        $pdf->addDateAndSignature();
+        $pdf->output('inventory_report_' . date('Y-m-d') . '.pdf');
+    }
+    
+    // HTML версия отчета по инвентаризации
+    private function generateInventoryHtml($inventory) {
+        $total_discrepancy_value = 0;
+        
+        $html = '<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Звіт інвентаризації</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 20px; }
+                .header { text-align: center; margin-bottom: 30px; }
+                table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+                th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+                th { background-color: #f5f5f5; font-weight: bold; }
+                .summary { background: #f9f9f9; padding: 15px; margin: 20px 0; }
+                .signature { margin-top: 50px; }
+                .discrepancy { background-color: #fff3cd; }
+                @media print { body { margin: 0; } }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>ЗВІТ ІНВЕНТАРИЗАЦІЇ СКЛАДУ</h1>
+                <p>Дата: ' . date('d.m.Y H:i') . '</p>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Назва</th>
+                        <th>Штрих-код</th>
+                        <th>Кількість (облік)</th>
+                        <th>Кількість (факт)</th>
+                        <th>Розбіжність</th>
+                        <th>Од.</th>
+                        <th>Вартість розбіжності</th>
+                    </tr>
+                </thead>
+                <tbody>';
+        
+        foreach ($inventory as $item) {
+            $difference = $item['quantity_difference'] ?? 0;
+            $value_diff = $item['value_difference'] ?? 0;
+            $total_discrepancy_value += abs($value_diff);
+            
+            $row_class = abs($difference) > 0.01 ? 'discrepancy' : '';
+            
+            $html .= '<tr class="' . $row_class . '">
+                <td>' . htmlspecialchars($item['material_name']) . '</td>
+                <td>' . htmlspecialchars($item['barcode'] ?: 'Немає') . '</td>
+                <td>' . number_format($item['quantity'], 2) . '</td>
+                <td>' . ($item['actual_quantity'] !== null ? number_format($item['actual_quantity'], 2) : 'Н/Д') . '</td>
+                <td>' . number_format($difference, 2) . '</td>
+                <td>' . htmlspecialchars($item['unit']) . '</td>
+                <td>' . number_format($value_diff, 2) . ' грн</td>
+            </tr>';
+        }
+        
+        $total_items = count($inventory);
+        $items_with_discrepancies = count(array_filter($inventory, function($item) {
+            return abs($item['quantity_difference'] ?? 0) > 0.01;
+        }));
+        
+        $html .= '</tbody>
+            </table>
+            
+            <div class="summary">
+                <h3>ПІДСУМКИ ІНВЕНТАРИЗАЦІЇ:</h3>
+                <p><strong>Всього позицій:</strong> ' . $total_items . '</p>
+                <p><strong>Позицій з розбіжностями:</strong> ' . $items_with_discrepancies . '</p>
+                <p><strong>Загальна вартість розбіжностей:</strong> ' . number_format($total_discrepancy_value, 2) . ' грн</p>
+            </div>
+            
+            <div class="signature">
+                <p>Дата складання: ' . date('d.m.Y') . '</p>
+                <p>Підпис відповідального: ________________</p>
+                <p>Підпис керівника: ________________</p>
+            </div>
+            
+            <script>
+                window.onload = function() {
+                    window.print();
+                }
+            </script>
+        </body>
+        </html>';
+        
+        header('Content-Type: text/html; charset=utf-8');
+        echo $html;
+    }
+    
+    // Остальные существующие методы остаются без изменений...
+    
+    // Оновлення кількості сировини (старый метод для совместимости)
     public function updateQuantity($material_id) {
         $material = $this->rawMaterialModel->getById($material_id);
         $inventory = $this->inventoryModel->getByMaterialId($material_id);
@@ -42,15 +410,21 @@ class WarehouseController {
         // Обробка форми оновлення кількості
         if (Util::isPost()) {
             $quantity = Util::sanitize($_POST['quantity']);
+            $actual_quantity = !empty($_POST['actual_quantity']) ? Util::sanitize($_POST['actual_quantity']) : null;
+            $barcode = !empty($_POST['barcode']) ? Util::sanitize($_POST['barcode']) : null;
             
             // Валідація
             if (!is_numeric($quantity) || $quantity < 0) {
                 $errors['quantity'] = 'Кількість повинна бути невід\'ємним числом';
             }
             
+            if ($actual_quantity !== null && (!is_numeric($actual_quantity) || $actual_quantity < 0)) {
+                $errors['actual_quantity'] = 'Фактична кількість повинна бути невід\'ємним числом';
+            }
+            
             // Якщо помилок немає, оновлюємо кількість
             if (empty($errors)) {
-                if ($this->inventoryModel->updateQuantity($material_id, $quantity, Auth::getCurrentUserId())) {
+                if ($this->inventoryModel->updateQuantity($material_id, $quantity, $actual_quantity, $barcode, Auth::getCurrentUserId())) {
                     $_SESSION['success'] = 'Кількість успішно оновлено';
                     Util::redirect(BASE_URL . '/warehouse/inventory');
                 } else {
@@ -262,52 +636,6 @@ class WarehouseController {
         require VIEWS_PATH . '/warehouse/production_report.php';
     }
     
-    // Генерація PDF звіту по запасам
-    public function generateInventoryPdf() {
-        $inventory = $this->inventoryModel->getStockReport();
-        
-        $pdf = new PDF('Звіт по запасам');
-        $pdf->addTitle('Звіт по запасам на ' . date('d.m.Y'));
-        
-        // Підготовка даних для таблиці
-        $header = ['Назва', 'Кількість', 'Одиниці', 'Мін. запас', 'Ціна за од.', 'Загальна вартість', 'Статус'];
-        $data = [];
-        
-        foreach ($inventory as $item) {
-            $status = '';
-            switch ($item['status']) {
-                case 'low':
-                    $status = 'Критично';
-                    break;
-                case 'medium':
-                    $status = 'Середньо';
-                    break;
-                case 'good':
-                    $status = 'Достатньо';
-                    break;
-            }
-            
-            $data[] = [
-                $item['name'],
-                number_format($item['quantity'], 2),
-                $item['unit'],
-                number_format($item['min_stock'], 2),
-                number_format($item['price_per_unit'], 2) . ' грн',
-                number_format($item['total_value'], 2) . ' грн',
-                $status
-            ];
-        }
-        
-        $pdf->addTable($header, $data);
-        
-        // Загальна вартість
-        $total_value = array_sum(array_column($inventory, 'total_value'));
-        $pdf->addText('Загальна вартість запасів: ' . number_format($total_value, 2) . ' грн');
-        
-        $pdf->addDateAndSignature();
-        $pdf->output('inventory_report_' . date('Y-m-d') . '.pdf');
-    }
-    
     // Генерація PDF звіту по виробництву
     public function generateProductionPdf() {
         // Параметри періоду
@@ -358,5 +686,138 @@ class WarehouseController {
         
         $pdf->addDateAndSignature();
         $pdf->output('production_report_' . date('Y-m-d') . '.pdf');
+    }
+
+    public function updateActualQuantity() {
+        header('Content-Type: application/json');
+        
+        if (!Util::isPost()) {
+            echo json_encode(['success' => false, 'message' => 'Невірний метод запиту']);
+            exit;
+        }
+        
+        $material_id = Util::sanitize($_POST['material_id']);
+        $actual_quantity = Util::sanitize($_POST['actual_quantity']);
+        
+        // Валідація
+        if (empty($material_id) || !is_numeric($actual_quantity) || $actual_quantity < 0) {
+            echo json_encode(['success' => false, 'message' => 'Невірні дані']);
+            exit;
+        }
+        
+        if ($this->inventoryModel->updateActualQuantity($material_id, $actual_quantity, Auth::getCurrentUserId())) {
+            echo json_encode(['success' => true, 'message' => 'Фактичну кількість оновлено']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Помилка при оновленні']);
+        }
+        exit;
+    }
+    
+    // Оновлення штрих-коду
+    public function updateBarcode() {
+        header('Content-Type: application/json');
+        
+        if (!Util::isPost()) {
+            echo json_encode(['success' => false, 'message' => 'Невірний метод запиту']);
+            exit;
+        }
+        
+        $material_id = Util::sanitize($_POST['material_id']);
+        $barcode = Util::sanitize($_POST['barcode']);
+        
+        // Валідація
+        if (empty($material_id)) {
+            echo json_encode(['success' => false, 'message' => 'Невірний ID матеріалу']);
+            exit;
+        }
+        
+        // Якщо штрих-код порожній, генеруємо автоматично
+        if (empty($barcode)) {
+            $barcode = $this->inventoryModel->generateBarcode($material_id);
+        }
+        
+        if ($this->inventoryModel->updateBarcode($material_id, $barcode, Auth::getCurrentUserId())) {
+            echo json_encode(['success' => true, 'message' => 'Штрих-код оновлено']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Помилка при оновленні']);
+        }
+        exit;
+    }
+    
+    // Звіт про розбіжності
+    public function discrepancyReport() {
+        $discrepancies = $this->inventoryModel->getDiscrepancyReport();
+        
+        $data = [
+            'title' => 'Звіт про розбіжності в інвентаризації',
+            'discrepancies' => $discrepancies
+        ];
+        
+        require VIEWS_PATH . '/warehouse/discrepancy_report.php';
+    }
+    
+    // Експорт інвентаризації в CSV
+    public function exportInventory() {
+        $inventory = $this->inventoryModel->getAll();
+        
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename="inventory_' . date('Y-m-d') . '.csv"');
+        
+        $output = fopen('php://output', 'w');
+        
+        // BOM для корректного отображения UTF-8 в Excel
+        fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
+        
+        // Заголовки
+        $headers = [
+            'ID',
+            'Назва сировини',
+            'Штрих-код',
+            'Планова кількість',
+            'Фактична кількість',
+            'Розбіжність',
+            'Одиниці виміру',
+            'Останнє оновлення',
+            'Менеджер'
+        ];
+        
+        fputcsv($output, $headers);
+        
+        // Дані
+        foreach ($inventory as $item) {
+            $actualQty = $item['actual_quantity'] ?? $item['quantity'];
+            $difference = $actualQty - $item['quantity'];
+            
+            $row = [
+                $item['raw_material_id'],
+                $item['material_name'],
+                $item['barcode'] ?: 'Немає',
+                number_format($item['quantity'], 2),
+                number_format($actualQty, 2),
+                ($difference >= 0 ? '+' : '') . number_format($difference, 2),
+                $item['unit'],
+                date('d.m.Y H:i', strtotime($item['last_updated'])),
+                $item['manager_name'] ?: 'Не вказано'
+            ];
+            
+            fputcsv($output, $row);
+        }
+        
+        fclose($output);
+        exit;
+    }
+    
+    // API метод для отримання інформації про матеріал
+    public function getMaterial($material_id) {
+        header('Content-Type: application/json');
+        
+        $material = $this->inventoryModel->getByMaterialId($material_id);
+        
+        if ($material) {
+            echo json_encode(['success' => true, 'material' => $material]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Матеріал не знайдено']);
+        }
+        exit;
     }
 }

@@ -1,0 +1,6 @@
+[2025-05-27 14:59:03] [info] Request: technologist/createQualityCheck, Controller: TechnologistController, Method: createQualityCheck, User: Not logged in
+[2025-05-27 14:59:03] [info] Request: home, Controller: HomeController, Method: index, User: Not logged in
+[2025-05-27 14:59:03] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-05-27 14:59:04] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
+[2025-05-27 14:59:04] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-05-27 14:59:04] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in

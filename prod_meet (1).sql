@@ -903,3 +903,19 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+-- 1. Добавляем поле "Кількість по факту"
+ALTER TABLE inventory ADD COLUMN actual_quantity DECIMAL(10,2) DEFAULT NULL COMMENT 'Фактическая количество при инвентаризации';
+
+-- 2. Добавляем поле штрих-кода
+ALTER TABLE inventory ADD COLUMN barcode VARCHAR(100) DEFAULT NULL COMMENT 'Штрих-код товара';
+
+-- 3. Добавляем индекс для штрих-кода для быстрого поиска
+ALTER TABLE inventory ADD INDEX idx_inventory_barcode (barcode);
+
+-- 4. Обновляем существующие записи - устанавливаем фактическое количество равным текущему
+UPDATE inventory SET actual_quantity = quantity WHERE actual_quantity IS NULL;
+
+-- 5. Добавляем тестовые штрих-коды для существующих записей
+UPDATE inventory SET barcode = CONCAT('BC', LPAD(raw_material_id, 6, '0')) WHERE barcode IS NULL;

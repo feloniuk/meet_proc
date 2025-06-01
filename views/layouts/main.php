@@ -180,12 +180,12 @@ $current_page = $_SERVER['REQUEST_URI'];
                                     <i class="fas fa-box me-2"></i>Продукція
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link <?= strpos($current_page, '/admin/orders') !== false ? 'active' : '' ?>" 
                                    href="<?= BASE_URL ?>/admin/orders">
                                     <i class="fas fa-shopping-cart me-2"></i>Замовлення
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a class="nav-link <?= strpos($current_page, '/admin/videoSurveillance') !== false ? 'active' : '' ?>" 
                                    href="<?= BASE_URL ?>/admin/videoSurveillance">
@@ -212,6 +212,12 @@ $current_page = $_SERVER['REQUEST_URI'];
                                 <a class="nav-link <?= strpos($current_page, '/warehouse/production') !== false ? 'active' : '' ?>" 
                                    href="<?= BASE_URL ?>/warehouse/production">
                                     <i class="fas fa-industry me-2"></i>Виробництво
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= strpos($current_page, '/admin/orders') !== false ? 'active' : '' ?>" 
+                                   href="<?= BASE_URL ?>/admin/orders">
+                                    <i class="fas fa-shopping-cart me-2"></i>Замовлення
                                 </a>
                             </li>
                             <li class="nav-item">

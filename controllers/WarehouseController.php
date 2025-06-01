@@ -4,6 +4,8 @@ class WarehouseController {
     private $rawMaterialModel;
     private $productionModel;
     private $productModel;
+    private $orderModel;
+    private $userModel;
     
     public function __construct() {
         // Перевірка на авторизацію та роль
@@ -15,6 +17,8 @@ class WarehouseController {
         $this->rawMaterialModel = new RawMaterial();
         $this->productionModel = new Production();
         $this->productModel = new Product();
+        $this->orderModel = new Order(); 
+        $this->userModel = new User();
     }
     
     // Управління інвентаризацією (обновленный метод)
@@ -688,136 +692,368 @@ class WarehouseController {
         $pdf->output('production_report_' . date('Y-m-d') . '.pdf');
     }
 
-    public function updateActualQuantity() {
+
+    // Перевіряємо права доступу до адміністративних функцій
+    private function checkAdminAccess() {
+        $user_role = Auth::getCurrentUserRole();
+        if ($user_role !== 'warehouse_manager' && $user_role !== 'admin') {
+            $_SESSION['error'] = 'У вас немає доступу до цієї функції';
+            Util::redirect(BASE_URL . '/warehouse');
+        }
+    }
+    
+    // Доступ до управління замовленнями для начальника складу
+    public function orders() {
+        $data = [
+            'title' => 'Замовлення сировини',
+            'orders' => $this->orderModel->getAll()
+        ];
+        
+        require VIEWS_PATH . '/warehouse/orders.php';
+    }
+    
+    // Створення замовлення для начальника склада
+    public function createOrder() {
+        $errors = [];
+        
+        // Обробка форми створення замовлення
+        if (Util::isPost()) {
+            $supplier_id = Util::sanitize($_POST['supplier_id']);
+            $delivery_date = Util::sanitize($_POST['delivery_date']);
+            $notes = Util::sanitize($_POST['notes']);
+            
+            // Валідація
+            if (empty($supplier_id)) {
+                $errors['supplier_id'] = 'Виберіть постачальника';
+            }
+            
+            if (empty($delivery_date)) {
+                $errors['delivery_date'] = 'Виберіть дату доставки';
+            } elseif (strtotime($delivery_date) < strtotime(date('Y-m-d'))) {
+                $errors['delivery_date'] = 'Дата доставки не може бути в минулому';
+            }
+            
+            // Якщо помилок немає, створюємо замовлення
+            if (empty($errors)) {
+                $order_id = $this->orderModel->create($supplier_id, Auth::getCurrentUserId(), $delivery_date, $notes);
+                
+                if ($order_id) {
+                    $_SESSION['success'] = 'Замовлення успішно створено';
+                    Util::redirect(BASE_URL . '/warehouse/editOrder/' . $order_id);
+                } else {
+                    $_SESSION['error'] = 'Помилка при створенні замовлення';
+                }
+            }
+        }
+        
+        $data = [
+            'title' => 'Створення замовлення',
+            'suppliers' => $this->userModel->getSuppliers(),
+            'errors' => $errors
+        ];
+        
+        require VIEWS_PATH . '/warehouse/create_order.php';
+    }
+    
+    // Редагування замовлення для начальника склада
+    public function editOrder($id) {
+        $order = $this->orderModel->getById($id);
+        
+        if (!$order) {
+            $_SESSION['error'] = 'Замовлення не знайдено';
+            Util::redirect(BASE_URL . '/warehouse/orders');
+        }
+        
+        // Перевіряємо, чи можна редагувати замовлення
+        if ($order['status'] !== 'pending') {
+            $_SESSION['error'] = 'Можна редагувати тільки замовлення в статусі "Очікує підтвердження"';
+            Util::redirect(BASE_URL . '/warehouse/viewOrder/' . $id);
+        }
+        
+        $data = [
+            'title' => 'Редагування замовлення',
+            'order' => $order,
+            'items' => $this->orderModel->getItems($id),
+            'materials' => $this->rawMaterialModel->getBySupplier($order['supplier_id'])
+        ];
+        
+        require VIEWS_PATH . '/warehouse/edit_order.php';
+    }
+    
+    // Перегляд замовлення для начальника склада
+    public function viewOrder($id) {
+        $order = $this->orderModel->getById($id);
+        
+        if (!$order) {
+            $_SESSION['error'] = 'Замовлення не знайдено';
+            Util::redirect(BASE_URL . '/warehouse/orders');
+        }
+        
+        $data = [
+            'title' => 'Перегляд замовлення',
+            'order' => $order,
+            'items' => $this->orderModel->getItems($id)
+        ];
+        
+        require VIEWS_PATH . '/warehouse/view_order.php';
+    }
+    
+    // Додавання елемента до замовлення для начальника склада
+    public function addOrderItem($order_id) {
+        $order = $this->orderModel->getById($order_id);
+        
+        if (!$order) {
+            $_SESSION['error'] = 'Замовлення не знайдено';
+            Util::redirect(BASE_URL . '/warehouse/orders');
+            return;
+        }
+        
+        // Перевіряємо, чи можна редагувати замовлення
+        if ($order['status'] !== 'pending') {
+            $_SESSION['error'] = 'Можна редагувати тільки замовлення в статусі "Очікує підтвердження"';
+            Util::redirect(BASE_URL . '/warehouse/viewOrder/' . $order_id);
+            return;
+        }
+        
+        $errors = [];
+        
+        // Обробка форми додавання елемента
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $raw_material_id = isset($_POST['raw_material_id']) ? trim($_POST['raw_material_id']) : '';
+            $quantity = isset($_POST['quantity']) ? trim($_POST['quantity']) : '';
+            $price_per_unit = isset($_POST['price_per_unit']) ? trim($_POST['price_per_unit']) : '';
+            
+            // Валідація
+            if (empty($raw_material_id)) {
+                $errors['raw_material_id'] = 'Виберіть сировину';
+            }
+            
+            if (empty($quantity) || !is_numeric($quantity) || $quantity <= 0) {
+                $errors['quantity'] = 'Кількість повинна бути більше нуля';
+            }
+            
+            if (empty($price_per_unit) || !is_numeric($price_per_unit) || $price_per_unit <= 0) {
+                $errors['price_per_unit'] = 'Ціна повинна бути більше нуля';
+            }
+            
+            // Якщо помилок немає, додаємо елемент
+            if (empty($errors)) {
+                if ($this->orderModel->addItem($order_id, $raw_material_id, $quantity, $price_per_unit)) {
+                    $_SESSION['success'] = 'Елемент замовлення успішно додано';
+                    Util::redirect(BASE_URL . '/warehouse/editOrder/' . $order_id);
+                    return;
+                } else {
+                    $_SESSION['error'] = 'Помилка при додаванні елемента замовлення';
+                }
+            }
+        }
+        
+        $materials = $this->rawMaterialModel->getBySupplier($order['supplier_id']);
+        
+        // Якщо є material_id в GET параметрах, автоматично вибираємо матеріал
+        if (isset($_GET['material_id']) && !isset($_POST['raw_material_id'])) {
+            $_POST['raw_material_id'] = $_GET['material_id'];
+            
+            // Автоматично заповнюємо ціну
+            $material = $this->rawMaterialModel->getById($_GET['material_id']);
+            if ($material) {
+                $_POST['price_per_unit'] = $material['price_per_unit'];
+            }
+        }
+        
+        $data = [
+            'title' => 'Додавання елемента замовлення',
+            'order' => $order,
+            'materials' => $materials,
+            'errors' => $errors
+        ];
+        
+        require VIEWS_PATH . '/warehouse/add_order_item.php';
+    }
+    
+    // Підтвердження отримання замовлення для начальника склада
+    public function deliverOrder($id) {
+        $order = $this->orderModel->getById($id);
+        
+        if (!$order) {
+            $_SESSION['error'] = 'Замовлення не знайдено';
+            Util::redirect(BASE_URL . '/warehouse/orders');
+        }
+        
+        // Перевіряємо, чи можна підтвердити отримання
+        if ($order['status'] !== 'shipped') {
+            $_SESSION['error'] = 'Можна підтвердити отримання тільки для замовлень в статусі "Відправлено"';
+            Util::redirect(BASE_URL . '/warehouse/viewOrder/' . $id);
+        }
+        
+        // Перевіряємо статус якості
+        if ($order['quality_status'] !== 'approved') {
+            $_SESSION['error'] = 'Неможливо прийняти замовлення без схвалення технолога';
+            Util::redirect(BASE_URL . '/warehouse/viewOrder/' . $id);
+        }
+        
+        if ($this->orderModel->deliver($id, $this->inventoryModel)) {
+            $_SESSION['success'] = 'Отримання замовлення успішно підтверджено';
+        } else {
+            $_SESSION['error'] = 'Помилка при підтвердженні отримання замовлення';
+        }
+        
+        Util::redirect(BASE_URL . '/warehouse/viewOrder/' . $id);
+    }
+    
+    // Скасування замовлення для начальника склада
+    public function cancelOrder($id) {
+        $order = $this->orderModel->getById($id);
+        
+        if (!$order) {
+            $_SESSION['error'] = 'Замовлення не знайдено';
+            Util::redirect(BASE_URL . '/warehouse/orders');
+        }
+        
+        // Перевіряємо, чи можна скасувати замовлення
+        if ($order['status'] === 'delivered' || $order['status'] === 'canceled') {
+            $_SESSION['error'] = 'Неможливо скасувати замовлення в статусі "Доставлено" або "Скасовано"';
+            Util::redirect(BASE_URL . '/warehouse/viewOrder/' . $id);
+        }
+        
+        if ($this->orderModel->cancel($id)) {
+            $_SESSION['success'] = 'Замовлення успішно скасовано';
+        } else {
+            $_SESSION['error'] = 'Помилка при скасуванні замовлення';
+        }
+        
+        Util::redirect(BASE_URL . '/warehouse/viewOrder/' . $id);
+    }
+
+    // AJAX метод для обновления полей инвентаризации
+    public function updateInventoryField() {
         header('Content-Type: application/json');
         
         if (!Util::isPost()) {
-            echo json_encode(['success' => false, 'message' => 'Невірний метод запиту']);
+            echo json_encode(['success' => false, 'message' => 'Недопустимий метод запиту']);
             exit;
         }
         
         $material_id = Util::sanitize($_POST['material_id']);
-        $actual_quantity = Util::sanitize($_POST['actual_quantity']);
+        $field = Util::sanitize($_POST['field']);
+        $value = Util::sanitize($_POST['value']);
         
         // Валідація
-        if (empty($material_id) || !is_numeric($actual_quantity) || $actual_quantity < 0) {
-            echo json_encode(['success' => false, 'message' => 'Невірні дані']);
+        if (empty($material_id) || empty($field)) {
+            echo json_encode(['success' => false, 'message' => 'Недостатньо даних']);
             exit;
         }
         
-        if ($this->inventoryModel->updateActualQuantity($material_id, $actual_quantity, Auth::getCurrentUserId())) {
-            echo json_encode(['success' => true, 'message' => 'Фактичну кількість оновлено']);
+        $success = false;
+        $manager_id = Auth::getCurrentUserId();
+        
+        switch ($field) {
+            case 'quantity_actual':
+                if (!is_numeric($value) || $value < 0) {
+                    echo json_encode(['success' => false, 'message' => 'Кількість повинна бути невід\'ємним числом']);
+                    exit;
+                }
+                $success = $this->inventoryModel->updateActualQuantity($material_id, $value, $manager_id);
+                break;
+                
+            case 'barcode':
+                // Перевіряємо унікальність штрих-коду
+                if (!empty($value)) {
+                    $existing = $this->inventoryModel->getByBarcode($value);
+                    if ($existing && $existing['raw_material_id'] != $material_id) {
+                        echo json_encode(['success' => false, 'message' => 'Штрих-код вже використовується']);
+                        exit;
+                    }
+                }
+                $success = $this->inventoryModel->updateBarcode($material_id, $value, $manager_id);
+                break;
+                
+            default:
+                echo json_encode(['success' => false, 'message' => 'Невідоме поле']);
+                exit;
+        }
+        
+        if ($success) {
+            echo json_encode(['success' => true, 'message' => 'Дані успішно оновлено']);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Помилка при оновленні']);
+            echo json_encode(['success' => false, 'message' => 'Помилка при оновленні даних']);
         }
         exit;
     }
     
-    // Оновлення штрих-коду
-    public function updateBarcode() {
+    // AJAX метод для вирівнювання кількості
+    public function adjustQuantity() {
         header('Content-Type: application/json');
         
         if (!Util::isPost()) {
-            echo json_encode(['success' => false, 'message' => 'Невірний метод запиту']);
+            echo json_encode(['success' => false, 'message' => 'Недопустимий метод запиту']);
             exit;
         }
         
-        $material_id = Util::sanitize($_POST['material_id']);
-        $barcode = Util::sanitize($_POST['barcode']);
+        $input = json_decode(file_get_contents('php://input'), true);
+        $material_id = $input['material_id'] ?? null;
         
-        // Валідація
         if (empty($material_id)) {
-            echo json_encode(['success' => false, 'message' => 'Невірний ID матеріалу']);
+            echo json_encode(['success' => false, 'message' => 'Недостатньо даних']);
             exit;
         }
         
-        // Якщо штрих-код порожній, генеруємо автоматично
-        if (empty($barcode)) {
-            $barcode = $this->inventoryModel->generateBarcode($material_id);
+        // Отримуємо поточні дані
+        $inventory = $this->inventoryModel->getByMaterialId($material_id);
+        
+        if (!$inventory) {
+            echo json_encode(['success' => false, 'message' => 'Запис не знайдено']);
+            exit;
         }
         
-        if ($this->inventoryModel->updateBarcode($material_id, $barcode, Auth::getCurrentUserId())) {
-            echo json_encode(['success' => true, 'message' => 'Штрих-код оновлено']);
+        $quantity_actual = $inventory['quantity_actual'] ?? $inventory['quantity'];
+        $manager_id = Auth::getCurrentUserId();
+        
+        // Вирівнюємо планову кількість з фактичною
+        $success = $this->inventoryModel->updateQuantity($material_id, $quantity_actual, $manager_id, $quantity_actual);
+        
+        if ($success) {
+            echo json_encode(['success' => true, 'message' => 'Кількість успішно вирівняно']);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Помилка при оновленні']);
+            echo json_encode(['success' => false, 'message' => 'Помилка при вирівнюванні кількості']);
         }
         exit;
     }
     
-    // Звіт про розбіжності
-    public function discrepancyReport() {
-        $discrepancies = $this->inventoryModel->getDiscrepancyReport();
+    // Звіт про розбіжності в інвентаризації
+    public function discrepanciesReport() {
+        $discrepancies = $this->inventoryModel->getDiscrepancies();
         
         $data = [
             'title' => 'Звіт про розбіжності в інвентаризації',
             'discrepancies' => $discrepancies
         ];
         
-        require VIEWS_PATH . '/warehouse/discrepancy_report.php';
+        require VIEWS_PATH . '/warehouse/discrepancies_report.php';
     }
     
-    // Експорт інвентаризації в CSV
-    public function exportInventory() {
-        $inventory = $this->inventoryModel->getAll();
+    // Пошук по штрих-коду
+    public function searchByBarcode() {
+        $barcode = isset($_GET['barcode']) ? Util::sanitize($_GET['barcode']) : '';
         
-        header('Content-Type: text/csv; charset=utf-8');
-        header('Content-Disposition: attachment; filename="inventory_' . date('Y-m-d') . '.csv"');
+        if (empty($barcode)) {
+            $_SESSION['error'] = 'Введіть штрих-код для пошуку';
+            Util::redirect(BASE_URL . '/warehouse/inventory');
+        }
         
-        $output = fopen('php://output', 'w');
+        $item = $this->inventoryModel->getByBarcode($barcode);
         
-        // BOM для корректного отображения UTF-8 в Excel
-        fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
-        
-        // Заголовки
-        $headers = [
-            'ID',
-            'Назва сировини',
-            'Штрих-код',
-            'Планова кількість',
-            'Фактична кількість',
-            'Розбіжність',
-            'Одиниці виміру',
-            'Останнє оновлення',
-            'Менеджер'
-        ];
-        
-        fputcsv($output, $headers);
-        
-        // Дані
-        foreach ($inventory as $item) {
-            $actualQty = $item['actual_quantity'] ?? $item['quantity'];
-            $difference = $actualQty - $item['quantity'];
-            
-            $row = [
-                $item['raw_material_id'],
-                $item['material_name'],
-                $item['barcode'] ?: 'Немає',
-                number_format($item['quantity'], 2),
-                number_format($actualQty, 2),
-                ($difference >= 0 ? '+' : '') . number_format($difference, 2),
-                $item['unit'],
-                date('d.m.Y H:i', strtotime($item['last_updated'])),
-                $item['manager_name'] ?: 'Не вказано'
+        if ($item) {
+            $data = [
+                'title' => 'Результат пошуку по штрих-коду',
+                'item' => $item,
+                'barcode' => $barcode
             ];
             
-            fputcsv($output, $row);
-        }
-        
-        fclose($output);
-        exit;
-    }
-    
-    // API метод для отримання інформації про матеріал
-    public function getMaterial($material_id) {
-        header('Content-Type: application/json');
-        
-        $material = $this->inventoryModel->getByMaterialId($material_id);
-        
-        if ($material) {
-            echo json_encode(['success' => true, 'material' => $material]);
+            require VIEWS_PATH . '/warehouse/barcode_search_result.php';
         } else {
-            echo json_encode(['success' => false, 'message' => 'Матеріал не знайдено']);
+            $_SESSION['error'] = 'Матеріал з штрих-кодом "' . $barcode . '" не знайдено';
+            Util::redirect(BASE_URL . '/warehouse/inventory');
         }
-        exit;
     }
 }

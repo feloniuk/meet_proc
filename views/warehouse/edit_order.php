@@ -3,7 +3,7 @@
 ?>
 <div class="container-fluid">
     <div class="d-flex align-items-center mb-4">
-        <a href="<?= BASE_URL ?>/admin/orders" class="btn btn-outline-primary me-2">
+        <a href="<?= BASE_URL ?>/warehouse/orders" class="btn btn-outline-primary me-2">
             <i class="fas fa-arrow-left"></i>
         </a>
         <h1 class="h3 mb-0"><i class="fas fa-edit me-2"></i>Редагування замовлення</h1>
@@ -47,7 +47,7 @@
             <div class="card shadow-sm">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-title mb-0">Позиції замовлення</h5>
-                    <a href="<?= BASE_URL ?>/admin/addOrderItem/<?= $order['id'] ?>" class="btn btn-sm btn-success">
+                    <a href="<?= BASE_URL ?>/warehouse/addOrderItem/<?= $order['id'] ?>" class="btn btn-sm btn-success">
                         <i class="fas fa-plus me-1"></i>Додати позицію
                     </a>
                 </div>
@@ -83,7 +83,7 @@
                                                             title="Редагувати">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
-                                                    <a href="<?= BASE_URL ?>/admin/deleteOrderItem/<?= $item['id'] ?>" 
+                                                    <a href="<?= BASE_URL ?>/warehouse/deleteOrderItem/<?= $item['id'] ?>" 
                                                        class="btn btn-outline-danger" 
                                                        onclick="return confirm('Ви впевнені, що хочете видалити цю позицію?');">
                                                         <i class="fas fa-trash"></i>
@@ -104,10 +104,10 @@
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-end">
-                    <a href="<?= BASE_URL ?>/admin/orders" class="btn btn-secondary me-2">
+                    <a href="<?= BASE_URL ?>/warehouse/orders" class="btn btn-secondary me-2">
                         Скасувати
                     </a>
-                    <a href="<?= BASE_URL ?>/admin/viewOrder/<?= $order['id'] ?>" class="btn btn-primary">
+                    <a href="<?= BASE_URL ?>/warehouse/viewOrder/<?= $order['id'] ?>" class="btn btn-primary">
                         <i class="fas fa-check me-1"></i>Завершити редагування
                     </a>
                 </div>
@@ -141,7 +141,7 @@
                                             <td><?= htmlspecialchars($material['name']) ?> (<?= htmlspecialchars($material['unit']) ?>)</td>
                                             <td><?= Util::formatMoney($material['price_per_unit']) ?></td>
                                             <td>
-                                                <a href="<?= BASE_URL ?>/admin/addOrderItem/<?= $order['id'] ?>?material_id=<?= $material['id'] ?>" 
+                                                <a href="<?= BASE_URL ?>/warehouse/addOrderItem/<?= $order['id'] ?>?material_id=<?= $material['id'] ?>" 
                                                    class="btn btn-sm btn-outline-success">
                                                     <i class="fas fa-plus"></i>
                                                 </a>
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const unit = this.getAttribute('data-unit');
             
             // Завантажуємо дані позиції
-            fetch(`<?= BASE_URL ?>/admin/ajaxGetOrderItem?id=${itemId}`)
+            fetch(`<?= BASE_URL ?>/warehouse/ajaxGetOrderItem?id=${itemId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(editItemForm);
         
         // Відправляємо AJAX запит
-        fetch('<?= BASE_URL ?>/admin/ajaxUpdateOrderItem', {
+        fetch('<?= BASE_URL ?>/warehouse/ajaxUpdateOrderItem', {
             method: 'POST',
             body: formData
         })

@@ -106,6 +106,14 @@ class Auth {
             'TechnologistController' => ['admin', 'technologist']
         ];
         
+        // Особые разрешения для начальника склада на функции заказов
+        if ($controller === 'AdminController' && in_array($method, ['orders', 'createOrder', 'editOrder', 'viewOrder', 'addOrderItem', 'deliverOrder', 'cancelOrder'])) {
+            $userRole = self::getCurrentUserRole();
+            if ($userRole === 'warehouse_manager') {
+                return true; // Разрешаем начальнику склада доступ к заказам
+            }
+        }
+        
         if (isset($permissions[$controller])) {
             $userRole = self::getCurrentUserRole();
             

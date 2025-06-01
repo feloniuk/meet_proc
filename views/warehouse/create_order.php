@@ -1,9 +1,9 @@
 <?php
-// views/admin/create_order.php - ИСПРАВЛЕННАЯ ВЕРСИЯ
+// views/warehouse/create_order.php - ИСПРАВЛЕННАЯ ВЕРСИЯ
 ?>
 <div class="container-fluid">
     <div class="d-flex align-items-center mb-4">
-        <a href="<?= BASE_URL ?>/admin/orders" class="btn btn-outline-primary me-2">
+        <a href="<?= BASE_URL ?>/warehouse/orders" class="btn btn-outline-primary me-2">
             <i class="fas fa-arrow-left"></i>
         </a>
         <h1 class="h3 mb-0"><i class="fas fa-plus me-2"></i>Створення замовлення</h1>
@@ -19,7 +19,7 @@
         <div class="col-md-8">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <form action="<?= BASE_URL ?>/admin/createOrder" method="post">
+                    <form action="<?= BASE_URL ?>/warehouse/createOrder" method="post">
                         <div class="form-group mb-3">
                             <label for="supplier_id">Постачальник</label>
                             <select class="form-select <?= Util::getErrorClass($errors, 'supplier_id') ?>" 
@@ -44,7 +44,7 @@
                                 <div class="alert alert-warning mt-2">
                                     <i class="fas fa-exclamation-triangle me-2"></i>
                                     Немає зареєстрованих постачальників. 
-                                    <a href="<?= BASE_URL ?>/admin/addUser" class="alert-link">Додайте спочатку постачальника</a>.
+                                    <a href="<?= BASE_URL ?>/warehouse/addUser" class="alert-link">Додайте спочатку постачальника</a>.
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -77,7 +77,7 @@
                         </div>
 
                         <div class="d-flex justify-content-end">
-                            <a href="<?= BASE_URL ?>/admin/orders" class="btn btn-secondary me-2">Скасувати</a>
+                            <a href="<?= BASE_URL ?>/warehouse/orders" class="btn btn-secondary me-2">Скасувати</a>
                             <button type="submit" class="btn btn-primary" <?= empty($suppliers) ? 'disabled' : '' ?>>
                                 <i class="fas fa-save me-1"></i>Створити замовлення
                             </button>
@@ -108,7 +108,7 @@
                         <div class="mb-3">
                             <h6><i class="fas fa-user-plus text-primary me-2"></i>Додавання постачальників</h6>
                             <p class="small">Для створення замовлення потрібен хоча б один постачальник в системі.</p>
-                            <a href="<?= BASE_URL ?>/admin/addUser" class="btn btn-sm btn-primary">
+                            <a href="<?= BASE_URL ?>/warehouse/addUser" class="btn btn-sm btn-primary">
                                 <i class="fas fa-plus me-1"></i>Додати постачальника
                             </a>
                         </div>
@@ -171,7 +171,7 @@
                 
                 <?php if (!empty($lowStock)): ?>
                     <div class="card-footer">
-                        <a href="<?= BASE_URL ?>/admin/inventoryReport" class="btn btn-sm btn-outline-danger w-100">
+                        <a href="<?= BASE_URL ?>/warehouse/inventoryReport" class="btn btn-sm btn-outline-danger w-100">
                             <i class="fas fa-chart-bar me-1"></i>Детальний звіт по запасам
                         </a>
                     </div>

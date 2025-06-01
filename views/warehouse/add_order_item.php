@@ -4,7 +4,7 @@
 ?>
 <div class="container-fluid">
     <div class="d-flex align-items-center mb-4">
-        <a href="<?= BASE_URL ?>/admin/editOrder/<?= $order['id'] ?>" class="btn btn-outline-primary me-2">
+        <a href="<?= BASE_URL ?>/warehouse/editOrder/<?= $order['id'] ?>" class="btn btn-outline-primary me-2">
             <i class="fas fa-arrow-left"></i>
         </a>
         <h1 class="h3 mb-0"><i class="fas fa-plus me-2"></i>Додавання позиції замовлення</h1>
@@ -17,7 +17,7 @@
                     <h5 class="card-title mb-0">Додати позицію до замовлення #<?= $order['id'] ?></h5>
                 </div>
                 <div class="card-body">
-                    <form action="<?= BASE_URL ?>/admin/addOrderItem/<?= $order['id'] ?>" method="post">
+                    <form action="<?= BASE_URL ?>/warehouse/addOrderItem/<?= $order['id'] ?>" method="post">
                         <div class="form-group mb-3">
                             <label for="raw_material_id">Сировина</label>
                             <select class="form-select <?= isset($errors['raw_material_id']) ? 'is-invalid' : '' ?>" 
@@ -83,7 +83,7 @@
                         </div>
 
                         <div class="d-flex justify-content-end">
-                            <a href="<?= BASE_URL ?>/admin/editOrder/<?= $order['id'] ?>" class="btn btn-secondary me-2">Скасувати</a>
+                            <a href="<?= BASE_URL ?>/warehouse/editOrder/<?= $order['id'] ?>" class="btn btn-secondary me-2">Скасувати</a>
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-save me-1"></i>Додати позицію
                             </button>

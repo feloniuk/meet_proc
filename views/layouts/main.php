@@ -202,30 +202,41 @@ $current_page = $_SERVER['REQUEST_URI'];
                         
                         <!-- Для начальника складу -->
                         <?php if ($user_role === 'warehouse_manager'): ?>
-                            <li class="nav-item">
-                                <a class="nav-link <?= strpos($current_page, '/warehouse/inventory') !== false ? 'active' : '' ?>" 
-                                   href="<?= BASE_URL ?>/warehouse/inventory">
-                                    <i class="fas fa-boxes me-2"></i>Інвентаризація
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link <?= strpos($current_page, '/warehouse/production') !== false ? 'active' : '' ?>" 
-                                   href="<?= BASE_URL ?>/warehouse/production">
-                                    <i class="fas fa-industry me-2"></i>Виробництво
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link <?= strpos($current_page, '/admin/orders') !== false ? 'active' : '' ?>" 
-                                   href="<?= BASE_URL ?>/admin/orders">
-                                    <i class="fas fa-shopping-cart me-2"></i>Замовлення
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link <?= strpos($current_page, '/warehouse/reports') !== false ? 'active' : '' ?>" 
-                                   href="<?= BASE_URL ?>/warehouse/reports">
-                                    <i class="fas fa-chart-bar me-2"></i>Звіти
-                                </a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>/warehouse/inventory">
+                                <i class="fas fa-boxes"></i> Інвентаризація
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>/warehouse/production">
+                                <i class="fas fa-industry"></i> Виробництво
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>/warehouse/orders">
+                                <i class="fas fa-shopping-cart"></i> Замовлення сировини
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>/warehouse/createOrder">
+                                <i class="fas fa-plus"></i> Створити замовлення
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>/warehouse/reports">
+                                <i class="fas fa-chart-bar"></i> Звіти
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>/warehouse/inventoryReport">
+                                <i class="fas fa-warehouse"></i> Звіт по запасам
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>/warehouse/productionReport">
+                                <i class="fas fa-industry"></i> Звіт по виробництву
+                            </a>
+                        </li>
                         <?php endif; ?>
                         
                         <!-- Для технолога -->

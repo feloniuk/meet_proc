@@ -306,3 +306,295 @@
 [2025-06-01 20:59:06] [error] Controller not found: Favicon.icoController, redirecting to login
 [2025-06-01 20:59:06] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
 [2025-06-01 20:59:06] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-06-01 21:09:44] [info] Request: admin/recipes, Controller: AdminController, Method: recipes, User ID: 1, Role: admin
+[2025-06-01 21:09:44] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-06-01 21:09:44] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 21:09:44] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-06-01 21:09:44] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-06-01 21:09:45] [info] Request: admin/recipes, Controller: AdminController, Method: recipes, User ID: 1, Role: admin
+[2025-06-01 21:09:46] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-06-01 21:09:46] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 21:09:46] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-06-01 21:09:46] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-06-01 21:09:48] [info] Request: auth/logout, Controller: AuthController, Method: logout, User ID: 1, Role: admin
+[2025-06-01 21:09:48] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-06-01 21:09:48] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
+[2025-06-01 21:09:48] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 21:09:48] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-06-01 22:40:43] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-06-01 22:40:43] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:40:44] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:40:44] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:40:44] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:40:44] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:40:45] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:40:45] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:40:45] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:40:45] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:40:45] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:40:50] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:40:50] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:40:50] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:40:50] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:40:50] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:40:53] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:40:53] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:40:53] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:40:53] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:40:53] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:05] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:05] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:05] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:41:05] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:05] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:07] [info] Request: warehouse/inventoryReport, Controller: WarehouseController, Method: inventoryReport, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:07] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:07] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:41:07] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:07] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:08] [info] Request: warehouse/productionReport, Controller: WarehouseController, Method: productionReport, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:08] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:08] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:41:08] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:08] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:11] [info] Request: warehouse/inventoryReport, Controller: WarehouseController, Method: inventoryReport, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:11] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:11] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:41:11] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:11] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:14] [info] Request: admin/orders, Controller: AdminController, Method: orders, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:14] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:14] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:14] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:41:14] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:14] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:17] [info] Request: admin/orders, Controller: AdminController, Method: orders, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:17] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:18] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:18] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:41:18] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:41:18] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:44:07] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:44:07] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:44:07] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:44:07] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:44:07] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:44:09] [info] Request: admin/orders, Controller: AdminController, Method: orders, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:44:09] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:44:09] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:44:09] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:44:09] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:44:09] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:45:52] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:45:53] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:45:53] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:45:53] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:45:53] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:45:55] [info] Request: warehouse/orders, Controller: WarehouseController, Method: orders, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:45:55] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:45:55] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:45:56] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:45:56] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:02] [info] Request: warehouse/inventory, Controller: WarehouseController, Method: inventory, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:03] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:03] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:46:03] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:03] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:12] [info] Request: warehouse/inventory, Controller: WarehouseController, Method: inventory, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:13] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:13] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:46:13] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:13] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:19] [info] Request: warehouse/orders, Controller: WarehouseController, Method: orders, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:19] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:19] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:46:19] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:19] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:21] [info] Request: warehouse/createOrder, Controller: WarehouseController, Method: createOrder, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:21] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:21] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:46:21] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:21] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:26] [info] Request: warehouse/orders, Controller: WarehouseController, Method: orders, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:27] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:27] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:46:27] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:27] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:27] [info] Request: warehouse/createOrder, Controller: WarehouseController, Method: createOrder, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:27] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:27] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:46:27] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:27] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:35] [info] Request: warehouse/createOrder, Controller: WarehouseController, Method: createOrder, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:35] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:35] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:46:35] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:35] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:42] [info] Request: admin/createOrder, Controller: AdminController, Method: createOrder, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:42] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:42] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:42] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:46:42] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:42] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:48] [info] Request: warehouse/orders, Controller: WarehouseController, Method: orders, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:49] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:49] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:46:49] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:49] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:54] [info] Request: warehouse/orders, Controller: WarehouseController, Method: orders, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:54] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:54] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:46:54] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:54] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:59] [info] Request: warehouse/orders, Controller: WarehouseController, Method: orders, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:59] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:59] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:46:59] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:46:59] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:09] [info] Request: warehouse/editOrder/8, Controller: WarehouseController, Method: editOrder, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:09] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:09] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:47:09] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:09] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:13] [info] Request: warehouse/orders, Controller: WarehouseController, Method: orders, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:13] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:13] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:47:13] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:13] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:17] [info] Request: warehouse/editOrder/8, Controller: WarehouseController, Method: editOrder, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:17] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:17] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:47:17] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:17] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:18] [info] Request: admin/addOrderItem/8, Controller: AdminController, Method: addOrderItem, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:18] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:18] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:18] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:47:18] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:18] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:25] [info] Request: warehouse/editOrder/8, Controller: WarehouseController, Method: editOrder, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:25] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:25] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:47:25] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:47:25] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:00] [info] Request: admin/addOrderItem/8, Controller: AdminController, Method: addOrderItem, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:00] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:01] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:01] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:48:01] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:01] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:03] [info] Request: warehouse/editOrder/8, Controller: WarehouseController, Method: editOrder, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:04] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:04] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:48:04] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:04] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:07] [info] Request: admin/addOrderItem/8, Controller: AdminController, Method: addOrderItem, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:07] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:08] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:08] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:48:08] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:08] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:33] [info] Request: warehouse/editOrder/8, Controller: WarehouseController, Method: editOrder, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:34] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:34] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:48:34] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:48:34] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:13] [info] Request: warehouse/editOrder/8, Controller: WarehouseController, Method: editOrder, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:15] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:15] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:49:15] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:15] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:15] [info] Request: admin/addOrderItem/8, Controller: AdminController, Method: addOrderItem, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:15] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:16] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:16] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:49:16] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:16] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:19] [info] Request: warehouse/editOrder/8, Controller: WarehouseController, Method: editOrder, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:20] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:20] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:49:20] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:20] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:22] [info] Request: admin/addOrderItem/8, Controller: AdminController, Method: addOrderItem, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:22] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:23] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:23] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:49:23] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:23] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:25] [info] Request: warehouse/editOrder/8, Controller: WarehouseController, Method: editOrder, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:26] [info] Request: warehouse/editOrder/8, Controller: WarehouseController, Method: editOrder, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:27] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:27] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:49:27] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:49:27] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:04] [info] Request: warehouse/editOrder/8, Controller: WarehouseController, Method: editOrder, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:06] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:06] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:50:06] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:06] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:06] [info] Request: warehouse/addOrderItem/8, Controller: WarehouseController, Method: addOrderItem, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:07] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:07] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:50:07] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:07] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:10] [info] Request: admin/addOrderItem/8, Controller: AdminController, Method: addOrderItem, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:10] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:11] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:11] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:50:11] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:11] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:13] [info] Request: warehouse/addOrderItem/8, Controller: WarehouseController, Method: addOrderItem, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:14] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:14] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:50:14] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:14] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:31] [info] Request: warehouse/addOrderItem/8, Controller: WarehouseController, Method: addOrderItem, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:32] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:32] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:50:32] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:32] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:34] [info] Request: warehouse/addOrderItem/8, Controller: WarehouseController, Method: addOrderItem, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:36] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:36] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:50:36] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:36] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:38] [info] Request: warehouse/editOrder/8, Controller: WarehouseController, Method: editOrder, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:39] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:39] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:50:39] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:39] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:41] [info] Request: warehouse/addOrderItem/8, Controller: WarehouseController, Method: addOrderItem, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:42] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:42] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:50:42] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:42] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:44] [info] Request: warehouse/addOrderItem/8, Controller: WarehouseController, Method: addOrderItem, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:45] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:45] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:50:45] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:50:45] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:23] [info] Request: warehouse/addOrderItem/8, Controller: WarehouseController, Method: addOrderItem, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:24] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:24] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:51:24] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:24] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:30] [info] Request: warehouse/addOrderItem/8, Controller: WarehouseController, Method: addOrderItem, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:31] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:31] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:51:31] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:31] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:38] [info] Request: warehouse/editOrder/8, Controller: WarehouseController, Method: editOrder, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:40] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:40] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:51:40] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:40] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:41] [info] Request: warehouse/addOrderItem/8, Controller: WarehouseController, Method: addOrderItem, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:42] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:42] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:51:42] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:42] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:46] [info] Request: warehouse/addOrderItem/8, Controller: WarehouseController, Method: addOrderItem, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:47] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:47] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-01 22:51:47] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 2, Role: warehouse_manager
+[2025-06-01 22:51:47] [info] Request: home, Controller: HomeController, Method: index, User ID: 2, Role: warehouse_manager

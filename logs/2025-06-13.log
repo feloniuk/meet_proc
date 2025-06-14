@@ -1,0 +1,74 @@
+[2025-06-13 17:26:41] [info] Request: , Controller: HomeController, Method: index, User: Not logged in
+[2025-06-13 17:26:41] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-06-13 17:26:42] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User: Not logged in
+[2025-06-13 17:26:42] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-13 17:26:42] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-06-13 17:26:43] [info] Request: auth/login, Controller: AuthController, Method: login, User: Not logged in
+[2025-06-13 17:26:44] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:26:44] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:26:44] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-13 17:26:44] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-06-13 17:26:44] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:27:05] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:27:05] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:27:05] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-13 17:27:05] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-06-13 17:27:05] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:39:20] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:39:21] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:39:21] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-13 17:39:21] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-06-13 17:39:21] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:39:21] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 17:39:22] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:39:22] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-13 17:39:22] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-06-13 17:39:22] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:39:28] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 17:39:30] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:39:31] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:39:31] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-13 17:39:31] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-06-13 17:39:31] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:41:40] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:41:41] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:41:41] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-13 17:41:41] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-06-13 17:41:41] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:41:42] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 17:41:42] [info] Request: favicon.ico, Controller: Favicon.icoController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:41:42] [error] Controller not found: Favicon.icoController, redirecting to login
+[2025-06-13 17:41:42] [info] Request: auth/login, Controller: AuthController, Method: login, User ID: 1, Role: admin
+[2025-06-13 17:41:42] [info] Request: home, Controller: HomeController, Method: index, User ID: 1, Role: admin
+[2025-06-13 17:42:12] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 17:42:12] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 17:42:43] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 17:42:43] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 17:43:13] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 17:43:13] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 17:43:43] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 17:43:43] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 17:44:13] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 17:44:13] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:50:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:50:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:51:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:51:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:52:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:52:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:53:13] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:53:13] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:53:43] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:53:43] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:54:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:54:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:55:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:55:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:56:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:56:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:57:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:57:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:58:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:58:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:59:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin
+[2025-06-13 23:59:45] [info] Request: admin/scada, Controller: AdminController, Method: scada, User ID: 1, Role: admin

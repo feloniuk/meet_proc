@@ -193,6 +193,11 @@ $current_page = $_SERVER['REQUEST_URI'];
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="<?= BASE_URL ?>/admin/scada">
+                                    <i class="fas fa-chart-line me-2"></i>SCADA
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link <?= strpos($current_page, '/admin/reports') !== false ? 'active' : '' ?>" 
                                    href="<?= BASE_URL ?>/admin/reports">
                                     <i class="fas fa-chart-bar me-2"></i>Звіти

@@ -779,6 +779,16 @@ public function setCameraStatus($id, $status) {
         
         require VIEWS_PATH . '/admin/edit_order.php';
     }
+
+    public function scada() {
+        // Проверяем права доступа
+        if (!Auth::isLoggedIn() || !Auth::hasRole('admin')) {
+            Util::redirect(BASE_URL . '/auth/login');
+        }
+        
+        // Подключаем страницу SCADA напрямую
+        include VIEWS_PATH . '/admin/scada.php';
+    }
     
     // Додавання елемента до замовлення
 public function addOrderItem($order_id) {
